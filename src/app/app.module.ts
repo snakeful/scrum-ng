@@ -9,6 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { StoriesComponent } from './project/stories/stories.component';
+import { ProjectComponent } from './project/project/project.component';
+
+import { ProjectsService } from './services/projects/projects.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { StoriesComponent } from './project/stories/stories.component';
     HomeComponent,
     FooterComponent,
     ProjectsComponent,
-    StoriesComponent
+    StoriesComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +31,12 @@ import { StoriesComponent } from './project/stories/stories.component';
     }, {
       path: 'projects',
       component: ProjectsComponent
+    }, {
+      path: 'project/:id',
+      component: ProjectComponent
     }])
   ],
-  providers: [],
+  providers: [ProjectsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
