@@ -6,17 +6,20 @@
 </div>
 <div class="row">
   <div class="col-4">
-    <h4 class="text-center">User Stories</h4>
-    <div class="list-group">
-      <a *ngFor="let story of project.userStories" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
+        <h4 class="text-center">User Stories</h4>
+    </div>
+    <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
+    <ul class="list-group">
+      <li draggable [dragScope]="'story'" *ngFor="let story of project.userStories" [dragData]="story" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h4 class="mb-1">{{story.name}}</h4>
         </div>
         <p class="mb-1">{{story.desc}}</p>
-        <small>Priority {{story.priorityId}}</small>
-        <small class="pull-right">Status {{story.statusId}}</small>
-      </a>
-    </div>
+        <small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small>
+        <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
+      </li>
+    </ul>
   </div>
   <div class="col-8">
     <h4 class="text-center">Sprints</h4>
@@ -27,17 +30,19 @@
             <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
               {{sprint.name}}
             </a>
+            <button type="button" class="btn btn-primary float-right">Go to sprint</button>
             <p>{{sprint.start}}</p>
           </h5>
         </div>
         <div [id]="'collapse' + sprint.id" [ngClass]="{'show' : project.sprints.indexOf(sprint) === 0}" class="collapse" role="tabpanel" data-parent="#accordion">
-          <div class="card-body">
+          <div droppable [dropScope]="'story'" (onDrop)="onStoryToSprintDrop($event, sprint)" class="card-body">
             <table class="table table-striped">
               <tbody>
-                <tr *ngFor="let story of sprint.userStories">
+                <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'story'" [dragData]="[sprint.userStories, story]">
                   <td>{{story.name}}</td>
-                  <td>Priority {{story.priorityId}}</td>
-                  <td>Status {{story.statusId}}</td>
+                  <td><small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small></td>
+                  <td><small>Status <span class="badge badge-primary">{{story.statusId}}</span></small></td>
+                  <td><button type="button" class="btn btn-sm btn-danger float-right" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
                 </tr>
               </tbody>
             </table>
