@@ -12,6 +12,10 @@ import { StoriesComponent } from './project/stories/stories.component';
 import { ProjectComponent } from './project/project/project.component';
 
 import { ProjectsService } from './services/projects/projects.service';
+import { RolesComponent } from './users/roles/roles.component';
+import { RoleComponent } from './users/role/role.component';
+import { UsersComponent } from './users/users/users.component';
+import { UserComponent } from './users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +25,16 @@ import { ProjectsService } from './services/projects/projects.service';
     FooterComponent,
     ProjectsComponent,
     StoriesComponent,
-    ProjectComponent
+    ProjectComponent,
+    RolesComponent,
+    RoleComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([{
-      path: 'home',
+      path: '',
       component: HomeComponent
     }, {
       path: 'projects',

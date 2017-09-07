@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../services/projects/projects.service';
 
 @Component({
@@ -9,13 +9,11 @@ import { ProjectsService } from '../../services/projects/projects.service';
 })
 export class ProjectComponent implements OnInit {
   project;
-  service: ProjectsService;
-  constructor(private projectsService: ProjectsService) {
-    this.service = projectsService;
+  constructor(private service: ProjectsService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.project = this.service.getProject(1);
+    this.project = this.service.getProject(parseInt(this.route.snapshot.params.id || 0));
   }
 
 }
