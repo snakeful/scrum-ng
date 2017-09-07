@@ -54,7 +54,7 @@ export class ProjectComponent implements OnInit {
         observations: ''
       }]
     }, {
-      id: 1,
+      id: 2,
       name: 'Sprint #2',
       start: new Date(),
       end: new Date(),
@@ -71,7 +71,7 @@ export class ProjectComponent implements OnInit {
         observations: ''
       }]
     }, {
-      id: 1,
+      id: 3,
       name: 'Sprint #3',
       start: new Date(),
       end: new Date(),
