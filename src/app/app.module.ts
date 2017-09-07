@@ -42,6 +42,18 @@ import { UserComponent } from './users/user/user.component';
     }, {
       path: 'project/:id',
       component: ProjectComponent
+    }, {
+      path: 'roles',
+      component: RolesComponent
+    }, {
+      path: 'role/:id',
+      component: RoleComponent
+    }, {
+      path: 'users',
+      component: UsersComponent
+    }, {
+      path: 'user/:id',
+      component: UserComponent
     }])
   ],
   providers: [ProjectsService],
