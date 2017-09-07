@@ -1,3 +1,41 @@
-<p>{{project.id}}</p>
-<p>{{project.name}}</p>
-<p>{{project.desc}}</p>
+<div class="jumbotron text-center">
+  <div class="container">
+    <h3 class="kumbotron-heading">{{project.name}}</h3>
+    <p class="lead text-muted">{{project.desc}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <h4 class="text-center">User Stories</h4>
+    <div class="list-group">
+      <a *ngFor="let story of project.userStories" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h4 class="mb-1">{{story.name}}</h4>
+        </div>
+        <p class="mb-1">{{story.desc}}</p>
+        <small>Priority {{story.priorityId}}</small>
+        <small class="pull-right">Status {{story.statusId}}</small>
+      </a>
+    </div>
+  </div>
+  <div class="col-8">
+    <h4 class="text-center">Sprints</h4>
+    <div class="list-group">
+      <a *ngFor="let sprint of project.sprints" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h4 class="mb-1">{{sprint.name}}</h4>
+        </div>
+        <p class="mb-1">{{sprint.start}}</p>
+        <table class="table table-striped">
+          <tbody>
+            <tr *ngFor="let story of sprint.userStories">
+              <td>{{story.name}}</td>
+              <td>Priority {{story.priorityId}}</td>
+              <td>Status {{story.statusId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </a>
+    </div>
+  </div>
+</div>
