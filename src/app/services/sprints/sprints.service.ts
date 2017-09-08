@@ -70,11 +70,7 @@ export class SprintsService {
           sprint = spnt;
         }
       });
-      if (sprint) {
-        resolve(this.sprints[0]);
-      } else {
-        reject('Record not found.');
-      }
+      sprint ? resolve(sprint) : reject('Record not found.');
     });
   }
 }

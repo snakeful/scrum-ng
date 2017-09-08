@@ -1,5 +1,5 @@
 <div class="jumbotron text-center">
-  <div class="container">
+  <div class="container-fluid">
     <h3 class="jumbotron-heading">{{project.name}}</h3>
     <p class="lead text-muted">{{project.desc}}</p>
   </div>
@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-4">
     <div droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
-        <h4 class="text-center">User Stories</h4>
+      <h4 class="text-center">User Stories</h4>
     </div>
     <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
     <ul class="list-group">
@@ -30,7 +30,7 @@
             <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
               {{sprint.name}}
             </a>
-            <button type="button" class="btn btn-primary float-right">Go to sprint</button>
+            <a class="btn btn-primary float-right" [routerLink]="['/project/sprint', sprint.id]">Go to sprint</a>
             <p>{{sprint.start}}</p>
           </h5>
         </div>

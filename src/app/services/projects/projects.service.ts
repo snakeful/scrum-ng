@@ -18,7 +18,9 @@ export class ProjectsService {
   constructor() { }
 
   getProjects () {
-    return this.projects;
+    return new Promise((resolve, reject) => {
+      resolve(this.projects);
+    });
   }
 
   getProject (id: Number) {
