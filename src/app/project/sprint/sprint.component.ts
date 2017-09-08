@@ -9,13 +9,15 @@ import { SprintsService } from '../../services/sprints/sprints.service';
 })
 export class SprintComponent implements OnInit {
   private sprint;
-  constructor(private sprintsService: SprintsService, private route: ActivatedRoute) { }
-
-  ngOnInit() {
+  constructor(private sprintsService: SprintsService, private route: ActivatedRoute) {
     this.sprintsService.getSprint(0, parseInt(this.route.snapshot.params.id || 0))
     .then((sprint) => {
       this.sprint = sprint;
     });
+
+  }
+
+  ngOnInit() {
   }
 
 }

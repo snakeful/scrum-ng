@@ -1,3 +1,36 @@
-<p>
-  sprint works!
-</p>
+<div class="container text-center">
+  <h3 class="">{{sprint.name}}</h3>
+  <p>From {{sprint.start.toISOString().substring(0, 10)}} to {{sprint.end.toISOString().substring(0, 10)}}</p>
+</div>
+<div class="row">
+  <div class="col-6">
+    <button type="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-ban"></i></button>
+    <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
+    <div class="table-responsive">
+      <table class="table trable-striped">
+        <thead>
+          <tr>
+            <th>User Story</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <th><input type="text" class="form-control" placeholder="User Story" formControlN required></th>
+            <th><input type="text" class="form-control" placeholder="Desciption"></th>
+            <th><input type="text" class="form-control" placeholder="Priority"></th>
+            <th><input type="text" class="form-control" placeholder="Status"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let story of sprint.userStories">
+              <td>{{story.name}}</td>
+              <td>{{story.desc}}</td>
+              <td>{{story.priorityId}}</td>
+              <td>{{story.statusId}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
