@@ -7,16 +7,14 @@
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
       <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned</div>
-      <ul class="list-group">
-        <li *ngFor="let story of sprint.userStories" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h4 class="mb-1">{{story.name}}</h4>
-          </div>
-          <p class="mb-1">{{story.desc}}</p>
-          <small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small>
-          <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
-        </li>
-      </ul>
+      <app-user-story [object]="sprint"></app-user-story>
     </div>
-  </div>  
+  </div>
+  <div class="col-4">
+    <h3 class="mb-1">{{story.name}}</h3>
+    <p>{{story.desc}}</p>
+  </div>
+  <div class="col-5">
+
+  </div>
 </div>

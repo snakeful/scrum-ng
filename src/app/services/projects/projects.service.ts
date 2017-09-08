@@ -1,57 +1,52 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Project {
+export class ScrumObject {
   id: Number;
   name: String;
   desc: String;
-  userStories: Array<UserStory>;
-  sprints: Array<Sprint>;
-  constructor (id: Number, name: String, desc: String, userStories: Array<any>, sprints: Array<any>) {
+  constructor (id: Number = -1, name: String = '', desc: String = '') {
     this.id = id;
     this.name = name;
     this.desc = desc;
+  }
+}
+
+export class Project extends ScrumObject {
+  userStories: Array<UserStory>;
+  sprints: Array<Sprint>;
+  constructor (id: Number, name: String, desc: String, userStories: Array<any>, sprints: Array<any>) {
+    super(id, name, desc);
     this.userStories = userStories;
     this.sprints = sprints;
 
   }
 }
 
-export class UserStory {
-  id: Number;
-  name: String;
-  desc: String;
+export class UserStory extends ScrumObject {
   priorityId: Number;
   statusId: Number;
-  constructor (id: Number, name: String, desc: String, priorityId: Number, statusId: Number) {
-    this.id = id;
-    this.name = name;
-    this.desc = desc;
+  constructor (id: Number = -1, name: String = '', desc: String = '', priorityId: Number = -1, statusId: Number = -1) {
+    super(id, name, desc);
     this.priorityId = priorityId;
     this.statusId = statusId;
   }
 }
 
-export class Sprint {
-  id: Number;
-  name: String;
+export class Sprint extends ScrumObject {
   start: Date;
   end: Date;
   userStories: Array<UserStory>;
-  constructor (id: Number, name: String) {
-    this.id = id;
-    this.name = name;
+  constructor (id: Number = -1, name: String = '', desc: String = '') {
+    super(id, name, desc);
     this.start = new Date();
     this.end = new Date();
     this.userStories = new Array<UserStory>();
   }
 }
 
-export class Task {
-  id: Number;
+export class Task extends ScrumObject {
   userStoryId: Number;
-  name: String;
-  desc: String;
   date: Date;
   taskOriginId: Number;
   statusId: Number;
@@ -60,6 +55,9 @@ export class Task {
   points: Number;
   executedPoints: Number;
   successTask: Boolean;
+  constructor (id: Number = -1, name: String = '', desc: String = '') {
+    super(id, name, desc);
+  }
 }
 
 export class ProjectsService {
