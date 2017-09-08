@@ -5,9 +5,9 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4">
+  <div class="col-3 scrollspy" data-spy="scroll" data-offset="0">
     <div droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
-      <h4 class="text-center">User Stories</h4>
+      <h3 class="text-center">User Stories</h3>
     </div>
     <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
     <ul class="list-group">
@@ -20,8 +20,38 @@
         <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
       </li>
     </ul>
+    <!--button type="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-ban"></i></button>
+    <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
+    <div class="table-responsive">
+      <table class="table trable-striped">
+        <thead>
+          <tr>
+            <th>User Story</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th><input type="text" class="form-control" placeholder="User Story" required></th>
+            <th><input type="text" class="form-control" placeholder="Desciption"></th>
+            <th><input type="text" class="form-control" placeholder="Priority"></th>
+            <th colspan="2"><input type="text" class="form-control" placeholder="Status"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let story of sprint.userStories">
+            <td>{{story.name}}</td>
+            <td>{{story.desc}}</td>
+            <td>{{story.priorityId}}</td>
+            <td>{{story.statusId}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div-->
   </div>
-  <div class="col-8">
+  <div class="col-9 scrollspy" data-spy="scroll" data-offset="0">
     <h4 class="text-center">Sprints</h4>
     <div id="accordion" role="tablist">
       <div *ngFor="let sprint of project.sprints" class="card">
@@ -30,7 +60,7 @@
             <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
               {{sprint.name}}
             </a>
-            <a class="btn btn-primary float-right" [routerLink]="['/project/sprint', sprint.id]">Go to sprint</a>
+            <a class="btn btn-primary float-right" [routerLink]="['/project/sprint', project.id, sprint.id]">Go to sprint</a>
             <p>{{sprint.start}}</p>
           </h5>
         </div>

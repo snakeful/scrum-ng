@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../services/projects/projects.service';
+import { ProjectsService, Project, UserStory, Sprint } from '../../services/projects/projects.service';
 
 @Component({
   selector: 'app-project',
@@ -8,66 +8,28 @@ import { ProjectsService } from '../../services/projects/projects.service';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  project;
+  private project: Project;
   constructor(private service: ProjectsService, private route: ActivatedRoute) {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0))
     .then((project) => {
       this.project = project;
-      this.project.userStories = [{
-        id: 1,
-        name: 'User Story 1',
-        desc: 'This is a user story for testing purposes',
-        priorityId: 0,
-        statusId: 0
-      }, {
-        id: 2,
-        name: 'User Story 2',
-        desc: 'This is a user story for testing purposes',
-        priorityId: 0,
-        statusId: 0
-      }, {
-        id: 3,
-        name: 'User Story 3',
-        desc: 'This is a user story for testing purposes',
-        priorityId: 0,
-        statusId: 0
-      }];
-      this.project.sprints = [{
-        id: 1,
-        name: 'Sprint #1',
-        start: new Date(),
-        end: new Date(),
-        userStories: []
-      }, {
-        id: 2,
-        name: 'Sprint #2',
-        start: new Date(),
-        end: new Date(),
-        userStories: []
-      }, {
-        id: 3,
-        name: 'Sprint #3',
-        start: new Date(),
-        end: new Date(),
-        userStories: []
-      }];
     });
   }
 
   ngOnInit() {
   }
 
-  assignStoryToUserStories (userStories, story) {
+  assignStoryToUserStories (userStories: Array<UserStory>, story: UserStory) {
     this.project.userStories.push(story);
     userStories.splice(userStories.indexOf(story), 1);
   }
 
-  assignStoryToSprintStories (sprint, story) {
+  assignStoryToSprintStories (sprint: Sprint, story: UserStory) {
     sprint.userStories.push(story);
     this.project.userStories.splice(this.project.userStories.indexOf(story), 1);
   }
 
-  onStoryToSprintDrop (event, sprint) {
+  onStoryToSprintDrop (event, sprint: Sprint) {
     this.assignStoryToSprintStories(sprint, event.dragData);
   }
   

@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 
 import { ProjectsService } from './services/projects/projects.service';
-import { SprintsService } from './services/sprints/sprints.service';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -37,6 +37,8 @@ import { SprintComponent } from './project/sprint/sprint.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     Ng2DragDropModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
@@ -48,7 +50,7 @@ import { SprintComponent } from './project/sprint/sprint.component';
       path: 'project/:id',
       component: ProjectComponent
     }, {
-     path: 'project/sprint/:id',
+     path: 'project/sprint/:projectId/:id',
      component: SprintComponent 
     }, {
       path: 'roles',
@@ -65,8 +67,7 @@ import { SprintComponent } from './project/sprint/sprint.component';
     }])
   ],
   providers: [
-    ProjectsService,
-    SprintsService
+    ProjectsService
   ],
   bootstrap: [AppComponent]
 })

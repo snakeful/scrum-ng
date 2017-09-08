@@ -3,34 +3,20 @@
   <p>From {{sprint.start.toISOString().substring(0, 10)}} to {{sprint.end.toISOString().substring(0, 10)}}</p>
 </div>
 <div class="row">
-  <div class="col-6">
-    <button type="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-ban"></i></button>
-    <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
-    <div class="table-responsive">
-      <table class="table trable-striped">
-        <thead>
-          <tr>
-            <th>User Story</th>
-            <th>Description</th>
-            <th>Priority</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <th><input type="text" class="form-control" placeholder="User Story" formControlN required></th>
-            <th><input type="text" class="form-control" placeholder="Desciption"></th>
-            <th><input type="text" class="form-control" placeholder="Priority"></th>
-            <th><input type="text" class="form-control" placeholder="Status"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let story of sprint.userStories">
-              <td>{{story.name}}</td>
-              <td>{{story.desc}}</td>
-              <td>{{story.priorityId}}</td>
-              <td>{{story.statusId}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="col-3">
+    <h3 class="text-center">User Stories</h3>
+    <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
+      <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned</div>
+      <ul class="list-group">
+        <li *ngFor="let story of sprint.userStories" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">{{story.name}}</h4>
+          </div>
+          <p class="mb-1">{{story.desc}}</p>
+          <small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small>
+          <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
+        </li>
+      </ul>
     </div>
-  </div>
+  </div>  
 </div>
