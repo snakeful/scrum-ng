@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Project } from '../../services/projects/projects.service';
+import { Project, UserStory } from '../../services/projects/projects.service';
 
 @Component({
   selector: 'app-user-story',
@@ -8,13 +8,17 @@ import { Project } from '../../services/projects/projects.service';
 })
 export class UserStoryComponent implements OnInit {
   @Input() object: any;
-  this
+  @Input() onSelectStory: Function;
+  private userStory: UserStory;
   constructor() { }
 
   ngOnInit() {
   }
 
   selectStory (story) {
-
+    this.userStory = story;
+    if (this.onSelectStory) {
+      this.onSelectStory(story);
+    }
   }
 }
