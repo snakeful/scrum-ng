@@ -10,7 +10,26 @@ import { ProjectsService, UserStory, Sprint, Task } from '../../services/project
 export class SprintComponent implements OnInit {
   private _sprint: Sprint;
   private _data: any = {
-    story: null
+    story: null,
+    addTask (task) {
+      switch (task.statusId) {
+        case 0:
+          this.toDo.tasks.push(task);
+          break;
+        case 1:
+          this.inProgress.tasks.push(task);
+          break;
+        case 2:
+          this.testing.tasks.push(task);
+          break;
+        case 3:
+          this.done.tasks.push(task);
+          break;
+        default: 
+          this.toDo.tasks.push(task);
+          break;
+      }
+    }
   };
   private _showCreateTask: Boolean = false;
   private _newTask: Task = new Task();
@@ -27,9 +46,15 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  private cleanNewTask () {
+    this._newTask = new Task();
     this._newTask.statusId = 0;
     this._newTask.points = 1;
+    this._newTask.executedPoints = 0;
+  }
+
+  ngOnInit() {
+    this.cleanNewTask();
   }
 
   onSelectStory (story) {
@@ -41,11 +66,10 @@ export class SprintComponent implements OnInit {
   }
 
   doCreateTask (task) {
-    this._newTask = new Task();
-    this._newTask.statusId = 0;
-    this._newTask.points = 1;
+    this.cleanNewTask();
     if (this._data.story && this._data.story.tasks) {
       this._data.story.tasks.push(task);
+      this._data.addTask(task);
     }
   }
 

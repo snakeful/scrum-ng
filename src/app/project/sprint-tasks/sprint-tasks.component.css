@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-color: blue;
+  border-width: 1.5px;
+  cursor: pointer;
+  height: 100%;
+}
+
+.item {
+  flex: 0 1 auto;
+  align-self: baseline;
+  margin: 2.5px;
+}

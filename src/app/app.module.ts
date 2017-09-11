@@ -20,6 +20,7 @@ import { UsersComponent } from './users/users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { SprintComponent } from './project/sprint/sprint.component';
 import { UserStoryComponent } from './project/user-story/user-story.component';
+import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserStoryComponent } from './project/user-story/user-story.component';
     UsersComponent,
     UserComponent,
     SprintComponent,
-    UserStoryComponent
+    UserStoryComponent,
+    SprintTasksComponent
   ],
   imports: [
     BrowserModule,
