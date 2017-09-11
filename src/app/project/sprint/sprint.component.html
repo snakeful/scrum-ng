@@ -89,4 +89,4 @@
     </ng-template>
   </div>
 </div>
-<app-sprint-tasks [data]="data"></app-sprint-tasks>
+<app-sprint-tasks (onLoad)="data=$event"></app-sprint-tasks>

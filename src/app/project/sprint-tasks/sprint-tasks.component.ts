@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../services/projects/projects.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { Task } from '../../services/projects/projects.service';
   styleUrls: ['./sprint-tasks.component.css']
 })
 export class SprintTasksComponent implements OnInit {
-  @Input() data: any;
+  @Output() onLoad: EventEmitter<any> = new EventEmitter<any>();
   private _toDo: any = {
     title: 'To Do',
     scope: 'todo',
@@ -41,10 +41,12 @@ export class SprintTasksComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.data.toDo = this._toDo;
-    this.data.inProgress = this._inProgress;
-    this.data.testing = this._testing;
-    this.data.done = this._done;
+    this.onLoad.emit({
+      toDo: this._toDo,
+      inProgress: this._inProgress,
+      testing: this._testing,
+      done: this._done
+    });
   }
 
   get tasks (): any[] {

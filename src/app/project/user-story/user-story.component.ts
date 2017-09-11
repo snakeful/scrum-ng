@@ -15,6 +15,9 @@ export class UserStoryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.object.userStories.length > 0) {
+      this.selectStory(this.object.userStories[0]);
+    }
   }
 
   selectStory (story) {

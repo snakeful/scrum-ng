@@ -54,18 +54,14 @@ export class SprintComponent implements OnInit {
     this.cleanNewTask();
   }
 
-  onSelectStory (story) {
-    this.data.story = story;
-  }
-
   doNewTask () {
     this._showCreateTask = true;
   }
 
   doCreateTask (task) {
     this.cleanNewTask();
-    if (this._data.story && this._data.story.tasks) {
-      this._data.story.tasks.push(task);
+    if (this.story && this.story.tasks) {
+      this.story.tasks.push(task);
       this._data.addTask(task);
     }
   }
@@ -88,6 +84,13 @@ export class SprintComponent implements OnInit {
 
   get data (): any {
     return this._data;
+  }
+
+  set data (value) {
+    this._data.toDo = value.toDo;
+    this._data.inProgress = value.inProgress;
+    this._data.testing = value.testing;
+    this._data.done = value.done;
   }
 
   get showCreateTask (): Boolean {
