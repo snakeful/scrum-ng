@@ -10,16 +10,16 @@ export class UserStoryComponent implements OnInit {
   @Input() object: any;
   @Input() data: any;
   @Input() onSelectStory: Function;
-  private story: UserStory;
+  private _story: UserStory;
   constructor() { }
 
   ngOnInit() {
   }
 
   selectStory (story) {
-    this.story = story;
+    this._story = story;
     if (this.data && this.onSelectStory) {
-      this.onSelectStory(this.story);
+      this.onSelectStory(this._story);
     }
   }
 }

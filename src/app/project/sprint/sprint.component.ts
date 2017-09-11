@@ -33,7 +33,7 @@ export class SprintComponent implements OnInit {
   }
 
   onSelectStory (story) {
-    this._data.story = story;
+    this.data.story = story;
   }
 
   doNewTask () {
@@ -45,7 +45,6 @@ export class SprintComponent implements OnInit {
     this._newTask.statusId = 0;
     this._newTask.points = 1;
     if (this._data.story && this._data.story.tasks) {
-      console.log(this._data);
       this._data.story.tasks.push(task);
     }
   }

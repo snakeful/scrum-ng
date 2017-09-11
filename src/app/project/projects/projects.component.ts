@@ -14,12 +14,12 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     this.projectsService.getProjects()
     .then((projects) => {
-      this.projects = projects;
+      this._projects = projects;
     });
   }
 
   get projects (): Project[] {
-    return this.projects;
+    return this._projects;
   }
 
   set projects (value: Project[]) {
