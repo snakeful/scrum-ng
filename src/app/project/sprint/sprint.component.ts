@@ -9,8 +9,8 @@ import { ProjectsService, UserStory, Sprint, Task } from '../../services/project
 })
 export class SprintComponent implements OnInit {
   private _sprint: Sprint;
+  private _story: UserStory;
   private _data: any = {
-    story: null,
     addTask (task) {
       switch (task.statusId) {
         case 0:
@@ -38,9 +38,6 @@ export class SprintComponent implements OnInit {
       parseInt(this.route.snapshot.params.id || 0, 10))
     .then((sprint) => {
       this._sprint = sprint;
-      if (this._sprint.userStories && this._sprint.userStories.length > 0) {
-        this._data.story = this._sprint.userStories[0];
-      }
     }, err => {
       console.log(err);
     });
@@ -79,6 +76,14 @@ export class SprintComponent implements OnInit {
 
   get sprint (): Sprint {
     return this._sprint;
+  }
+
+  get story (): UserStory {
+    return this._story;
+  }
+
+  set story (value) {
+    this._story = value;
   }
 
   get data (): any {

@@ -7,13 +7,14 @@
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
       <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned</div>
-      <app-user-story [object]="sprint" [data]="data" [onSelectStory]="onSelectStory"></app-user-story>
+      <app-user-story [object]="sprint" [selectCurrentStory]="true" (onSelect)="story=$event"></app-user-story>
     </div>
   </div>
   <div class="col-4">
     <h3 class="text-center">User Story Selected</h3>
-    <h5 class="mb-1">{{data.story && data.story.name}}</h5>
-    <p>{{data.story && data.story.desc}}</p>
+    <div *ngIf="!story" class="text-center">No user story selected</div>
+    <h5 class="mb-1">{{story && story.name}}</h5>
+    <p>{{story && story.desc}}</p>
   </div>
   <div class="col-5">
     <div *ngIf="!showCreateTask;else createTask">
