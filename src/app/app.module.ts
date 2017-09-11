@@ -53,7 +53,7 @@ import { UserStoryComponent } from './project/user-story/user-story.component';
       component: ProjectComponent
     }, {
      path: 'project/sprint/:projectId/:id',
-     component: SprintComponent 
+     component: SprintComponent
     }, {
       path: 'roles',
       component: RolesComponent

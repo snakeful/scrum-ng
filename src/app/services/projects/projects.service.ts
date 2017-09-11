@@ -13,9 +13,9 @@ export class ScrumObject {
 }
 
 export class Project extends ScrumObject {
-  userStories: Array<UserStory>;
-  sprints: Array<Sprint>;
-  constructor (id: Number, name: String, desc: String, userStories: Array<any>, sprints: Array<any>) {
+  userStories: UserStory[];
+  sprints: Sprint[];
+  constructor (id: Number, name: String, desc: String, userStories: any[], sprints: any[]) {
     super(id, name, desc);
     this.userStories = userStories;
     this.sprints = sprints;
@@ -26,7 +26,7 @@ export class Project extends ScrumObject {
 export class UserStory extends ScrumObject {
   priorityId: Number;
   statusId: Number;
-  tasks: Array<Task>;
+  tasks: Task[];
   constructor (id: Number = -1, name: String = '', desc: String = '', priorityId: Number = -1, statusId: Number = -1) {
     super(id, name, desc);
     this.priorityId = priorityId;
@@ -38,7 +38,7 @@ export class UserStory extends ScrumObject {
 export class Sprint extends ScrumObject {
   start: Date;
   end: Date;
-  userStories: Array<UserStory>;
+  userStories: UserStory[];
   constructor (id: Number = -1, name: String = '', desc: String = '') {
     super(id, name, desc);
     this.start = new Date();
@@ -63,7 +63,7 @@ export class Task extends ScrumObject {
 }
 
 export class ProjectsService {
-  private projects: Array<Project>  = [
+  private projects: Project[]  = [
     new Project(1, 'Project 1', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
     new Project(2, 'Project 2', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
     new Project(3, 'Project 3', 'This is a project template', this.getNewUserStories(), this.getNewSprints())
@@ -72,7 +72,7 @@ export class ProjectsService {
   constructor() {
   }
 
-  private getNewUserStories (): Array<UserStory> {
+  private getNewUserStories (): UserStory[] {
     return [
       new UserStory(1, 'User Story 1', 'This is a user story for testing purposes', 0, 0),
       new UserStory(2, 'User Story 2', 'This is a user story for testing purposes', 0, 0),
@@ -87,7 +87,7 @@ export class ProjectsService {
     ];
   }
 
-  private getNewSprints (): Array<Sprint> {
+  private getNewSprints (): Sprint[] {
     return [
       new Sprint(1, 'Sprint #1'),
       new Sprint(2, 'Sprint #2'),
@@ -96,8 +96,8 @@ export class ProjectsService {
     ];
   }
 
-  getProjects (): Promise<Array<Project>> {
-    return new Promise<Array<Project>>((resolve, reject) => {
+  getProjects (): Promise<Project[]> {
+    return new Promise<Project[]>((resolve, reject) => {
       resolve(this.projects);
     });
   }
@@ -114,9 +114,8 @@ export class ProjectsService {
     });
   }
 
-  getSprints (projectId: Number): Promise<Array<Sprint>> {
-    return new Promise<Array<any>>((resolve, reject) => {
-      let sprints: Array<Sprint>;
+  getSprints (projectId: Number): Promise<Sprint[]> {
+    return new Promise<any[]>((resolve, reject) => {
       this.getProject(projectId).then(project => {
         if (project.sprints) {
           resolve(project.sprints);

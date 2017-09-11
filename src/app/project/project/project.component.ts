@@ -8,34 +8,42 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/proj
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  private project: Project;
+  private _project: Project;
   constructor(private service: ProjectsService, private route: ActivatedRoute) {
-    this.service.getProject(parseInt(this.route.snapshot.params.id || 0))
+    this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
     .then((project) => {
-      this.project = project;
+      this._project = project;
     });
   }
 
   ngOnInit() {
   }
 
-  assignStoryToUserStories (userStories: Array<UserStory>, story: UserStory) {
-    this.project.userStories.push(story);
+  assignStoryToUserStories (userStories: UserStory[], story: UserStory) {
+    this._project.userStories.push(story);
     userStories.splice(userStories.indexOf(story), 1);
   }
 
   assignStoryToSprintStories (sprint: Sprint, story: UserStory) {
     sprint.userStories.push(story);
-    this.project.userStories.splice(this.project.userStories.indexOf(story), 1);
+    this._project.userStories.splice(this._project.userStories.indexOf(story), 1);
   }
 
   onStoryToSprintDrop (event, sprint: Sprint) {
     this.assignStoryToSprintStories(sprint, event.dragData);
   }
-  
+
   onSprintStoryToUserStoriesDrop (event) {
-    let userStories = event.dragData[0];
-    let story = event.dragData[1];
+    const userStories = event.dragData[0];
+    const story = event.dragData[1];
     this.assignStoryToUserStories(userStories, story);
+  }
+
+  get project (): Project {
+    return this._project;
+  }
+
+  set project (value: Project) {
+    this._project = value;
   }
 }

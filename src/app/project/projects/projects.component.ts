@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService } from '../../services/projects/projects.service';
+import { ProjectsService, Project } from '../../services/projects/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -7,7 +7,7 @@ import { ProjectsService } from '../../services/projects/projects.service';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  private projects;
+  private _projects: Project[];
   constructor(private projectsService: ProjectsService) {
   }
 
@@ -18,4 +18,11 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
+  get projects (): Project[] {
+    return this.projects;
+  }
+
+  set projects (value: Project[]) {
+    this._projects = value;
+  }
 }
