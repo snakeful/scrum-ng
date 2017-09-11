@@ -7,14 +7,84 @@
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
       <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned</div>
-      <app-user-story [object]="sprint"></app-user-story>
+      <app-user-story [object]="sprint" [data]="data" [onSelectStory]="onSelectStory"></app-user-story>
     </div>
   </div>
   <div class="col-4">
-    <h3 class="mb-1">{{story.name}}</h3>
-    <p>{{story.desc}}</p>
+    <h3 class="text-center">User Story Selected</h3>
+    <h5 class="mb-1">{{data.story && data.story.name}}</h5>
+    <p>{{data.story && data.story.desc}}</p>
   </div>
   <div class="col-5">
-
+    <div *ngIf="!showCreateTask;else createTask">
+      <h3 class="text-center">Tasks<span><button class="btn btn-sm btn-primary float-right" (click)="doNewTask()"><i class="fa fa-plus"></i></button></span></h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Status</th>
+              <th>Responsible User</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="data.story && data.story.tasks" class="scrollspy-mini" data-spy="scroll" data-offset="0">
+            <tr *ngFor="let task of data.story.tasks">
+              <td>{{task.name}}</td>
+              <td>{{task.statusId}}</td>
+              <td>{{task.userId}}</td>
+              <td>{{task.points}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #createTask>
+      <h3 class="text-center">New Task<span><button class="btn btn-sm btn-danger float-right" (click)="doCancelCreateTask()"><i class="fa fa-times"></i></button></span></h3>
+      <form (ngSubmit)="doCreateTask(newTask)">
+        <div class="row">
+          <div class="col-md-7 col-sm-12">
+            <label for="taskName">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
+          </div>
+          <div class="col-md-5 col-sm-12">
+            <label for="taskStatus">Status</label>
+            <select class="form-control" [(ngModel)]="newTask.statusId" name="taskStatus" id="taskStatus">
+              <option [ngValue]="0">To Do</option>
+              <option [ngValue]="1">In Progress</option>
+              <option [ngValue]="2">Testing</option>
+              <option [ngValue]="3">Done</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <label for="taskUser">User</label>
+            <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
+              <option value="0">Test 0</option>
+              <option value="1">Test 1</option>
+              <option value="2">Test 2</option>
+              <option value="3">Test 3</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label for="taskPoints">Points</label>
+            <select class="form-control" [(ngModel)]="newTask.points" name="taskPoints" id="taskPoints">
+              <option value="1">1 Pts - Low Easy</option>
+              <option value="2">2 Pts - Medium Easy</option>
+              <option value="3">3 Pts - Easy High</option>
+              <option value="4">4 Pts - Low Normal</option>
+              <option value="5">5 Pts - Medium Normal</option>
+              <option value="6">6 Pts - Normal High</option>
+              <option value="7">7 Pts - Low Hard</option>
+              <option value="8">8 Pts - Normal Hard</option>
+              <option value="9">9 Pts - Medium Hard</option>
+              <option value="10">10 Pts - Hard High</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
+      </form>
+    </ng-template>
   </div>
 </div>

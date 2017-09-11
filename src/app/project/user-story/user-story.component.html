@@ -1,5 +1,5 @@
 <ul class="list-group">
-  <li draggable [dragScope]="'story'" *ngFor="let story of object.userStories" [dragData]="story" class="list-group-item list-group-item-action flex-column align-items-start" (click)="selectStory(story)">
+  <li draggable [dragScope]="'story'" *ngFor="let story of object.userStories" [dragData]="story" class="list-group-item list-group-item-action flex-column align-items-start" (click)="selectStory(story)" [ngClass]="{'item-selected': story === (data && data.story)}">
     <div class="d-flex w-100 justify-content-between">
       <h4 class="mb-1">{{story.name}}</h4>
     </div>

@@ -26,10 +26,12 @@ export class Project extends ScrumObject {
 export class UserStory extends ScrumObject {
   priorityId: Number;
   statusId: Number;
+  tasks: Array<Task>;
   constructor (id: Number = -1, name: String = '', desc: String = '', priorityId: Number = -1, statusId: Number = -1) {
     super(id, name, desc);
     this.priorityId = priorityId;
     this.statusId = statusId;
+    this.tasks = new Array<Task>();
   }
 }
 

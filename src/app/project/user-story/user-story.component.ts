@@ -8,17 +8,18 @@ import { Project, UserStory } from '../../services/projects/projects.service';
 })
 export class UserStoryComponent implements OnInit {
   @Input() object: any;
+  @Input() data: any;
   @Input() onSelectStory: Function;
-  private userStory: UserStory;
+  private story: UserStory;
   constructor() { }
 
   ngOnInit() {
   }
 
   selectStory (story) {
-    this.userStory = story;
-    if (this.onSelectStory) {
-      this.onSelectStory(story);
+    this.story = story;
+    if (this.data && this.onSelectStory) {
+      this.onSelectStory(this.story);
     }
   }
 }
