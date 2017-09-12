@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ScrumObject {
-  id: Number;
-  name: String;
-  desc: String;
-  constructor (id: Number = -1, name: String = '', desc: String = '') {
+  id: number;
+  name: string;
+  desc: string;
+  constructor (id?: number, name?: string, desc?: string) {
     this.id = id;
     this.name = name;
     this.desc = desc;
@@ -15,7 +15,7 @@ export class ScrumObject {
 export class Project extends ScrumObject {
   userStories: UserStory[];
   sprints: Sprint[];
-  constructor (id: Number, name: String, desc: String, userStories: any[], sprints: any[]) {
+  constructor (id?: number, name?: string, desc?: string, userStories?: any[], sprints?: any[]) {
     super(id, name, desc);
     this.userStories = userStories;
     this.sprints = sprints;
@@ -24,10 +24,10 @@ export class Project extends ScrumObject {
 }
 
 export class UserStory extends ScrumObject {
-  priorityId: Number;
-  statusId: Number;
+  priorityId: number;
+  statusId: number;
   tasks: Task[];
-  constructor (id: Number = -1, name: String = '', desc: String = '', priorityId: Number = -1, statusId: Number = -1) {
+  constructor (id?: number, name?: string, desc?: string, priorityId?: number, statusId?: number) {
     super(id, name, desc);
     this.priorityId = priorityId;
     this.statusId = statusId;
@@ -39,7 +39,7 @@ export class Sprint extends ScrumObject {
   start: Date;
   end: Date;
   userStories: UserStory[];
-  constructor (id: Number = -1, name: String = '', desc: String = '') {
+  constructor (id?: number, name?: string, desc?: string) {
     super(id, name, desc);
     this.start = new Date();
     this.end = new Date();
@@ -48,16 +48,16 @@ export class Sprint extends ScrumObject {
 }
 
 export class Task extends ScrumObject {
-  userStoryId: Number;
+  userStoryId: number;
   date: Date;
-  taskOriginId: Number;
-  statusId: Number;
-  userId: Number;
-  originId: Number;
-  points: Number;
-  executedPoints: Number;
+  taskOriginId: number;
+  statusId: number;
+  userId: number;
+  originId: number;
+  points: number;
+  executedPoints: number;
   successTask: Boolean;
-  constructor (id: Number = -1, name: String = '', desc: String = '') {
+  constructor (id?: number, name?: string, desc?: string) {
     super(id, name, desc);
   }
 }
@@ -73,18 +73,30 @@ export class ProjectsService {
   }
 
   private getNewUserStories (): UserStory[] {
-    return [
-      new UserStory(1, 'User Story 1', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(2, 'User Story 2', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(3, 'User Story 3', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(4, 'User Story 4', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(5, 'User Story 5', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(6, 'User Story 6', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(7, 'User Story 7', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(8, 'User Story 8', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(9, 'User Story 9', 'This is a user story for testing purposes', 0, 0),
-      new UserStory(10, 'User Story 10', 'This is a user story for testing purposes', 0, 0)
-    ];
+    let stories: UserStory[] = [];
+    stories.push(new UserStory(0, 'User Story 0', 'This is user story 0 for testing purposes', 0, 0));
+    stories.push(new UserStory(1, 'User Story 1', 'This is user story 1 for testing purposes', 0, 0));
+    stories.push(new UserStory(2, 'User Story 2', 'This is user story 2 for testing purposes', 0, 0));
+    stories.push(new UserStory(3, 'User Story 3', 'This is user story 3 for testing purposes', 0, 0));
+    stories.push(new UserStory(4, 'User Story 4', 'This is user story 4 for testing purposes', 0, 0));
+    stories.push(new UserStory(5, 'User Story 5', 'This is user story 5 for testing purposes', 0, 0));
+    stories.push(new UserStory(6, 'User Story 6', 'This is user story 6 for testing purposes', 0, 0));
+    stories.push(new UserStory(7, 'User Story 7', 'This is user story 7 for testing purposes', 0, 0));
+    stories.push(new UserStory(8, 'User Story 8', 'This is user story 8 for testing purposes', 0, 0));
+    stories.push(new UserStory(9, 'User Story 9', 'This is user story 9 for testing purposes', 0, 0));
+    stories.forEach((story) => {
+      story.tasks.push(new Task((0 + story.id * 10), `Test ${0 + story.id * 10}`, `Description of ${0 + story.id * 10}`));
+      story.tasks.push(new Task((1 + story.id * 10), `Test ${1 + story.id * 10}`, `Description of ${1 + story.id * 10}`));
+      story.tasks.push(new Task((2 + story.id * 10), `Test ${2 + story.id * 10}`, `Description of ${2 + story.id * 10}`));
+      story.tasks.push(new Task((3 + story.id * 10), `Test ${3 + story.id * 10}`, `Description of ${3 + story.id * 10}`));
+      story.tasks.push(new Task((4 + story.id * 10), `Test ${4 + story.id * 10}`, `Description of ${4 + story.id * 10}`));
+      story.tasks.push(new Task((5 + story.id * 10), `Test ${5 + story.id * 10}`, `Description of ${5 + story.id * 10}`));
+      story.tasks.push(new Task((6 + story.id * 10), `Test ${6 + story.id * 10}`, `Description of ${6 + story.id * 10}`));
+      story.tasks.push(new Task((7 + story.id * 10), `Test ${7 + story.id * 10}`, `Description of ${7 + story.id * 10}`));
+      story.tasks.push(new Task((8 + story.id * 10), `Test ${8 + story.id * 10}`, `Description of ${8 + story.id * 10}`));
+      story.tasks.push(new Task((9 + story.id * 10), `Test ${9 + story.id * 10}`, `Description of ${9 + story.id * 10}`));
+    });
+    return stories;
   }
 
   private getNewSprints (): Sprint[] {
@@ -102,7 +114,7 @@ export class ProjectsService {
     });
   }
 
-  getProject (id: Number): Promise<Project> {
+  getProject (id: number): Promise<Project> {
     let project: Project;
     return new Promise<Project>((resolve, reject) => {
       this.projects.forEach(prj => {
@@ -114,7 +126,7 @@ export class ProjectsService {
     });
   }
 
-  getSprints (projectId: Number): Promise<Sprint[]> {
+  getSprints (projectId: number): Promise<Sprint[]> {
     return new Promise<any[]>((resolve, reject) => {
       this.getProject(projectId).then(project => {
         if (project.sprints) {
@@ -126,7 +138,7 @@ export class ProjectsService {
     });
   }
 
-  getSprint (projectId: Number, id: Number): Promise<Sprint> {
+  getSprint (projectId: number, id: number): Promise<Sprint> {
     return new Promise<Sprint>((resolve, reject) => {
       let sprint: Sprint;
       this.getSprints(projectId).then(sprints => {

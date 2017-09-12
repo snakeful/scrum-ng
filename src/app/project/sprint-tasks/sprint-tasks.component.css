@@ -3,7 +3,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  border-color: blue;
   border-width: 1.5px;
   cursor: pointer;
   height: 100%;
@@ -13,4 +12,8 @@
   flex: 0 1 auto;
   align-self: baseline;
   margin: 2.5px;
+}
+
+.border-sprint-tasks {
+  border: thin groove dodgerblue;
 }

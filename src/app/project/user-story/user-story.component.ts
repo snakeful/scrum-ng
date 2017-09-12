@@ -8,17 +8,18 @@ import { Project, UserStory } from '../../services/projects/projects.service';
 })
 export class UserStoryComponent implements OnInit {
   @Input() object: any;
+  @Input() showDescription: Boolean = true;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
   private _selectCurrentStory: Boolean = false;
   private _currentStory: UserStory;
 
-  constructor() { }
+  constructor() { };
 
   ngOnInit() {
     if (this.object.userStories.length > 0) {
       this.selectStory(this.object.userStories[0]);
     }
-  }
+  };
 
   selectStory (story) {
     if (this._selectCurrentStory) {

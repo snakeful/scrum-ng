@@ -6,20 +6,20 @@
   <div class="col-3">
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
-      <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned</div>
-      <app-user-story [object]="sprint" [selectCurrentStory]="true" (onSelect)="story=$event"></app-user-story>
+      <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
+      <app-user-story [object]="sprint" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-story>
     </div>
   </div>
   <div class="col-4">
     <h3 class="text-center">User Story Selected</h3>
-    <div *ngIf="!story" class="text-center">No user story selected</div>
+    <div *ngIf="!story" class="text-center">No user story selected.</div>
     <h5 class="mb-1">{{story && story.name}}</h5>
     <p>{{story && story.desc}}</p>
   </div>
   <div class="col-5">
     <div *ngIf="!showCreateTask;else createTask">
       <h3 class="text-center">Tasks<span><button class="btn btn-sm btn-primary float-right" (click)="doNewTask()"><i class="fa fa-plus"></i></button></span></h3>
-      <div class="table-responsive">
+      <div class="table-responsive" class="scrollspy-mini" data-spy="scroll" data-offset="0">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -29,7 +29,7 @@
               <th>Points</th>
             </tr>
           </thead>
-          <tbody *ngIf="story && story.tasks" class="scrollspy-mini" data-spy="scroll" data-offset="0">
+          <tbody *ngIf="story && story.tasks">
             <tr *ngFor="let task of story.tasks">
               <td>{{task.name}}</td>
               <td>{{task.statusId}}</td>

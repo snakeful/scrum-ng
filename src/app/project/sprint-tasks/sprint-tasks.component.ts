@@ -83,6 +83,7 @@ export class SprintTasksComponent implements OnInit {
       title: 'To Do',
       scope: 'todo',
       dropScope: 'in-progress',
+      color: 'badge-secondary',
       onDrop: this.onDropToDo,
       tasks: new Array<Task>()
     };
@@ -90,6 +91,7 @@ export class SprintTasksComponent implements OnInit {
       title: 'In Progress',
       scope: 'in-progress',
       dropScope: 'todo',
+      color: 'badge-primary',
       onDrop: this.onDropInProgress,
       tasks: new Array<Task>()
     };
@@ -97,6 +99,7 @@ export class SprintTasksComponent implements OnInit {
       title: 'Testing',
       scope: 'testing',
       dropScope: 'in-progress',
+      color: 'badge-info',
       onDrop: this.onDropTesting,
       tasks: new Array<Task>()
     };
@@ -104,6 +107,7 @@ export class SprintTasksComponent implements OnInit {
       title: 'Done',
       scope: 'done',
       dropScope: ['todo', 'in-progress', 'testing'],
+      color: 'badge-success',
       onDrop: this.onDropDone,
       tasks: new Array<Task>()
     };

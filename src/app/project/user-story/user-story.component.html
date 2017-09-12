@@ -3,7 +3,7 @@
     <div class="d-flex w-100 justify-content-between">
       <h4 class="mb-1">{{story.name}}</h4>
     </div>
-    <p class="mb-1">{{story.desc}}</p>
+    <p *ngIf="showDescription" class="mb-1">{{story.desc}}</p>
     <small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small>
     <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
   </li>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsService, UserStory, Sprint, Task } from '../../services/projects/projects.service';
+declare let $: any;
 
 @Component({
   selector: 'app-sprint',
@@ -68,7 +69,8 @@ export class SprintComponent implements OnInit {
     if (this.story && this.story.tasks) {
       this.story.tasks.push(task);
       this.addTask(task);
-    }
+    };
+    $('#taskName').focus();
   };
 
   doCancelCreateTask () {
@@ -94,9 +96,11 @@ export class SprintComponent implements OnInit {
     this._inProgress = value.inProgress;
     this._testing = value.testing;
     this._done = value.done;
-    if (this.story) {
-      this.story.tasks.forEach((task) => {
-        this.addTask(task);
+    if (this.sprint.userStories) {
+      this.sprint.userStories.forEach((story) => {
+        story.tasks.forEach((task) => {
+          this.addTask(task);
+        });
       });
     }
   }
