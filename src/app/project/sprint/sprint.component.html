@@ -1,4 +1,4 @@
-<div class="container text-center">
+<div class="container-fluid text-center">
   <h3 class="">{{sprint.name}}</h3>
   <p>From {{sprint.start.toISOString().substring(0, 10)}} to {{sprint.end.toISOString().substring(0, 10)}}</p>
 </div>
@@ -44,18 +44,9 @@
       <h3 class="text-center">New Task<span><button class="btn btn-sm btn-danger float-right" (click)="doCancelCreateTask()"><i class="fa fa-times"></i></button></span></h3>
       <form (ngSubmit)="doCreateTask(newTask)">
         <div class="row">
-          <div class="col-md-7 col-sm-12">
+          <div class="col-md-12 col-sm-12">
             <label for="taskName">Name</label>
             <input type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
-          </div>
-          <div class="col-md-5 col-sm-12">
-            <label for="taskStatus">Status</label>
-            <select class="form-control" [(ngModel)]="newTask.statusId" name="taskStatus" id="taskStatus">
-              <option [ngValue]="0">To Do</option>
-              <option [ngValue]="1">In Progress</option>
-              <option [ngValue]="2">Testing</option>
-              <option [ngValue]="3">Done</option>
-            </select>
           </div>
         </div>
         <div class="row">
