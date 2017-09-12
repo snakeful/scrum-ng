@@ -26,7 +26,7 @@ export class SprintComponent implements OnInit {
     }, err => {
       console.log(err);
     });
-  };
+  }
 
   private addTask (task) {
     switch (task.statusId) {
@@ -42,54 +42,54 @@ export class SprintComponent implements OnInit {
       case 3:
       this._done.tasks.push(task);
       break;
-      default: 
+      default:
       this._toDo.tasks.push(task);
       break;
     }
     return task;
-  };
+  }
 
   private cleanNewTask () {
     this._newTask = new Task();
     this._newTask.statusId = 0;
     this._newTask.points = 1;
     this._newTask.executedPoints = 0;
-  };
+  }
 
   ngOnInit() {
     this.cleanNewTask();
-  };
+  }
 
   doNewTask () {
     this._showCreateTask = true;
-  };
+  }
 
   doCreateTask (task) {
     this.cleanNewTask();
     if (this.story && this.story.tasks) {
       this.story.tasks.push(task);
       this.addTask(task);
-    };
+    }
     $('#taskName').focus();
-  };
+  }
 
   doCancelCreateTask () {
     this._showCreateTask = false;
-  };
+  }
 
   /* Properties */
-  
+
   get sprint (): Sprint {
     return this._sprint;
-  };
+  }
 
   get story (): UserStory {
     return this._story;
-  };
+  }
 
   set story (value) {
     this._story = value;
-  };
+  }
 
   set tasks (value) {
     this._toDo = value.toDo;

@@ -73,7 +73,7 @@ export class ProjectsService {
   }
 
   private getNewUserStories (): UserStory[] {
-    let stories: UserStory[] = [];
+    const stories: UserStory[] = [];
     stories.push(new UserStory(0, 'User Story 0', 'This is user story 0 for testing purposes', 0, 0));
     stories.push(new UserStory(1, 'User Story 1', 'This is user story 1 for testing purposes', 0, 0));
     stories.push(new UserStory(2, 'User Story 2', 'This is user story 2 for testing purposes', 0, 0));

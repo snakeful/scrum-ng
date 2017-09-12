@@ -7,14 +7,14 @@ import { Task } from '../../services/projects/projects.service';
   styleUrls: ['./sprint-tasks.component.css']
 })
 export class SprintTasksComponent implements OnInit {
-  @Output() onLoad: EventEmitter<any> = new EventEmitter<any>();
+  @Output() private onLoad: EventEmitter<any> = new EventEmitter<any>();
   private _toDo;
   private _inProgress;
   private _testing;
   private _done;
   private _tasks;
 
-  constructor() { };
+  constructor() { }
 
   private addTask (task: Task): Task {
     switch (task.statusId) {
@@ -30,12 +30,12 @@ export class SprintTasksComponent implements OnInit {
       case 3:
       this._done.tasks.push(task);
       break;
-      default: 
+      default:
       this._toDo.tasks.push(task);
       break;
     }
     return task;
-  };
+  }
 
   private removeTask (task: Task): Task {
     switch (task.statusId) {
@@ -56,27 +56,27 @@ export class SprintTasksComponent implements OnInit {
       break;
     }
     return task;
-  };
-  
+  }
+
   private onDropToDo = (task: Task) => {
     this.removeTask(task).statusId = 0;
     this.addTask(task);
-  };
-  
+  }
+
   private onDropInProgress = (task: Task) => {
     this.removeTask(task).statusId = 1;
     this.addTask(task);
-  };
+  }
 
   private onDropTesting = (task: Task) => {
     this.removeTask(task).statusId = 2;
     this.addTask(task);
-  };
-  
+  }
+
   private onDropDone = (task: Task) => {
     this.removeTask(task).statusId = 3;
     this.addTask(task);
-  };
+  }
 
   ngOnInit() {
     this._toDo = {
@@ -123,11 +123,11 @@ export class SprintTasksComponent implements OnInit {
       testing: this._testing,
       done: this._done
     });
-  };
+  }
 
   /* Properties */
 
   get tasks (): any[] {
     return this._tasks;
-  };
+  }
 }
