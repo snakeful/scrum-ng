@@ -10,29 +10,13 @@ import { ProjectsService, UserStory, Sprint, Task } from '../../services/project
 export class SprintComponent implements OnInit {
   private _sprint: Sprint;
   private _story: UserStory;
-  private _data: any = {
-    addTask (task) {
-      switch (task.statusId) {
-        case 0:
-          this.toDo.tasks.push(task);
-          break;
-        case 1:
-          this.inProgress.tasks.push(task);
-          break;
-        case 2:
-          this.testing.tasks.push(task);
-          break;
-        case 3:
-          this.done.tasks.push(task);
-          break;
-        default: 
-          this.toDo.tasks.push(task);
-          break;
-      }
-    }
-  };
+  private _toDo: any;
+  private _inProgress: any;
+  private _testing: any;
+  private _done: any;
   private _showCreateTask: Boolean = false;
   private _newTask: Task = new Task();
+
   constructor(private projectsService: ProjectsService, private route: ActivatedRoute) {
     this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
       parseInt(this.route.snapshot.params.id || 0, 10))
@@ -41,56 +25,80 @@ export class SprintComponent implements OnInit {
     }, err => {
       console.log(err);
     });
-  }
+  };
+
+  private addTask (task) {
+    switch (task.statusId) {
+      case 0:
+      this._toDo.tasks.push(task);
+      break;
+      case 1:
+      this._inProgress.tasks.push(task);
+      break;
+      case 2:
+      this._testing.tasks.push(task);
+      break;
+      case 3:
+      this._done.tasks.push(task);
+      break;
+      default: 
+      this._toDo.tasks.push(task);
+      break;
+    }
+    return task;
+  };
 
   private cleanNewTask () {
     this._newTask = new Task();
     this._newTask.statusId = 0;
     this._newTask.points = 1;
     this._newTask.executedPoints = 0;
-  }
+  };
 
   ngOnInit() {
     this.cleanNewTask();
-  }
+  };
 
   doNewTask () {
     this._showCreateTask = true;
-  }
+  };
 
   doCreateTask (task) {
     this.cleanNewTask();
     if (this.story && this.story.tasks) {
       this.story.tasks.push(task);
-      this._data.addTask(task);
+      this.addTask(task);
     }
-  }
+  };
 
   doCancelCreateTask () {
     this._showCreateTask = false;
-  }
+  };
 
+  /* Properties */
+  
   get sprint (): Sprint {
     return this._sprint;
-  }
+  };
 
   get story (): UserStory {
     return this._story;
-  }
+  };
 
   set story (value) {
     this._story = value;
-  }
+  };
 
-  get data (): any {
-    return this._data;
-  }
-
-  set data (value) {
-    this._data.toDo = value.toDo;
-    this._data.inProgress = value.inProgress;
-    this._data.testing = value.testing;
-    this._data.done = value.done;
+  set tasks (value) {
+    this._toDo = value.toDo;
+    this._inProgress = value.inProgress;
+    this._testing = value.testing;
+    this._done = value.done;
+    if (this.story) {
+      this.story.tasks.forEach((task) => {
+        this.addTask(task);
+      });
+    }
   }
 
   get showCreateTask (): Boolean {

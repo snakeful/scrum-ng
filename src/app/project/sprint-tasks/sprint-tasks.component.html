@@ -1,8 +1,8 @@
 <div class="row">
   <div *ngFor="let data of tasks" class="col-md-3 col-xs-3">
     <h3 class="text-center">{{data.title}}</h3>
-    <div droppable [dropScope]="data.dropScope" class="container">
-      <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill badge-primary" data-toggle="tooltip" data-html="true" title="Task: {{task.name}} Points: {{task.points}} Points Executed: {{task.executedPoints}} Points Remaining: {{task.points - task.executedPoints}}">{{task.name}}</span>
+    <div droppable [dropScope]="data.dropScope" class="container" (onDrop)="data.onDrop($event.dragData)">
+      <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill badge-primary" data-toggle="tooltip" data-html="true" title="Task: {{task.name}} Points: {{task.points}} Points Executed: {{task.executedPoints}} Points Remaining: {{task.points - task.executedPoints}}" [dragData]="task">{{task.name}}</span>
     </div>
   </div>
 </div>

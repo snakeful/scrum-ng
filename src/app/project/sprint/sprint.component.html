@@ -29,8 +29,8 @@
               <th>Points</th>
             </tr>
           </thead>
-          <tbody *ngIf="data.story && data.story.tasks" class="scrollspy-mini" data-spy="scroll" data-offset="0">
-            <tr *ngFor="let task of data.story.tasks">
+          <tbody *ngIf="story && story.tasks" class="scrollspy-mini" data-spy="scroll" data-offset="0">
+            <tr *ngFor="let task of story.tasks">
               <td>{{task.name}}</td>
               <td>{{task.statusId}}</td>
               <td>{{task.userId}}</td>
@@ -89,4 +89,4 @@
     </ng-template>
   </div>
 </div>
-<app-sprint-tasks (onLoad)="data=$event"></app-sprint-tasks>
+<app-sprint-tasks (onLoad)="tasks=$event"></app-sprint-tasks>
