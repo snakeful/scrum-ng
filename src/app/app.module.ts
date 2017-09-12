@@ -21,6 +21,7 @@ import { UserComponent } from './users/user/user.component';
 import { SprintComponent } from './project/sprint/sprint.component';
 import { UserStoryComponent } from './project/user-story/user-story.component';
 import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.component';
+import { LimitToPipe } from './limit-to.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.compon
     UserComponent,
     SprintComponent,
     UserStoryComponent,
-    SprintTasksComponent
+    SprintTasksComponent,
+    LimitToPipe
   ],
   imports: [
     BrowserModule,
