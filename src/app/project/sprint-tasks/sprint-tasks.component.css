@@ -4,14 +4,14 @@
   flex-wrap: wrap;
   justify-content: space-around;
   border-width: 1.5px;
-  cursor: pointer;
   height: 100%;
 }
 
 .item {
   flex: 0 1 auto;
-  align-self: baseline;
+  align-self: center;
   margin: 2.5px;
+  cursor: pointer;
 }
 
 .border-sprint-tasks {

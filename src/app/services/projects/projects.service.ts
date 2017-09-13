@@ -59,6 +59,10 @@ export class Task extends ScrumObject {
   successTask: Boolean;
   constructor (id?: number, name?: string, desc?: string) {
     super(id, name, desc);
+    this.date = new Date();
+    this.points = 0;
+    this.executedPoints = 0;
+    this.successTask = false;
   }
 }
 
