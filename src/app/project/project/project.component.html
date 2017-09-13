@@ -5,12 +5,12 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-3 scrollspy" data-spy="scroll" data-offset="0">
-    <div droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
-      <h3 class="text-center">User Stories</h3>
+  <div class="col-3">
+    <h3 class="text-center">User Stories</h3>
+    <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
+      <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
+      <app-user-story [object]="project"></app-user-story>
     </div>
-    <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
-    <app-user-story [object]="project"></app-user-story>
   </div>
   <div class="col-9 scrollspy" data-spy="scroll" data-offset="0">
     <h4 class="text-center">Sprints</h4>

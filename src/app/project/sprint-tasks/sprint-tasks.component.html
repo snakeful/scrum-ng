@@ -14,7 +14,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Status {{selectedTask && selectedTask.statusId | taskStatus}}</p>
+              <p>Status {{selectedTask && (selectedTask.statusId | taskStatus)}}</p>
               <p>Points {{selectedTask && selectedTask.points}}</p>
               <p>Executed Points {{selectedTask && selectedTask.executedPoints}}</p>
               <p>Remaining Points {{selectedTask && (selectedTask.points - selectedTask.executedPoints)}}</p>
