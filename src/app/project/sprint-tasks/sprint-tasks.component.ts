@@ -13,6 +13,7 @@ export class SprintTasksComponent implements OnInit {
   private _testing;
   private _done;
   private _tasks;
+  private _selectedTask: Task;
 
   constructor() { }
 
@@ -129,5 +130,13 @@ export class SprintTasksComponent implements OnInit {
 
   get tasks (): any[] {
     return this._tasks;
+  }
+
+  get selectedTask (): Task {
+    return this._selectedTask;
+  }
+
+  set selectedTask (value) {
+    this._selectedTask = value;
   }
 }

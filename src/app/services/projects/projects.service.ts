@@ -66,6 +66,12 @@ export class Task extends ScrumObject {
   }
 }
 
+export class TaskStatus extends ScrumObject {
+  constructor (id?: number, name?: string, desc?: string) {
+    super(id, name, desc);
+  }
+}
+
 export class ProjectsService {
   private projects: Project[]  = [
     new Project(1, 'Project 1', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
