@@ -4,20 +4,20 @@
     <div droppable [dropScope]="data.dropScope" class="container-fluid border-sprint-tasks" (onDrop)="data.onDrop($event.dragData)">
       <p *ngIf="data.tasks.length === 0">No tasks assigned.</p>
       <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill" [ngClass]="data.color" data-toggle="modal" data-html="true" title="Task: {{task.name}} Points: {{task.points}} Points Executed: {{task.executedPoints}} Points Remaining: {{task.points - task.executedPoints}}" [dragData]="task" data-target="#taskData" (click)="selectedTask = task">{{task.name | limitTo: 10}}</span>
-      <div class="modal fade" id="taskData" role="dialog">
+      <div *ngIf="selectedTask" class="modal fade" id="taskData" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Task {{selectedTask && selectedTask.name}}</h5>
+              <h5 class="modal-title">Task {{selectedTask.name}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>Status {{selectedTask && (selectedTask.statusId | taskStatus)}}</p>
-              <p>Points {{selectedTask && selectedTask.points}}</p>
-              <p>Executed Points {{selectedTask && selectedTask.executedPoints}}</p>
-              <p>Remaining Points {{selectedTask && (selectedTask.points - selectedTask.executedPoints)}}</p>
+              <p>Status {{selectedTask.statusId | taskStatus}}</p>
+              <p>Points {{selectedTask.points}}</p>
+              <p>Executed Points {{selectedTask.executedPoints}}</p>
+              <p>Remaining Points {{selectedTask.points - selectedTask.executedPoints}}</p>
             </div>
           </div>
         </div>

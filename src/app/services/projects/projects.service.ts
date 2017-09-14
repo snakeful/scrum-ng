@@ -38,6 +38,9 @@ export class UserStory extends ScrumObject {
 export class StoryPriority extends ScrumObject {
 }
 
+export class StoryStatus extends ScrumObject {
+}
+
 export class Sprint extends ScrumObject {
   start: Date;
   end: Date;
@@ -84,6 +87,7 @@ export class ProjectsService {
   ];
   private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
+  private _storyStatus: StoryStatus[];
 
   constructor() {
     this._taskStatus = [
@@ -93,17 +97,21 @@ export class ProjectsService {
       new TaskStatus(3, 'Done')
     ];
     this._storyPriorities = [
-      new StoryPriority(0, 'Highest'),
-      new StoryPriority(1, 'Higher'),
-      new StoryPriority(2, 'High'),
-      new StoryPriority(3, 'Normal Highest'),
-      new StoryPriority(4, 'Normal High'),
-      new StoryPriority(5, 'Normal'),
-      new StoryPriority(6, 'Normal Low'),
-      new StoryPriority(7, 'Normal Lowest'),
-      new StoryPriority(8, 'Low'),
-      new StoryPriority(9, 'Lower'),
-      new StoryPriority(10, 'Lowest')
+      new StoryPriority(0, 'Highest', 'bg-danger'),
+      new StoryPriority(1, 'Higher', 'bg-danger'),
+      new StoryPriority(2, 'High', 'bg-warning'),
+      new StoryPriority(3, 'Normal Highest', 'bg-warning'),
+      new StoryPriority(4, 'Normal High', 'bg-warning'),
+      new StoryPriority(5, 'Normal', 'bg-primary'),
+      new StoryPriority(6, 'Normal Low', 'bg-primary'),
+      new StoryPriority(7, 'Normal Lowest', 'bg-primary'),
+      new StoryPriority(8, 'Low', 'bg-dark'),
+      new StoryPriority(9, 'Lower', 'bg-dark'),
+      new StoryPriority(10, 'Lowest', 'bg-dark')
+    ];
+    this._storyStatus = [
+      new StoryStatus(0, 'In Progress', 'bg-primary'),
+      new StoryStatus(1, 'Done', 'bg-sucess')
     ];
   }
 
@@ -150,6 +158,10 @@ export class ProjectsService {
 
   get storyPriorities(): StoryPriority[] {
     return this._storyPriorities;
+  }
+
+  get storyStatus(): StoryStatus[] {
+    return this._storyStatus;
   }
 
   getProjects(): Promise<Project[]> {
