@@ -63,13 +63,13 @@ export class Task extends ScrumObject {
   points: number;
   executedPoints: number;
   successTask: Boolean;
-  constructor(id?: number, name?: string, desc?: string) {
+  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0, successTask: boolean = false) {
     super(id, name, desc);
     this.date = new Date();
     this.statusId = 0;
-    this.points = 0;
-    this.executedPoints = 0;
-    this.successTask = false;
+    this.points = points;
+    this.executedPoints = executedPoints;
+    this.successTask = successTask;
   }
 }
 
@@ -97,21 +97,21 @@ export class ProjectsService {
       new TaskStatus(3, 'Done')
     ];
     this._storyPriorities = [
-      new StoryPriority(0, 'Highest', 'bg-danger'),
-      new StoryPriority(1, 'Higher', 'bg-danger'),
-      new StoryPriority(2, 'High', 'bg-warning'),
-      new StoryPriority(3, 'Normal Highest', 'bg-warning'),
-      new StoryPriority(4, 'Normal High', 'bg-warning'),
-      new StoryPriority(5, 'Normal', 'bg-primary'),
-      new StoryPriority(6, 'Normal Low', 'bg-primary'),
-      new StoryPriority(7, 'Normal Lowest', 'bg-primary'),
-      new StoryPriority(8, 'Low', 'bg-dark'),
-      new StoryPriority(9, 'Lower', 'bg-dark'),
-      new StoryPriority(10, 'Lowest', 'bg-dark')
+      new StoryPriority(0, 'Highest', 'badge-danger'),
+      new StoryPriority(1, 'Higher', 'badge-danger'),
+      new StoryPriority(2, 'High', 'badge-warning'),
+      new StoryPriority(3, 'Normal Highest', 'badge-warning'),
+      new StoryPriority(4, 'Normal High', 'badge-warning'),
+      new StoryPriority(5, 'Normal', 'badge-primary'),
+      new StoryPriority(6, 'Normal Low', 'badge-primary'),
+      new StoryPriority(7, 'Normal Lowest', 'badge-primary'),
+      new StoryPriority(8, 'Low', 'badge-dark'),
+      new StoryPriority(9, 'Lower', 'badge-dark'),
+      new StoryPriority(10, 'Lowest', 'badge-dark')
     ];
     this._storyStatus = [
-      new StoryStatus(0, 'In Progress', 'bg-primary'),
-      new StoryStatus(1, 'Done', 'bg-sucess')
+      new StoryStatus(0, 'In Progress', 'badge-primary'),
+      new StoryStatus(1, 'Done', 'badge-sucess')
     ];
   }
 
@@ -129,16 +129,16 @@ export class ProjectsService {
     stories.push(new UserStory(9, 'User Story 9', 'This is user story 9 for testing purposes', 9, 0));
     stories.push(new UserStory(10, 'User Story 10', 'This is user story 10 for testing purposes', 10, 0));
     stories.forEach((story) => {
-      story.tasks.push(new Task((0 + story.id * 10), `Test ${0 + story.id * 10}`, `Description of ${0 + story.id * 10}`));
-      story.tasks.push(new Task((1 + story.id * 10), `Test ${1 + story.id * 10}`, `Description of ${1 + story.id * 10}`));
-      story.tasks.push(new Task((2 + story.id * 10), `Test ${2 + story.id * 10}`, `Description of ${2 + story.id * 10}`));
-      story.tasks.push(new Task((3 + story.id * 10), `Test ${3 + story.id * 10}`, `Description of ${3 + story.id * 10}`));
-      story.tasks.push(new Task((4 + story.id * 10), `Test ${4 + story.id * 10}`, `Description of ${4 + story.id * 10}`));
-      story.tasks.push(new Task((5 + story.id * 10), `Test ${5 + story.id * 10}`, `Description of ${5 + story.id * 10}`));
-      story.tasks.push(new Task((6 + story.id * 10), `Test ${6 + story.id * 10}`, `Description of ${6 + story.id * 10}`));
-      story.tasks.push(new Task((7 + story.id * 10), `Test ${7 + story.id * 10}`, `Description of ${7 + story.id * 10}`));
-      story.tasks.push(new Task((8 + story.id * 10), `Test ${8 + story.id * 10}`, `Description of ${8 + story.id * 10}`));
-      story.tasks.push(new Task((9 + story.id * 10), `Test ${9 + story.id * 10}`, `Description of ${9 + story.id * 10}`));
+      story.tasks.push(new Task((0 + story.id * 10), `Test ${0 + story.id * 10}`, `Description of ${0 + story.id * 10}`, 9));
+      story.tasks.push(new Task((1 + story.id * 10), `Test ${1 + story.id * 10}`, `Description of ${1 + story.id * 10}`, 8));
+      story.tasks.push(new Task((2 + story.id * 10), `Test ${2 + story.id * 10}`, `Description of ${2 + story.id * 10}`, 7));
+      story.tasks.push(new Task((3 + story.id * 10), `Test ${3 + story.id * 10}`, `Description of ${3 + story.id * 10}`, 6));
+      story.tasks.push(new Task((4 + story.id * 10), `Test ${4 + story.id * 10}`, `Description of ${4 + story.id * 10}`, 5));
+      story.tasks.push(new Task((5 + story.id * 10), `Test ${5 + story.id * 10}`, `Description of ${5 + story.id * 10}`, 4));
+      story.tasks.push(new Task((6 + story.id * 10), `Test ${6 + story.id * 10}`, `Description of ${6 + story.id * 10}`, 3));
+      story.tasks.push(new Task((7 + story.id * 10), `Test ${7 + story.id * 10}`, `Description of ${7 + story.id * 10}`, 2));
+      story.tasks.push(new Task((8 + story.id * 10), `Test ${8 + story.id * 10}`, `Description of ${8 + story.id * 10}`, 1));
+      story.tasks.push(new Task((9 + story.id * 10), `Test ${9 + story.id * 10}`, `Description of ${9 + story.id * 10}`, 9));
     });
     return stories;
   }

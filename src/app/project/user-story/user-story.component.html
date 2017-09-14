@@ -4,7 +4,7 @@
       <h4 class="mb-1">{{story.name}}</h4>
     </div>
     <p *ngIf="showDescription" class="mb-1">{{story.desc}}</p>
-    <small>Priority <span class="badge" [ngClass]="{'badge-danger': (story.priorityId <= 1), 'badge-warning': (story.priorityId > 1 && story.priorityId <= 5), 'badge-primary': (story.priorityId > 5 && story.priorityId <= 7), 'badge-dark': (story.priorityId > 7)}">{{story.priorityId | storyPriority}}</span></small>
-    <small class="float-right">Status <span class="badge badge-primary">{{story.statusId}}</span></small>
+    <div class="row col"><small>Priority <span class="badge" [ngClass]="(story.priorityId | storyPriority).desc">{{(story.priorityId | storyPriority).name}}</span></small></div>
+    <div class="row col"><small>Status <span class="badge" [ngClass]="(story.statusId | storyStatus).desc">{{(story.statusId | storyStatus).name}}</span></small></div>
   </li>
 </ul>

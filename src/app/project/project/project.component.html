@@ -5,14 +5,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-3">
+  <div class="col-4">
     <h3 class="text-center">User Stories</h3>
-    <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'story'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
+    <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
       <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
       <app-user-story [object]="project"></app-user-story>
     </div>
   </div>
-  <div class="col-9 scrollspy" data-spy="scroll" data-offset="0">
+  <div class="col-8 scrollspy" data-spy="scroll" data-offset="0">
     <h4 class="text-center">Sprints</h4>
     <div id="accordion" role="tablist">
       <div *ngFor="let sprint of project.sprints" class="card">
@@ -29,11 +29,11 @@
           <div droppable [dropScope]="'story'" (onDrop)="onStoryToSprintDrop($event, sprint)" class="card-body">
             <table class="table table-striped">
               <tbody>
-                <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'story'" [dragData]="[sprint.userStories, story]">
+                <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'sprintStory'" [dragData]="[sprint.userStories, story]">
                   <td>{{story.name}}</td>
-                  <td><small>Priority <span class="badge badge-success">{{story.priorityId}}</span></small></td>
-                  <td><small>Status <span class="badge badge-primary">{{story.statusId}}</span></small></td>
-                  <td><button type="button" class="btn btn-sm btn-danger float-right" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
+                  <td><small>Priority <span class="badge" [ngClass]="(story.priorityId | storyPriority).desc">{{(story.priorityId | storyPriority).name}}</span></small></td>
+                  <td><small>Status <span class="badge" [ngClass]="(story.statusId | storyStatus).desc">{{(story.statusId | storyStatus).name}}</span></small></td>
+                  <td class="float-right"><button type="button" class="btn btn-sm btn-danger" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
                 </tr>
               </tbody>
             </table>
