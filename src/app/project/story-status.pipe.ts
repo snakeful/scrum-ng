@@ -10,8 +10,8 @@ export class StoryStatusPipe implements PipeTransform {
     this._storyStatus = projectsService.storyStatus;
   }
 
-  transform(value: number): StoryStatus {
-    return this._storyStatus[value || 0];
+  transform(value: number, attr: string): string {
+    return this._storyStatus[value || 0][attr];
   }
 
 }

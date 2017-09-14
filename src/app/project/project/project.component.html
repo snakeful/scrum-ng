@@ -32,7 +32,7 @@
                 <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'sprintStory'" [dragData]="[sprint.userStories, story]">
                   <td>{{story.name}}</td>
                   <td><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></td>
-                  <td><small>Status <span class="badge" [ngClass]="(story.statusId | storyStatus).desc">{{(story.statusId | storyStatus).name}}</span></small></td>
+                  <td><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></td>
                   <td class="float-right"><button type="button" class="btn btn-sm btn-danger" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
                 </tr>
               </tbody>
