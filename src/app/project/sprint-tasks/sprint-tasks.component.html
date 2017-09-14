@@ -11,7 +11,7 @@
               <h5 class="modal-title">Task {{selectedTask.name}}</h5>
             </div>
             <div class="modal-body">
-              <p>Status: {{selectedTask.statusId | taskStatus}} <span class="float-right">Success Task: <i class="fa" [ngClass]="{'fa-check-square-o': !selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
+              <p>Status: {{selectedTask.statusId | taskStatus}} <span class="float-right">Success Task: <i class="fa" [ngClass]="{'fa-check-square-o': selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
               <p>Points: {{selectedTask.points}}</p>
               <p>Executed Points: {{selectedTask.executedPoints}}</p>
               <p>Remaining Points: {{selectedTask.points - selectedTask.executedPoints}}</p>
