@@ -1,6 +1,6 @@
 <div class="container-fluid text-center">
   <h3 class="">{{sprint.name}}</h3>
-  <p>From {{sprint.start.toISOString().substring(0, 10)}} to {{sprint.end.toISOString().substring(0, 10)}}
+  <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}
     <a href="#collapseSprint" class="btn btn-sm btn-secondary float-right" data-toggle="collapse" aria-expanded="true" aria-controls="collapseSprint"><i class="fa fa-bars"></i></a>
   </p>
 </div>
@@ -17,8 +17,8 @@
       <h3 class="text-center">User Story Selected</h3>
       <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
       <ng-template #storyData>
-        <h5 class="mb-1">{{story && story.name}}</h5>
-        <p>{{story && story.desc}}</p>
+        <h5 class="mb-1">{{story.name}}</h5>
+        <p>{{story.desc}}</p>
         <div class="row col"><small>Priority <span class="badge" [ngClass]="(story.priorityId | storyPriority).desc">{{(story.priorityId | storyPriority).name}}</span></small></div>
         <div class="row col"><small>Status <span class="badge" [ngClass]="(story.statusId | storyStatus).desc">{{(story.statusId | storyStatus).name}}</span></small></div>
       </ng-template>
