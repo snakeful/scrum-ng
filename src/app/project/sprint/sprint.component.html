@@ -19,7 +19,7 @@
       <ng-template #storyData>
         <h5 class="mb-1">{{story.name}}</h5>
         <p>{{story.desc}}</p>
-        <div class="row col"><small>Priority <span class="badge" [ngClass]="(story.priorityId | storyPriority).desc">{{(story.priorityId | storyPriority).name}}</span></small></div>
+        <div class="row col"><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></div>
         <div class="row col"><small>Status <span class="badge" [ngClass]="(story.statusId | storyStatus).desc">{{(story.statusId | storyStatus).name}}</span></small></div>
       </ng-template>
     </div>

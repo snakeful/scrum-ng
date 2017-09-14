@@ -10,8 +10,8 @@ export class StoryPriorityPipe implements PipeTransform {
     this._storyPriorities = projectsService.storyPriorities;
   }
 
-  transform(value: number): StoryPriority {
-    return this._storyPriorities[value || 0];
+  transform(value: number, attr: string): string {
+    return this._storyPriorities[value || 0][attr];
   }
 
 }
