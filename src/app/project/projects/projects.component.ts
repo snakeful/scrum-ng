@@ -13,16 +13,16 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.projectsService.getProjects()
-    .then((projects) => {
-      this._projects = projects;
-    });
+      .then((projects) => {
+        this._projects = projects;
+      });
   }
 
-  get projects (): Project[] {
+  get projects(): Project[] {
     return this._projects;
   }
 
-  set projects (value: Project[]) {
+  set projects(value: Project[]) {
     this._projects = value;
   }
 }

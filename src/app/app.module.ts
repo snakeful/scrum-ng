@@ -62,8 +62,8 @@ import { StoryStatusPipe } from './project/story-status.pipe';
       path: 'project/:id',
       component: ProjectComponent
     }, {
-     path: 'project/sprint/:projectId/:id',
-     component: SprintComponent
+      path: 'project/sprint/:projectId/:id',
+      component: SprintComponent
     }, {
       path: 'roles',
       component: RolesComponent

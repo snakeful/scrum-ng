@@ -17,44 +17,44 @@ export class SprintTasksComponent implements OnInit {
 
   constructor() { }
 
-  private addTask (task: Task): Task {
+  private addTask(task: Task): Task {
     switch (task.statusId) {
       case 0:
-      this._toDo.tasks.push(task);
-      break;
+        this._toDo.tasks.push(task);
+        break;
       case 1:
-      this._inProgress.tasks.push(task);
-      break;
+        this._inProgress.tasks.push(task);
+        break;
       case 2:
-      this._testing.tasks.push(task);
-      break;
+        this._testing.tasks.push(task);
+        break;
       case 3:
-      this._done.tasks.push(task);
-      break;
+        this._done.tasks.push(task);
+        break;
       default:
-      this._toDo.tasks.push(task);
-      break;
+        this._toDo.tasks.push(task);
+        break;
     }
     return task;
   }
 
-  private removeTask (task: Task): Task {
+  private removeTask(task: Task): Task {
     switch (task.statusId) {
       case 0:
-      this._toDo.tasks.splice(this._toDo.tasks.indexOf(task), 1);
-      break;
+        this._toDo.tasks.splice(this._toDo.tasks.indexOf(task), 1);
+        break;
       case 1:
-      this._inProgress.tasks.splice(this._inProgress.tasks.indexOf(task), 1);
-      break;
+        this._inProgress.tasks.splice(this._inProgress.tasks.indexOf(task), 1);
+        break;
       case 2:
-      this._testing.tasks.splice(this._testing.tasks.indexOf(task), 1);
-      break;
+        this._testing.tasks.splice(this._testing.tasks.indexOf(task), 1);
+        break;
       case 3:
-      this._done.tasks.splice(this._done.tasks.indexOf(task), 1);
-      break;
+        this._done.tasks.splice(this._done.tasks.indexOf(task), 1);
+        break;
       default:
-      this._toDo.tasks.splice(this._toDo.tasks.indexOf(task), 1);
-      break;
+        this._toDo.tasks.splice(this._toDo.tasks.indexOf(task), 1);
+        break;
     }
     return task;
   }
@@ -128,15 +128,15 @@ export class SprintTasksComponent implements OnInit {
 
   /* Properties */
 
-  get tasks (): any[] {
+  get tasks(): any[] {
     return this._tasks;
   }
 
-  get selectedTask (): Task {
+  get selectedTask(): Task {
     return this._selectedTask;
   }
 
-  set selectedTask (value) {
+  set selectedTask(value) {
     this._selectedTask = value;
   }
 }

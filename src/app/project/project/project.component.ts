@@ -11,39 +11,39 @@ export class ProjectComponent implements OnInit {
   private _project: Project;
   constructor(private service: ProjectsService, private route: ActivatedRoute) {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
-    .then((project) => {
-      this._project = project;
-    });
+      .then((project) => {
+        this._project = project;
+      });
   }
 
   ngOnInit() {
   }
 
-  assignStoryToUserStories (userStories: UserStory[], story: UserStory) {
+  assignStoryToUserStories(userStories: UserStory[], story: UserStory) {
     this._project.userStories.push(story);
     userStories.splice(userStories.indexOf(story), 1);
   }
 
-  assignStoryToSprintStories (sprint: Sprint, story: UserStory) {
+  assignStoryToSprintStories(sprint: Sprint, story: UserStory) {
     sprint.userStories.push(story);
     this._project.userStories.splice(this._project.userStories.indexOf(story), 1);
   }
 
-  onStoryToSprintDrop (event, sprint: Sprint) {
+  onStoryToSprintDrop(event, sprint: Sprint) {
     this.assignStoryToSprintStories(sprint, event.dragData);
   }
 
-  onSprintStoryToUserStoriesDrop (event) {
+  onSprintStoryToUserStoriesDrop(event) {
     const userStories = event.dragData[0];
     const story = event.dragData[1];
     this.assignStoryToUserStories(userStories, story);
   }
 
-  get project (): Project {
+  get project(): Project {
     return this._project;
   }
 
-  set project (value: Project) {
+  set project(value: Project) {
     this._project = value;
   }
 }

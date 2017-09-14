@@ -21,22 +21,22 @@ export class UserStoryComponent implements OnInit {
     }
   }
 
-  selectStory (story) {
+  selectStory(story) {
     if (this._selectCurrentStory) {
       this._currentStory = story;
       this.onSelect.emit(story);
     }
   }
 
-  get currentStory (): UserStory {
+  get currentStory(): UserStory {
     return this._currentStory;
   }
 
-  get selectCurrentStory (): Boolean {
+  get selectCurrentStory(): Boolean {
     return this._selectCurrentStory;
   }
 
-  @Input() set selectCurrentStory (value) {
+  @Input() set selectCurrentStory(value) {
     this._selectCurrentStory = value;
   }
 }

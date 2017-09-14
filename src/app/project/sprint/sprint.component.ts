@@ -21,35 +21,35 @@ export class SprintComponent implements OnInit {
   constructor(private projectsService: ProjectsService, private route: ActivatedRoute) {
     this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
       parseInt(this.route.snapshot.params.id || 0, 10))
-    .then((sprint) => {
-      this._sprint = sprint;
-    }, err => {
-      console.log(err);
-    });
+      .then((sprint) => {
+        this._sprint = sprint;
+      }, err => {
+        console.log(err);
+      });
   }
 
-  private addTask (task) {
+  private addTask(task) {
     switch (task.statusId) {
       case 0:
-      this._toDo.tasks.push(task);
-      break;
+        this._toDo.tasks.push(task);
+        break;
       case 1:
-      this._inProgress.tasks.push(task);
-      break;
+        this._inProgress.tasks.push(task);
+        break;
       case 2:
-      this._testing.tasks.push(task);
-      break;
+        this._testing.tasks.push(task);
+        break;
       case 3:
-      this._done.tasks.push(task);
-      break;
+        this._done.tasks.push(task);
+        break;
       default:
-      this._toDo.tasks.push(task);
-      break;
+        this._toDo.tasks.push(task);
+        break;
     }
     return task;
   }
 
-  private cleanNewTask () {
+  private cleanNewTask() {
     this._newTask = new Task();
     this._newTask.statusId = 0;
     this._newTask.points = 1;
@@ -60,11 +60,11 @@ export class SprintComponent implements OnInit {
     this.cleanNewTask();
   }
 
-  doNewTask () {
+  doNewTask() {
     this._showCreateTask = true;
   }
 
-  doCreateTask (task) {
+  doCreateTask(task) {
     this.cleanNewTask();
     if (this.story && this.story.tasks) {
       this.story.tasks.push(task);
@@ -73,25 +73,25 @@ export class SprintComponent implements OnInit {
     $('#taskName').focus();
   }
 
-  doCancelCreateTask () {
+  doCancelCreateTask() {
     this._showCreateTask = false;
   }
 
   /* Properties */
 
-  get sprint (): Sprint {
+  get sprint(): Sprint {
     return this._sprint;
   }
 
-  get story (): UserStory {
+  get story(): UserStory {
     return this._story;
   }
 
-  set story (value) {
+  set story(value) {
     this._story = value;
   }
 
-  set tasks (value) {
+  set tasks(value) {
     this._toDo = value.toDo;
     this._inProgress = value.inProgress;
     this._testing = value.testing;
@@ -105,11 +105,11 @@ export class SprintComponent implements OnInit {
     }
   }
 
-  get showCreateTask (): Boolean {
+  get showCreateTask(): Boolean {
     return this._showCreateTask;
   }
 
-  get newTask (): Task {
+  get newTask(): Task {
     return this._newTask;
   }
 }
