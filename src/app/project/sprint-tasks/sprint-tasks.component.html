@@ -11,10 +11,10 @@
               <h5 class="modal-title">Task {{selectedTask.name}}</h5>
             </div>
             <div class="modal-body">
-              <p>Status: {{selectedTask.statusId | taskStatus}} <span class="float-right">Success Task: <i class="fa" [ngClass]="{'fa-check-square-o': selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
-              <p>Points: {{selectedTask.points}}</p>
-              <p>Executed Points: {{selectedTask.executedPoints}}</p>
-              <p>Remaining Points: {{selectedTask.points - selectedTask.executedPoints}}</p>
+              <p>Status {{selectedTask.statusId | taskStatus}} <span class="float-right">Success Task <i class="fa" [ngClass]="{'fa-check-square-o': selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
+              <p>Points {{selectedTask.points}} <span class="float-right">Origin {{selectedTask.originId | origin: 'name'}}</span></p>
+              <p>Executed Points {{selectedTask.executedPoints}}</p>
+              <p>Remaining Points {{selectedTask.points - selectedTask.executedPoints}}</p>
               <p>Actual User: {{selectedTask.userId}}</p>
               <p>Created: {{selectedTask.date | date: 'dd/MM/yyyy hh:mm:ss'}}</p>
             </div>

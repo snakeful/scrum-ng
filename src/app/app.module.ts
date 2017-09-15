@@ -25,6 +25,7 @@ import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
 import { StoryPriorityPipe } from './project/story-priority.pipe';
 import { StoryStatusPipe } from './project/story-status.pipe';
+import { OriginPipe } from './project/origin.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { StoryStatusPipe } from './project/story-status.pipe';
     LimitToPipe,
     TaskStatusPipe,
     StoryPriorityPipe,
-    StoryStatusPipe
+    StoryStatusPipe,
+    OriginPipe
   ],
   imports: [
     BrowserModule,

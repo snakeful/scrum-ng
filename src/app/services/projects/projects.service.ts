@@ -63,12 +63,13 @@ export class Task extends ScrumObject {
   points: number;
   executedPoints: number;
   successTask: Boolean;
-  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0, successTask: boolean = false) {
+  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0, originId: number = 0, successTask: boolean = false) {
     super(id, name, desc);
     this.date = new Date();
     this.statusId = 0;
     this.points = points;
     this.executedPoints = executedPoints;
+    this.originId = originId;
     this.successTask = successTask;
   }
 }
@@ -79,8 +80,11 @@ export class TaskStatus extends ScrumObject {
   }
 }
 
+export class Origin extends ScrumObject {
+}
+
 export class ProjectsService {
-  private _projects: Project[] = [
+  private projects: Project[] = [
     new Project(1, 'Project 1', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
     new Project(2, 'Project 2', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
     new Project(3, 'Project 3', 'This is a project template', this.getNewUserStories(), this.getNewSprints())
@@ -88,6 +92,7 @@ export class ProjectsService {
   private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
+  private origins: Origin[];
 
   constructor() {
     this._taskStatus = [
@@ -112,6 +117,12 @@ export class ProjectsService {
     this._storyStatus = [
       new StoryStatus(0, 'In Progress', 'badge-primary'),
       new StoryStatus(1, 'Done', 'badge-sucess')
+    ];
+    this.origins = [
+      new Origin(0, 'New'),
+      new Origin(1, 'Bad Design'),
+      new Origin(2, 'Process Change'),
+      new Origin(3, 'New Requirement')
     ];
   }
 
@@ -166,14 +177,14 @@ export class ProjectsService {
 
   getProjects(): Promise<Project[]> {
     return new Promise<Project[]>((resolve, reject) => {
-      resolve(this._projects);
+      resolve(this.projects);
     });
   }
 
   getProject(id: number): Promise<Project> {
     let project: Project;
     return new Promise<Project>((resolve, reject) => {
-      this._projects.forEach(prj => {
+      this.projects.forEach(prj => {
         if (id === prj.id) {
           project = prj;
         }
@@ -185,11 +196,7 @@ export class ProjectsService {
   getSprints(projectId: number): Promise<Sprint[]> {
     return new Promise<any[]>((resolve, reject) => {
       this.getProject(projectId).then(project => {
-        if (project.sprints) {
-          resolve(project.sprints);
-        } else {
-          reject('Project record not found.');
-        }
+        project.sprints ? resolve(project.sprints) : reject('Project record not found.');
       }, reject);
     });
   }
@@ -207,4 +214,10 @@ export class ProjectsService {
       }, reject);
     });
   }
+  
+  getOrigins(): Promise<Origin[]> {
+    return new Promise<Origin[]>((resolve, reject) => {
+      resolve(this.origins);
+    });
+  };
 }
