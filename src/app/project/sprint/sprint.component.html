@@ -40,7 +40,7 @@
               <tr *ngFor="let task of story.tasks">
                 <td>{{task.name}}</td>
                 <td>{{task.statusId | taskStatus}}</td>
-                <td>{{task.userId}}</td>
+                <td>{{task.userId | scrumTeam: name}}</td>
                 <td>{{task.points}}</td>
               </tr>
             </tbody>
@@ -68,10 +68,7 @@
             <div class="col-md-6 col-sm-12">
               <label for="taskUser">User</label>
               <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
-                <option value="0">Test 0</option>
-                <option value="1">Test 1</option>
-                <option value="2">Test 2</option>
-                <option value="3">Test 3</option>
+                <option *ngFor="let user of sprint.project.scrumTeam" [value]="user.id">{{user.name}}</option>
               </select>
             </div>
             <div class="col-md-6 col-sm-12">

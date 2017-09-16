@@ -76,6 +76,7 @@ export class SprintTasksComponent implements OnInit {
 
   private onDropDone = (task: Task) => {
     this.removeTask(task).statusId = 3;
+    task.executedPoints = task.points;
     this.addTask(task);
   }
 
@@ -86,7 +87,7 @@ export class SprintTasksComponent implements OnInit {
       dropScope: 'in-progress',
       color: 'badge-secondary',
       onDrop: this.onDropToDo,
-      tasks: new Array<Task>()
+      tasks: []
     };
     this._inProgress = {
       title: 'In Progress',
@@ -94,7 +95,7 @@ export class SprintTasksComponent implements OnInit {
       dropScope: 'todo',
       color: 'badge-primary',
       onDrop: this.onDropInProgress,
-      tasks: new Array<Task>()
+      tasks: []
     };
     this._testing = {
       title: 'Testing',
@@ -102,7 +103,7 @@ export class SprintTasksComponent implements OnInit {
       dropScope: 'in-progress',
       color: 'badge-info',
       onDrop: this.onDropTesting,
-      tasks: new Array<Task>()
+      tasks: []
     };
     this._done = {
       title: 'Done',
@@ -110,7 +111,7 @@ export class SprintTasksComponent implements OnInit {
       dropScope: ['todo', 'in-progress', 'testing'],
       color: 'badge-success',
       onDrop: this.onDropDone,
-      tasks: new Array<Task>()
+      tasks: []
     };
     this._tasks = [
       this._toDo,
@@ -124,6 +125,20 @@ export class SprintTasksComponent implements OnInit {
       testing: this._testing,
       done: this._done
     });
+  }
+
+  addExecutedPoints(task) {
+    if (task.points > task.executedPoints) {
+      if (task.statusId !== 3) {
+        task.executedPoints++;
+      }
+    }
+  }
+
+  substractExecutedPoints(task) {
+    if (task.executedPoints > 0) {
+      task.executedPoints--;
+    }
   }
 
   /* Properties */

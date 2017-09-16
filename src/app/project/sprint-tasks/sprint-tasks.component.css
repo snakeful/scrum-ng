@@ -17,3 +17,7 @@
 .border-sprint-tasks {
   border: thin groove dodgerblue;
 }
+
+span.title {
+  font-weight: bolder;
+}
