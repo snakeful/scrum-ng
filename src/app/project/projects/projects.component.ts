@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../services/shared/users.service';
+import { UsersService, User } from '../../services/shared/users.service';
 import { ProjectsService, Project } from '../../services/shared/projects.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ProjectsComponent implements OnInit {
   private _productOwnerUsers: User[];
   private _scrumMasterUsers: User[];
   private _scrumTeamUsers: User[];
-  constructor(private projectsService: ProjectsService) {
+  constructor(private projectsService: ProjectsService, private usersService: UsersService) {
   }
 
   ngOnInit() {
@@ -22,17 +22,17 @@ export class ProjectsComponent implements OnInit {
         this._projects = projects;
       });
 
-    this.projectsService.getProductOwnerUsers()
+    this.usersService.getProductOwnerUsers()
       .then(users => {
         this._productOwnerUsers = users;
       });
 
-    this.projectsService.getScrumMasterUsers()
+    this.usersService.getScrumMasterUsers()
       .then(users => {
         this._scrumMasterUsers = users;
       });
 
-    this.projectsService.getScrumTeamUsers()
+    this.usersService.getScrumTeamUsers()
       .then(users => {
         this._scrumTeamUsers = users;
       });

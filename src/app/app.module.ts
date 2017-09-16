@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 
+import { UsersService } from './services/shared/users.service';
 import { ProjectsService } from './services/shared/projects.service';
 
 import { HeaderComponent } from './header/header.component';
@@ -73,7 +74,8 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     }])
   ],
   providers: [
-    ProjectsService
+    ProjectsService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

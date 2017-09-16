@@ -1,3 +1,11 @@
-<p>
-  user works!
-</p>
+<div class="container-fluid">
+  <label for="name">User</label>
+  <input type="text" class="form-control" name="name" id="name" [(ngModel)]="tempUser.name">
+  <label for="desc">Description</label>
+  <input type="text" class="form-control" name="desc" id="desc" [(ngModel)]="tempUser.desc">
+  <label for="name">Role</label>
+  <select class="form-control" [(ngModel)]="tempUser.roleId" name="role" id="role">
+    <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+  </select>
+  <button class="btn btn-primary float-right" (click)="doSaveUser()" title="Save User"><i class="fa fa-check"></i></button>
+</div>

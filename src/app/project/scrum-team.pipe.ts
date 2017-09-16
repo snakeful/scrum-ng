@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { User } from '../services/shared/users.service';
+import { UsersService, User } from '../services/shared/users.service';
 import { ProjectsService } from '../services/shared/projects.service';
 
 @Pipe({
@@ -7,8 +7,8 @@ import { ProjectsService } from '../services/shared/projects.service';
 })
 export class ScrumTeamPipe implements PipeTransform {
   private scrumTeamUsers: User[] = [];
-  constructor(private projectsService: ProjectsService) {
-    this.projectsService.getScrumTeamUsers()
+  constructor(private projectsService: ProjectsService, private usersService: UsersService) {
+    this.usersService.getScrumTeamUsers()
       .then(users => {
         this.scrumTeamUsers = users;
       });

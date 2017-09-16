@@ -92,9 +92,6 @@ export class ProjectsService {
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
   private origins: Origin[];
-  private _productOwnerUsers: User[];
-  private _scrumMasterUsers: User[];
-  private _scrumTeamUsers: User[];
 
   constructor() {
     this._taskStatus = [
@@ -125,24 +122,6 @@ export class ProjectsService {
       new Origin(1, 'Bad Design'),
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
-    ];
-    this._productOwnerUsers = [
-      new User(0, 'Test1'),
-      new User(1, 'Test2'),
-      new User(2, 'Test3'),
-      new User(3, 'Test4')
-    ];
-    this._scrumMasterUsers = [
-      new User(4, 'Test5'),
-      new User(5, 'Test6'),
-      new User(6, 'Test7'),
-      new User(7, 'Test8')
-    ];
-    this._scrumTeamUsers = [
-      new User(8, 'Test9'),
-      new User(9, 'Test10'),
-      new User(10, 'Test11'),
-      new User(11, 'Test12')
     ];
   }
 
@@ -210,24 +189,6 @@ export class ProjectsService {
         }
       });
       project ? resolve(project) : reject('Record not found');
-    });
-  }
-
-  getProductOwnerUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this._productOwnerUsers);
-    });
-  }
-
-  getScrumMasterUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this._scrumMasterUsers);
-    });
-  }
-
-  getScrumTeamUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this._scrumTeamUsers);
     });
   }
 
