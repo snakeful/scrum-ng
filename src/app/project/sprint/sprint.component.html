@@ -40,7 +40,7 @@
               <tr *ngFor="let task of story.tasks">
                 <td>{{task.name}}</td>
                 <td>{{task.statusId | taskStatus}}</td>
-                <td>{{task.userId | scrumTeam: name}}</td>
+                <td>{{task.userId | scrumTeam: 'name'}}</td>
                 <td>{{task.points}}</td>
               </tr>
             </tbody>
