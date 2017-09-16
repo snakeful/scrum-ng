@@ -12,14 +12,22 @@ export class ScrumObject {
   }
 }
 
+export class User extends ScrumObject {
+}
+
 export class Project extends ScrumObject {
   userStories: UserStory[];
   sprints: Sprint[];
+  productOwnerId: number;
+  productOwner: User;
+  scrumMasterId: User;
+  scrumMaster: User;
+  scrumTeam: User[];
   constructor(id?: number, name?: string, desc?: string, userStories?: any[], sprints?: any[]) {
     super(id, name, desc);
     this.userStories = userStories;
     this.sprints = sprints;
-
+    this.scrumTeam = [];
   }
 }
 
@@ -31,7 +39,7 @@ export class UserStory extends ScrumObject {
     super(id, name, desc);
     this.priorityId = priorityId;
     this.statusId = statusId;
-    this.tasks = new Array<Task>();
+    this.tasks = [];
   }
 }
 
@@ -42,6 +50,7 @@ export class StoryStatus extends ScrumObject {
 }
 
 export class Sprint extends ScrumObject {
+  project: Project;
   start: Date;
   end: Date;
   userStories: UserStory[];
@@ -49,7 +58,7 @@ export class Sprint extends ScrumObject {
     super(id, name, desc);
     this.start = new Date();
     this.end = new Date();
-    this.userStories = new Array<UserStory>();
+    this.userStories = [];
   }
 }
 
@@ -93,6 +102,9 @@ export class ProjectsService {
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
   private origins: Origin[];
+  private _productOwnerUsers: User[];
+  private _scrumMasterUsers: User[];
+  private _scrumTeamUsers: User[];
 
   constructor() {
     this._taskStatus = [
@@ -123,6 +135,24 @@ export class ProjectsService {
       new Origin(1, 'Bad Design'),
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
+    ];
+    this._productOwnerUsers = [
+      new User(0, 'Test1'),
+      new User(1, 'Test2'),
+      new User(2, 'Test3'),
+      new User(3, 'Test4')
+    ];
+    this._scrumMasterUsers = [
+      new User(4, 'Test5'),
+      new User(5, 'Test6'),
+      new User(6, 'Test7'),
+      new User(7, 'Test8')
+    ];
+    this._scrumTeamUsers = [
+      new User(8, 'Test9'),
+      new User(9, 'Test10'),
+      new User(10, 'Test11'),
+      new User(11, 'Test12')
     ];
   }
 
@@ -193,9 +223,28 @@ export class ProjectsService {
     });
   }
 
+  getProductOwnerUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {
+      resolve(this._productOwnerUsers);
+    });
+  }
+  
+  getScrumMasterUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {
+      resolve(this._scrumMasterUsers);
+    });
+  }
+
+  getScrumTeamUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {
+      resolve(this._scrumTeamUsers);
+    });
+  }
+
   getSprints(projectId: number): Promise<Sprint[]> {
     return new Promise<any[]>((resolve, reject) => {
       this.getProject(projectId).then(project => {
+        project.sprints.forEach(sprint => sprint.project = project);
         project.sprints ? resolve(project.sprints) : reject('Project record not found.');
       }, reject);
     });
@@ -214,7 +263,7 @@ export class ProjectsService {
       }, reject);
     });
   }
-  
+
   getOrigins(): Promise<Origin[]> {
     return new Promise<Origin[]>((resolve, reject) => {
       resolve(this.origins);
