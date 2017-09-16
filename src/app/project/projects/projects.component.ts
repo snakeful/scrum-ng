@@ -37,7 +37,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   onChangeUser(project) {
-    let user = this._scrumTeamUsers[project.selectedUser];
+    const user = this._scrumTeamUsers[project.selectedUser];
     if (project.scrumTeam.indexOf(user) === -1) {
       project.scrumTeam.push(user);
     }

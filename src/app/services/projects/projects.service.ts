@@ -72,10 +72,12 @@ export class Task extends ScrumObject {
   points: number;
   executedPoints: number;
   successTask: Boolean;
-  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0, originId: number = 0, successTask: boolean = false) {
+  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0,
+    originId: number = 0, successTask: boolean = false) {
     super(id, name, desc);
     this.date = new Date();
     this.statusId = 0;
+    this.userId = 0;
     this.points = points;
     this.executedPoints = executedPoints;
     this.originId = originId;
@@ -228,7 +230,7 @@ export class ProjectsService {
       resolve(this._productOwnerUsers);
     });
   }
-  
+
   getScrumMasterUsers(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
       resolve(this._scrumMasterUsers);
@@ -268,5 +270,5 @@ export class ProjectsService {
     return new Promise<Origin[]>((resolve, reject) => {
       resolve(this.origins);
     });
-  };
+  }
 }

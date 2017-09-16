@@ -13,7 +13,7 @@ export class ScrumTeamPipe implements PipeTransform {
       });
   }
   transform(value: string, field: string): string {
-    const userId = parseInt(value);
+    const userId = parseInt(value, 0);
     for (let index = 0; index < this.scrumTeamUsers.length; index++) {
       const user = this.scrumTeamUsers[index];
       if (user.id === userId) {
