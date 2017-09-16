@@ -14,8 +14,6 @@ import { FooterComponent } from './footer/footer.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { StoriesComponent } from './project/stories/stories.component';
 import { ProjectComponent } from './project/project/project.component';
-import { RolesComponent } from './users/roles/roles.component';
-import { RoleComponent } from './users/role/role.component';
 import { UsersComponent } from './users/users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { SprintComponent } from './project/sprint/sprint.component';
@@ -37,8 +35,6 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     ProjectsComponent,
     StoriesComponent,
     ProjectComponent,
-    RolesComponent,
-    RoleComponent,
     UsersComponent,
     UserComponent,
     SprintComponent,
@@ -68,12 +64,6 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     }, {
       path: 'project/sprint/:projectId/:id',
       component: SprintComponent
-    }, {
-      path: 'roles',
-      component: RolesComponent
-    }, {
-      path: 'role/:id',
-      component: RoleComponent
     }, {
       path: 'users',
       component: UsersComponent

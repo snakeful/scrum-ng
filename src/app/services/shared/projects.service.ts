@@ -1,22 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ScrumObject, Role, User } from './users.service'
 
 @Injectable()
-export class ScrumObject {
-  id: number;
-  name: string;
-  desc: string;
-  constructor(id?: number, name?: string, desc?: string) {
-    this.id = id;
-    this.name = name;
-    this.desc = desc;
-  }
-}
-
-export class Role extends ScrumObject {
-}
-
-export class User extends ScrumObject {
-}
 
 export class Project extends ScrumObject {
   userStories: UserStory[];

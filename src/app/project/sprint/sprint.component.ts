@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { ProjectsService, UserStory, Sprint, Task } from '../../services/shared/projects.service';
 declare let $: any;
 

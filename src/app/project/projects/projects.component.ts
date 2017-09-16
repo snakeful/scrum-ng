@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService, User, Project } from '../../services/shared/projects.service';
+
+import { User } from '../../services/shared/users.service';
+import { ProjectsService, Project } from '../../services/shared/projects.service';
 
 @Component({
   selector: 'app-projects',
