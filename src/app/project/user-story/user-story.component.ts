@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project, UserStory } from '../../services/projects/projects.service';
+import { Project, UserStory } from '../../services/shared/projects.service';
 
 @Component({
   selector: 'app-user-story',

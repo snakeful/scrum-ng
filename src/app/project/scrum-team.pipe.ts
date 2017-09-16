@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { User, ProjectsService } from '../services/projects/projects.service';
+import { User, ProjectsService } from '../services/shared/projects.service';
 
 @Pipe({
   name: 'scrumTeam'

@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 
-import { ProjectsService } from './services/projects/projects.service';
+import { ProjectsService } from './services/shared/projects.service';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';

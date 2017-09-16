@@ -12,6 +12,9 @@ export class ScrumObject {
   }
 }
 
+export class Role extends ScrumObject {
+}
+
 export class User extends ScrumObject {
 }
 

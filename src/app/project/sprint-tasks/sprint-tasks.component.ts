@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../../services/projects/projects.service';
+import { Task } from '../../services/shared/projects.service';
 
 @Component({
   selector: 'app-sprint-tasks',

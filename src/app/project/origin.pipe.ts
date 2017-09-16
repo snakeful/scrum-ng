@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Origin, ProjectsService } from '../services/projects/projects.service';
+import { Origin, ProjectsService } from '../services/shared/projects.service';
 
 @Pipe({
   name: 'origin'
