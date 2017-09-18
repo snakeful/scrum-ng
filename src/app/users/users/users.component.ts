@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { UsersService, User } from '../../services/shared/users.service';
 
@@ -7,10 +7,10 @@ import { UsersService, User } from '../../services/shared/users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit {
   private _users: User[];
   private _selected: User;
-  @ViewChild('data-user-close') private btnClose: ElementRef;
+  @ViewChild('dataUserClose') private btnClose: ElementRef;
   constructor(private usersService: UsersService) {
     usersService.getScrumTeamUsers().then(users => {
       this._users = users;
@@ -20,11 +20,22 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+  }
+
   get users(): User[] {
     return this._users;
   }
-  
+
   set add(user: User) {
+    user.id = this._users.length;
+    this._users.push(user);
+    this.btnClose.nativeElement.click();
+  }
+  
+  set update(user: User) {
+
+    Object.assign(this._selected, user);
     this.btnClose.nativeElement.click();
   }
 
@@ -33,7 +44,6 @@ export class UsersComponent implements OnInit {
   }
 
   set selected(value: User) {
-    console.log(value);
     this._selected = value;
   }
 }

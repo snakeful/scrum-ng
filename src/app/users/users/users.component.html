@@ -9,18 +9,18 @@
       <p class="card-text"><span class="title">Role</span>: {{user.roleId}}</p>
     </div>
   </div>
-  <div class="modal fade" id="data-user" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{(selected && selected.id) ? 'Edit' : 'New'}} User {{selected && selected.name}}</h5>
-          <button type="button" class="close" data-dismiss="modal" title="Close" id="data-user-close">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <app-user [user]="selected" (saveUser)="add=$event"></app-user>
-        </div>
+</div>
+<div class="modal fade" id="data-user" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{(selected && selected.id) ? 'Edit' : 'New'}} User {{selected && selected.name}}</h5>
+        <button #dataUserClose type="button" class="close" data-dismiss="modal" title="Close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-user [user]="selected" (saveUser)="selected ? update = $event : add = $event"></app-user>
       </div>
     </div>
   </div>

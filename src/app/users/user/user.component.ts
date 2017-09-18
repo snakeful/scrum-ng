@@ -22,7 +22,6 @@ export class UserComponent implements OnInit {
   }
 
   public doSaveUser() {
-    console.log('Applying changes')
     this.saveUser.emit(this.tempUser);
   }
 
