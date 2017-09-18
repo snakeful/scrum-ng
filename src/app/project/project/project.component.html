@@ -5,11 +5,11 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button></span>
+  <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#userStoryData"><i class="fa fa-plus"></i></button></span>
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
       <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
-      <app-user-story [object]="project" [canDelete]="true"></app-user-story>
+      <app-user-stories [object]="project" [canDelete]="true" [creatingUserStory]="creatingUserStory"></app-user-stories>
     </div>
   </div>
   <div class="col-8 scrollspy" data-spy="scroll" data-offset="0">
@@ -39,6 +39,18 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="userStoryData" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New User Story</h5>
+      </div>
+      <div class="modal-body">
+        <app-user-story (saveUserStory)="add = $event"></app-user-story>
       </div>
     </div>
   </div>

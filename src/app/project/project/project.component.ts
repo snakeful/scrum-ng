@@ -47,4 +47,8 @@ export class ProjectComponent implements OnInit {
   set project(value: Project) {
     this._project = value;
   }
+
+  set add(value: UserStory) {
+    console.log('User Story created' + value);
+  }
 }

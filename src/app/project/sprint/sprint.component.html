@@ -10,7 +10,7 @@
       <h3 class="text-center">User Stories</h3>
       <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
         <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
-        <app-user-story [object]="sprint" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-story>
+        <app-user-stories [object]="sprint" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-stories>
       </div>
     </div>
     <div class="col-4">
