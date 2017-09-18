@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ScrumObject, Role, User } from './users.service'
+import { ScrumObject, Role, User } from './users.service';
 
 @Injectable()
 
@@ -125,6 +125,7 @@ export class ProjectsService {
     ];
     this.projects.forEach(project => {
       project.sprints[0].userStories.push(project.userStories[0]);
+      project.userStories.splice(0, 1);
     });
   }
 
@@ -221,6 +222,12 @@ export class ProjectsService {
   getOrigins(): Promise<Origin[]> {
     return new Promise<Origin[]>((resolve, reject) => {
       resolve(this.origins);
+    });
+  }
+
+  getPriorities(): Promise<StoryPriority[]> {
+    return new Promise<StoryPriority[]>((resolve, reject) => {
+      resolve(this._storyPriorities);
     });
   }
 }
