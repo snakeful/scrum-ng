@@ -123,6 +123,9 @@ export class ProjectsService {
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
     ];
+    this.projects.forEach(project => {
+      project.sprints[0].userStories.push(project.userStories[0]);
+    });
   }
 
   private getNewUserStories(): UserStory[] {
