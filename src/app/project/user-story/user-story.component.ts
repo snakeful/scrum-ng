@@ -8,7 +8,8 @@ import { UserStory } from "../../services/shared/projects.service";
   styleUrls: ['./user-story.component.css']
 })
 export class UserStoryComponent implements OnInit {
-  private _userStory: UserStory = new UserStory();
+  private _id: number = 0;
+  private _userStory: UserStory = new UserStory(--this._id, 'Test', 'This is a test.', 0, 0);
   private _saveUserStory: EventEmitter<UserStory> = new EventEmitter<UserStory>();
   constructor() { }
 
@@ -17,7 +18,7 @@ export class UserStoryComponent implements OnInit {
 
   doSaveUserStory(story) {
     this._saveUserStory.emit(story);
-    this._userStory = new UserStory();
+    this._userStory = new UserStory(--this._id, 'Test', 'This is a test.', 0, 0);
   }
 
   get userStory(): UserStory {

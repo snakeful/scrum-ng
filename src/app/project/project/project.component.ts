@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects.service';
@@ -8,8 +8,9 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit, AfterViewInit {
   private _project: Project;
+  @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute) {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
       .then((project) => {
@@ -18,6 +19,9 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  
+  ngAfterViewInit() {
   }
 
   assignStoryToUserStories(userStories: UserStory[], story: UserStory) {
@@ -50,5 +54,7 @@ export class ProjectComponent implements OnInit {
 
   set add(value: UserStory) {
     console.log('User Story created' + value);
+    this._project.userStories.push(value);
+    this.btnClose.nativeElement.click();
   }
 }
