@@ -4,26 +4,26 @@
     <div droppable [dropScope]="data.dropScope" class="container-fluid border-sprint-tasks" (onDrop)="data.onDrop($event.dragData)">
       <p *ngIf="data.tasks.length === 0">No tasks assigned.</p>
       <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill" [ngClass]="data.color" data-toggle="modal" [dragData]="task" data-target="#taskData" (click)="selectedTask = task" title="Task: {{task.name}}  Points: {{task.points}}  Points Executed: {{task.executedPoints}}  Points Remaining: {{task.points - task.executedPoints}}">{{task.name | limitTo: 10}}</span>
-      <div *ngIf="selectedTask" class="modal fade" id="taskData" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Task {{selectedTask.name}}</h5>
-            </div>
-            <div class="modal-body">
-              <p><span class="title">Status</span> {{selectedTask.statusId | taskStatus}} <span class="float-right"><span class="title">Success Task</span> <i class="fa" [ngClass]="{'fa-check-square-o': selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
-              <p><span class="title">Points</span> {{selectedTask.points}} <span class="float-right"><span class="title">Origin</span> {{selectedTask.originId | origin: 'name'}}</span></p>
-              <p><span class="title">Executed Points</span> {{selectedTask.executedPoints}}</p>
-              <p><span class="title">Remaining Points</span> {{selectedTask.points - selectedTask.executedPoints}}</p>
-              <p><span class="title">Actual User</span> {{selectedTask.userId | scrumTeam: 'name'}}</p>
-              <p><span class="title">Created</span> {{selectedTask.date | date: 'dd/MM/yyyy hh:mm:ss'}}
-                <span *ngIf="selectedTask.statusId === 1 || selectedTask.statusId === 2">
-                  <span><button class="btn btn-sm btn-secondary float-right" [disabled]="selectedTask.executedPoints === 0" (click)="substractExecutedPoints(selectedTask)" data-toggle="tooltip" title="Substract Executed Point"><i class="fa fa-minus"></i></button></span>
-                  <span><button class="btn btn-sm btn-primary float-right" [disabled]="selectedTask.executedPoints === (selectedTask.points - 1)" (click)="addExecutedPoints(selectedTask)" data-toggle="tooltip" title="Add Executed Point"><i class="fa fa-plus"></i></button></span>
-                </span>
-              </p>
-            </div>
-          </div>
+    </div>
+  </div>
+  <div *ngIf="selectedTask" class="modal fade" id="taskData" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Task {{selectedTask.name}}</h5>
+        </div>
+        <div class="modal-body">
+          <p><span class="title">Status</span> {{selectedTask.statusId | taskStatus}} <span class="float-right"><span class="title">Success Task</span> <i class="fa" [ngClass]="{'fa-check-square-o': selectedTask.successTask, 'fa-square-o': !selectedTask.successTask}"></i></span></p>
+          <p><span class="title">Points</span> {{selectedTask.points}} <span class="float-right"><span class="title">Origin</span> {{selectedTask.originId | origin: 'name'}}</span></p>
+          <p><span class="title">Executed Points</span> {{selectedTask.executedPoints}}</p>
+          <p><span class="title">Remaining Points</span> {{selectedTask.points - selectedTask.executedPoints}}</p>
+          <p><span class="title">Actual User</span> {{selectedTask.userId | scrumTeam: 'name'}}</p>
+          <p><span class="title">Created</span> {{selectedTask.date | date: 'dd/MM/yyyy hh:mm:ss'}}
+            <span *ngIf="selectedTask.statusId === 1 || selectedTask.statusId === 2">
+              <span><button class="btn btn-sm btn-secondary float-right" [disabled]="selectedTask.executedPoints === 0" (click)="substractExecutedPoints(selectedTask)" data-toggle="tooltip" title="Substract Executed Point"><i class="fa fa-minus"></i></button></span>
+              <span><button class="btn btn-sm btn-primary float-right" [disabled]="selectedTask.executedPoints === (selectedTask.points - 1)" (click)="addExecutedPoints(selectedTask)" data-toggle="tooltip" title="Add Executed Point"><i class="fa fa-plus"></i></button></span>
+            </span>
+          </p>
         </div>
       </div>
     </div>
