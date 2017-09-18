@@ -27,6 +27,7 @@ import { StoryPriorityPipe } from './project/story-priority.pipe';
 import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
+import { TaskComponent } from './project/task/task.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     StoryPriorityPipe,
     StoryStatusPipe,
     OriginPipe,
-    ScrumTeamPipe
+    ScrumTeamPipe,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

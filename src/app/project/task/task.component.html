@@ -1,0 +1,11 @@
+<p><span class="title">Status</span> {{task.statusId | taskStatus}} <span class="float-right"><span class="title">Success Task</span> <i class="fa" [ngClass]="{'fa-check-square-o': task.successTask, 'fa-square-o': !task.successTask}"></i></span></p>
+<p><span class="title">Points</span> {{task.points}} <span class="float-right"><span class="title">Origin</span> {{task.originId | origin: 'name'}}</span></p>
+<p><span class="title">Executed Points</span> {{task.executedPoints}}</p>
+<p><span class="title">Remaining Points</span> {{task.points - task.executedPoints}}</p>
+<p><span class="title">Actual User</span> {{task.userId | scrumTeam: 'name'}}</p>
+<p><span class="title">Created</span> {{task.date | date: 'dd/MM/yyyy hh:mm:ss'}}
+  <span *ngIf="task.statusId === 1 || task.statusId === 2">
+    <span><button class="btn btn-sm btn-secondary float-right" [disabled]="task.executedPoints === 0" (click)="substractExecutedPoints(task)" data-toggle="tooltip" title="Substract Executed Point"><i class="fa fa-minus"></i></button></span>
+    <span><button class="btn btn-sm btn-primary float-right" [disabled]="task.executedPoints === (task.points - 1)" (click)="addExecutedPoints(task)" data-toggle="tooltip" title="Add Executed Point"><i class="fa fa-plus"></i></button></span>
+  </span>
+</p>

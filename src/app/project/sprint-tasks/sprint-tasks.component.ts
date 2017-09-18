@@ -128,20 +128,6 @@ export class SprintTasksComponent implements OnInit {
     });
   }
 
-  addExecutedPoints(task) {
-    if (task.points > task.executedPoints) {
-      if (task.statusId !== 3) {
-        task.executedPoints++;
-      }
-    }
-  }
-
-  substractExecutedPoints(task) {
-    if (task.executedPoints > 0) {
-      task.executedPoints--;
-    }
-  }
-
   /* Properties */
 
   get tasks(): any[] {
