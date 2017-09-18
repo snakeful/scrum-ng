@@ -68,9 +68,6 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     }, {
       path: 'users',
       component: UsersComponent
-    }, {
-      path: 'user/:id',
-      component: UserComponent
     }], {
       useHash: true
     })
