@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 
 import { UsersService } from './services/shared/users.service';
@@ -51,6 +52,7 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     ReactiveFormsModule,
     Ng2DragDropModule.forRoot(),
     RouterModule.forRoot([{
