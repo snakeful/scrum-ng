@@ -19,15 +19,15 @@ import { ProjectComponent } from './project/project/project.component';
 import { UsersComponent } from './users/users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { SprintComponent } from './project/sprint/sprint.component';
-import { UserStoryComponent } from './project/user-story/user-story.component';
+import { UserStoriesComponent } from './project/user-stories/user-stories.component';
 import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.component';
+import { TaskComponent } from './project/task/task.component';
 import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
 import { StoryPriorityPipe } from './project/story-priority.pipe';
 import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
-import { TaskComponent } from './project/task/task.component';
 
 @NgModule({
   declarations: [
@@ -41,15 +41,15 @@ import { TaskComponent } from './project/task/task.component';
     UsersComponent,
     UserComponent,
     SprintComponent,
-    UserStoryComponent,
+    UserStoriesComponent,
     SprintTasksComponent,
+    TaskComponent,
     LimitToPipe,
     TaskStatusPipe,
     StoryPriorityPipe,
     StoryStatusPipe,
     OriginPipe,
-    ScrumTeamPipe,
-    TaskComponent
+    ScrumTeamPipe
   ],
   imports: [
     BrowserModule,

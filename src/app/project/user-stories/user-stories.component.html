@@ -8,3 +8,16 @@
     <div class="row col"><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></div>
   </li>
 </ul>
+<div *ngIf="creatingUserStory && story" class="modal fade" id="userStoryData" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New User Story</h5>
+      </div>
+      <div class="modal-body">
+        <label for="storyName"></label>
+        <input type="text" class="form-control" [(ngModel)]="story.name" id="storyName">
+      </div>
+    </div>
+  </div>
+</div>

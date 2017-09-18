@@ -3,17 +3,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project, UserStory } from '../../services/shared/projects.service';
 
 @Component({
-  selector: 'app-user-story',
-  templateUrl: './user-story.component.html',
-  styleUrls: ['./user-story.component.css']
+  selector: 'app-user-stories',
+  templateUrl: './user-stories.component.html',
+  styleUrls: ['./user-stories.component.css']
 })
-export class UserStoryComponent implements OnInit {
+export class UserStoriesComponent implements OnInit {
   private _selectCurrentStory: Boolean = false;
   private _currentStory: UserStory;
-
+  private _canDelete: Boolean = false;
+  private _creatingUserStory: Boolean;
   @Input() object: any;
   @Input() showDescription: Boolean = true;
-  private _canDelete: Boolean = false;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
   constructor() { }
 
@@ -52,5 +52,13 @@ export class UserStoryComponent implements OnInit {
 
   @Input() set canDelete(value: Boolean) {
     this._canDelete = value;
+  }
+
+  get creatingUserStory(): Boolean {
+    return this._creatingUserStory;
+  }
+
+  @Input() set creatingUserStory(value: Boolean) {
+    this._creatingUserStory = value;
   }
 }
