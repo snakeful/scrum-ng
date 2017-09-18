@@ -71,7 +71,9 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     }, {
       path: 'user/:id',
       component: UserComponent
-    }])
+    }], {
+      useHash: true
+    })
   ],
   providers: [
     ProjectsService,
