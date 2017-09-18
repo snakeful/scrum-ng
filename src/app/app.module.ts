@@ -14,7 +14,6 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProjectsComponent } from './project/projects/projects.component';
-import { StoriesComponent } from './project/stories/stories.component';
 import { ProjectComponent } from './project/project/project.component';
 import { UsersComponent } from './users/users/users.component';
 import { UserComponent } from './users/user/user.component';
@@ -37,7 +36,6 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
     HomeComponent,
     FooterComponent,
     ProjectsComponent,
-    StoriesComponent,
     ProjectComponent,
     UsersComponent,
     UserComponent,
