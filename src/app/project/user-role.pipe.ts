@@ -15,12 +15,9 @@ export class UserRolePipe implements PipeTransform {
 
   transform(value: string, field: string): string {
     const id: number = parseInt(value, 0);
-    console.log(id);
     for (let index = 0; index < this._roles.length; index++) {
       const role: Role = this._roles[index];
-      console.log(role);
       if (role.id === id)  {
-        console.log(role[field]);
         return role[field];
       }
     }
