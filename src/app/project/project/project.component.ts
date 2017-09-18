@@ -20,7 +20,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
   }
-  
+
   ngAfterViewInit() {
   }
 

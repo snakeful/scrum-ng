@@ -62,7 +62,7 @@ export class UsersService {
       resolve(this.roles);
     });
   }
-  
+
   getProductOwnerUsers(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
       resolve(this.productOwnerUsers);

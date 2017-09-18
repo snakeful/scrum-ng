@@ -6,7 +6,7 @@
     <div class="card-body">
       <h5 class="card-title"><span class="title">User</span>: {{user.name}}</h5>
       <p class="card-text"><span class="title">Description</span>: {{user.desc}}</p>
-      <p class="card-text"><span class="title">Role</span>: {{user.roleId}}</p>
+      <p class="card-text"><span class="title">Role</span>: {{user.roleId | userRole: 'name'}}</p>
     </div>
   </div>
 </div>

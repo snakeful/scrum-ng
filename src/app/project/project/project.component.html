@@ -9,7 +9,7 @@
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
       <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
-      <app-user-stories [object]="project" [canDelete]="true" [creatingUserStory]="creatingUserStory"></app-user-stories>
+      <app-user-stories [object]="project" [canDelete]="true"></app-user-stories>
     </div>
   </div>
   <div class="col-8 scrollspy" data-spy="scroll" data-offset="0">

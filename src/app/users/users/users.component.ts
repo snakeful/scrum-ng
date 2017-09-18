@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this._users.push(user);
     this.btnClose.nativeElement.click();
   }
-  
+
   set update(user: User) {
 
     Object.assign(this._selected, user);
