@@ -13,6 +13,7 @@ export class ProjectsComponent implements OnInit {
   private _productOwnerUsers: User[];
   private _scrumMasterUsers: User[];
   private _scrumTeamUsers: User[];
+  private _selected: Project = new Project();
   constructor(private projectsService: ProjectsService, private usersService: UsersService) {
   }
 
@@ -67,5 +68,9 @@ export class ProjectsComponent implements OnInit {
 
   get scrumTeamUsers(): User[] {
     return this._scrumTeamUsers;
+  }
+
+  get selected(): Project {
+    return this._selected;
   }
 }

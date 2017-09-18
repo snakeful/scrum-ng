@@ -19,7 +19,6 @@ export class UserStoryComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   doSaveUserStory(story) {
