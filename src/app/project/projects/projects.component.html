@@ -5,7 +5,7 @@
       <h4 class="card-title">{{project.name}}</h4>
       <p class="card-text">{{project.desc}}</p>
       <a [routerLink]="['/project', project.id]" class="btn btn-sm btn-primary">Go to project</a>
-      <span class="float-right"><button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button></span>
+      <span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#data-project" (click)="selected = project" title="Edit Project"><i class="fa fa-edit"></i></button></span>
     </div>
   </div>
 </div>
@@ -30,17 +30,18 @@
           <option *ngFor="let scrumMaster of scrumMasterUsers" [value]="scrumMaster.id">{{scrumMaster.name}}</option>
         </select>
         <label for="scrumTeam">Scrum Team</label>
-        <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUser(project)" name="scrumTeam" id="scrumTeam">
+        <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUser(selected)" name="scrumTeam" id="scrumTeam">
           <option *ngFor="let user of scrumTeamUsers" [value]="scrumTeamUsers.indexOf(user)">{{user.name}}</option>
         </select>
+        <div *ngIf="selected.scrumTeam.length === 0">No Scrum Team assigned.</div>
         <div class="container-fluid">
           <span *ngFor="let user of selected.scrumTeam" class="item badge badge-pill badge-dark">
-            {{user.name}}  <i class="fa fa-times" (click)="doRemoveUser(project, user)"></i>
+            {{user.name}} <i class="fa fa-times" (click)="doRemoveUser(project, user)"></i>
           </span>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary float-right" (click)="doSaveProject()" title="Save Project"><i class="fa fa-check"></i></button>
+        <button class="btn btn-primary float-right" (click)="doSaveProject(selected)" title="Save Project"><i class="fa fa-check"></i></button>
       </div>
     </div>
   </div>
