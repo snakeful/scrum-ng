@@ -5,11 +5,11 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-4">
+  <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button></span>
     <h3 class="text-center">User Stories</h3>
     <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
       <div *ngIf="project.userStories.length === 0" class="text-center">No user stories to assign</div>
-      <app-user-story [object]="project"></app-user-story>
+      <app-user-story [object]="project" [canDelete]="true"></app-user-story>
     </div>
   </div>
   <div class="col-8 scrollspy" data-spy="scroll" data-offset="0">
