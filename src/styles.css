@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+.card-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-width: 1.5px;
+}
+
+.card {
+  flex: 0 1 auto;
+  align-self: baseline;
+  margin: 2.5px;
+  cursor: pointer;
+}
+
+span.title {
+  font-weight: bolder;
+}
