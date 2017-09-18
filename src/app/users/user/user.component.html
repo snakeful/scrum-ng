@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="modal-body">
   <label for="name">User</label>
   <input type="text" class="form-control" name="name" id="name" [(ngModel)]="tempUser.name">
   <label for="desc">Description</label>
@@ -7,5 +7,7 @@
   <select class="form-control" [(ngModel)]="tempUser.roleId" name="role" id="role">
     <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
   </select>
+</div>
+<div class="modal-footer">
   <button class="btn btn-primary float-right" (click)="doSaveUser()" title="Save User"><i class="fa fa-check"></i></button>
 </div>

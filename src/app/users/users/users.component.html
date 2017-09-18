@@ -5,7 +5,7 @@
   <div *ngFor="let user of users" class="card" data-toggle="modal" data-target="#data-user" (click)="selected = user">
     <div class="card-body">
       <h5 class="card-title"><span class="title">User</span>: {{user.name}}</h5>
-      <p class="card-text"><span class="title">Description</span>: {{user.desc}}</p>
+      <p class="card-text"><span class="title">Description</span>: {{user.desc || '' | limitTo: 15}}</p>
       <p class="card-text"><span class="title">Role</span>: {{user.roleId | userRole: 'name'}}</p>
     </div>
   </div>
@@ -19,9 +19,7 @@
           <i class="fa fa-times"></i>
         </button>
       </div>
-      <div class="modal-body">
-        <app-user [user]="selected" (saveUser)="selected ? update = $event : add = $event"></app-user>
-      </div>
+      <app-user [user]="selected" (saveUser)="selected ? update = $event : add = $event"></app-user>
     </div>
   </div>
 </div>
