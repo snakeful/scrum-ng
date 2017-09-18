@@ -13,6 +13,7 @@ export class UserStoryComponent implements OnInit {
 
   @Input() object: any;
   @Input() showDescription: Boolean = true;
+  private _canDelete: Boolean = false;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
   constructor() { }
 
@@ -29,6 +30,10 @@ export class UserStoryComponent implements OnInit {
     }
   }
 
+  doDeleteUserStory(story) {
+    this.object.userStories.splice(this.object.userStories.indexOf(story), 1);
+  }
+
   get currentStory(): UserStory {
     return this._currentStory;
   }
@@ -39,5 +44,13 @@ export class UserStoryComponent implements OnInit {
 
   @Input() set selectCurrentStory(value) {
     this._selectCurrentStory = value;
+  }
+
+  get canDelete(): Boolean {
+    return this._canDelete;
+  }
+
+  @Input() set canDelete(value: Boolean) {
+    this._canDelete = value;
   }
 }
