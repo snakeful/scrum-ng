@@ -1,0 +1,19 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Sprint</h5>
+        <button #dataSprintModalClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <label for="name"></label>
+        <input type="text" class="form-control" [(ngModel)]="sprint.name">
+        <label for="start"></label>
+        <input type="date" class="form-control" [(ngModel)]="sprint.start">
+        <label for="end"></label>
+        <input type="date" class="form-control" [(ngModel)]="sprint.end">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-primary float-right" (click)="doSaveSprint(sprint)"><i class="fa fa-check"></i></button>
+      </div>
+    </div>
+  </div>
