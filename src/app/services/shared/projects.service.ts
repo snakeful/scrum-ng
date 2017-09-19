@@ -11,10 +11,10 @@ export class Project extends ScrumObject {
   scrumMasterId: User;
   scrumMaster: User;
   scrumTeam: User[];
-  constructor(id?: number, name?: string, desc?: string, userStories?: any[], sprints?: any[]) {
+  constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
     super(id, name, desc);
-    this.userStories = userStories;
-    this.sprints = sprints;
+    this.userStories = userStories || [];
+    this.sprints = sprints || [];
     this.scrumTeam = [];
   }
 }
@@ -74,9 +74,6 @@ export class Task extends ScrumObject {
 }
 
 export class TaskStatus extends ScrumObject {
-  constructor(id?: number, name?: string, desc?: string) {
-    super(id, name, desc);
-  }
 }
 
 export class Origin extends ScrumObject {
