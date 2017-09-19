@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { UserStory, StoryPriority, ProjectsService } from '../../services/shared/projects.service';
 
@@ -8,9 +8,7 @@ import { UserStory, StoryPriority, ProjectsService } from '../../services/shared
   styleUrls: ['./user-story.component.css']
 })
 export class UserStoryComponent implements OnInit {
-  private _id = 0;
-  private _userStory: UserStory = new UserStory(--this._id, 'Test', 'This is a test.', 10, 0);
-  private _saveUserStory: EventEmitter<UserStory> = new EventEmitter<UserStory>();
+  private _userStory: UserStory = new UserStory();
   private _priorities: StoryPriority[];
   constructor(private projectsService: ProjectsService) {
     projectsService.getPriorities().then(priorities => {
@@ -21,17 +19,12 @@ export class UserStoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  doSaveUserStory(story) {
-    this._saveUserStory.emit(story);
-    this._userStory = new UserStory(--this._id, 'Test', 'This is a test.', 10, 0);
-  }
-
   get userStory(): UserStory {
     return this._userStory;
   }
 
-  @Output() get saveUserStory(): EventEmitter<UserStory> {
-    return this._saveUserStory;
+  @Input() set userStory(value: UserStory) {
+    this._userStory = value;
   }
 
   get priorities(): StoryPriority[] {

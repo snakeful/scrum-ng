@@ -20,6 +20,7 @@ import { UserComponent } from './users/user/user.component';
 import { SprintComponent } from './project/sprint/sprint.component';
 import { UserStoryComponent } from './project/user-story/user-story.component';
 import { UserStoriesComponent } from './project/user-stories/user-stories.component';
+import { UserStoryModalComponent } from './project/user-story-modal/user-story-modal.component';
 import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.component';
 import { TaskComponent } from './project/task/task.component';
 import { LimitToPipe } from './limit-to.pipe';
@@ -43,6 +44,7 @@ import { UserRolePipe } from './project/user-role.pipe';
     SprintComponent,
     UserStoryComponent,
     UserStoriesComponent,
+    UserStoryModalComponent,
     SprintTasksComponent,
     TaskComponent,
     LimitToPipe,
