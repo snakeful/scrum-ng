@@ -29,6 +29,8 @@ export class UsersService {
   private productOwnerUsers: User[];
   private scrumMasterUsers: User[];
   private scrumTeamUsers: User[];
+  private stakeholderUsers: User[];
+  private administratorUsers: User[];
   constructor() {
     this.roles = [
       new Role(0, 'Product Owner'),
@@ -38,22 +40,34 @@ export class UsersService {
       new Role(4, 'Administrators')
     ];
     this.productOwnerUsers = [
-      new User(0, 'Test1', undefined, 0),
-      new User(1, 'Test2', undefined, 0),
-      new User(2, 'Test3', undefined, 0),
-      new User(3, 'Test4', undefined, 0)
+      new User(0, 'Product Owner 1', undefined, 0),
+      new User(1, 'Product Owner 2', undefined, 0),
+      new User(2, 'Product Owner 3', undefined, 0),
+      new User(3, 'Product Owner 4', undefined, 0)
     ];
     this.scrumMasterUsers = [
-      new User(4, 'Test5', undefined, 1),
-      new User(5, 'Test6', undefined, 1),
-      new User(6, 'Test7', undefined, 1),
-      new User(7, 'Test8', undefined, 1)
+      new User(4, 'Scrum Master 1', undefined, 1),
+      new User(5, 'Scrum Master 2', undefined, 1),
+      new User(6, 'Scrum Master 3', undefined, 1),
+      new User(7, 'Scrum Master 4', undefined, 1)
     ];
     this.scrumTeamUsers = [
-      new User(8, 'Test9', undefined, 2),
-      new User(9, 'Test10', undefined, 2),
-      new User(10, 'Test11', undefined, 2),
-      new User(11, 'Test12', undefined, 2)
+      new User(8, 'Scrum Team 1', undefined, 2),
+      new User(9, 'Scrum Team 2', undefined, 2),
+      new User(10, 'Scrum Team 3', undefined, 2),
+      new User(11, 'Scrum Team 4', undefined, 2)
+    ];
+    this.stakeholderUsers = [
+      new User(12, 'Stakeholder 1', undefined, 3),
+      new User(13, 'Stakeholder 2', undefined, 3),
+      new User(14, 'Stakeholder 3', undefined, 3),
+      new User(15, 'Stakeholder 4', undefined, 3)
+    ];
+    this.administratorUsers = [
+      new User(16, 'Administrator 1', undefined, 4),
+      new User(17, 'Administrator 2', undefined, 4),
+      new User(18, 'Administrator 3', undefined, 4),
+      new User(19, 'Administrator 4', undefined, 4)
     ];
   }
 
@@ -78,6 +92,12 @@ export class UsersService {
   getScrumTeamUsers(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
       resolve(this.scrumTeamUsers);
+    });
+  }
+
+  getStakeholderUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {
+      resolve(this.stakeholderUsers);
     });
   }
 }

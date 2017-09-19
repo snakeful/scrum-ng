@@ -21,6 +21,10 @@
         <input type="text" class="form-control" [(ngModel)]="selected.name">
         <label for="desc">Description</label>
         <input type="text" class="form-control" [(ngModel)]="selected.desc">
+        <label for="stakeholder">Stakeholder</label>
+        <select class="form-control" [(ngModel)]="selected.stakeholderId" name="stakeholder" id="stakeholder">
+          <option *ngFor="let stakeholder of stakeholderUsers" [value]="stakeholder.id">{{stakeholder.name}}</option>
+        </select>
         <label for="productOwner">Product Owner</label>
         <select class="form-control" [(ngModel)]="selected.productOwnerId" name="productOwner" id="productOwner">
           <option *ngFor="let productOwner of productOwnerUsers" [value]="productOwner.id">{{productOwner.name}}</option>

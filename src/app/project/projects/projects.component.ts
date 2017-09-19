@@ -15,6 +15,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   private _productOwnerUsers: User[];
   private _scrumMasterUsers: User[];
   private _scrumTeamUsers: User[];
+  private _stakeholderUsers: User[];
   private _actual: Project;
   private _selected: Project = new Project();
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
@@ -40,6 +41,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.usersService.getScrumTeamUsers()
       .then(users => {
         this._scrumTeamUsers = users;
+      });
+
+    this.usersService.getStakeholderUsers()
+      .then(users => {
+        this._stakeholderUsers = users;
       });
   }
 
@@ -85,6 +91,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   get scrumTeamUsers(): User[] {
     return this._scrumTeamUsers;
+  }
+
+  get stakeholderUsers(): User[] {
+    return this._stakeholderUsers;
   }
 
   get selected(): Project {
