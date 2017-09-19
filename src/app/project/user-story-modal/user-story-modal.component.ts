@@ -39,4 +39,5 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   @Output() get saveUserStory(): EventEmitter<any> {
     return this._saveUserStory;
   }
+
 }

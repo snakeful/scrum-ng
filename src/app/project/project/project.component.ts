@@ -52,8 +52,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this._project = value;
   }
 
-  set add(value: any) {
-    this._project.userStories.push(value.userStory);
-    value.btnClose.nativeElement.click();
-  }
+    set addUserStory(value: any) {
+      this._project.userStories.push(value.userStory);
+      value.btnClose.nativeElement.click();
+    }
+
+    set addSprint(value: any) {
+      this._project.sprints.push(value.sprint);
+      value.btnClose.nativeElement.click();
+    }
 }

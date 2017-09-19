@@ -19,7 +19,7 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
   }
-  
+
   doSaveSprint(sprint) {
     this._saveSprint.emit({
       sprint: sprint,
