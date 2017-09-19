@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
 
   @Input() set user(value: User) {
     this._user = value;
-    this._tempUser = Object.assign(new User(undefined, undefined, undefined, 0), value);
+    this._tempUser = Object.assign(new User(0, undefined, undefined, undefined, 0), value);
   }
 
   get roles(): Role[] {

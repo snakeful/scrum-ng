@@ -4,8 +4,9 @@
 <div class="container-fluid card-flex">
   <div *ngFor="let user of users" class="card" data-toggle="modal" data-target="#data-user" (click)="selected = user">
     <div class="card-body">
-      <h5 class="card-title"><span class="title">User</span>: {{user.name}}</h5>
-      <p class="card-text"><span class="title">Description</span>: {{user.desc || '' | limitTo: 15}}</p>
+      <h5 class="card-title"><span class="title">User</span>: {{user.user}}</h5>
+      <p class="card-text"><span class="title">First Name</span>: {{user.firstName || '' | limitTo: 15}}</p>
+      <p class="card-text"><span class="title">Last Name</span>: {{user.lastName || '' | limitTo: 15}}</p>
       <p class="card-text"><span class="title">Role</span>: {{user.roleId | userRole: 'name'}}</p>
     </div>
   </div>
@@ -14,7 +15,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{(selected && selected.id) ? 'Edit' : 'New'}} User {{selected && selected.name}}</h5>
+        <h5 class="modal-title">{{(selected && selected.id) ? 'Edit' : 'New'}} User {{selected && selected.user}}</h5>
         <button #dataUserClose type="button" class="close" data-dismiss="modal" title="Close">
           <i class="fa fa-times"></i>
         </button>

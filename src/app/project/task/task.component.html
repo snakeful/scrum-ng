@@ -2,7 +2,7 @@
 <p><span class="title">Points</span> {{task.points}} <span class="float-right"><span class="title">Origin</span> {{task.originId | origin: 'name'}}</span></p>
 <p><span class="title">Executed Points</span> {{task.executedPoints}}</p>
 <p><span class="title">Remaining Points</span> {{task.points - task.executedPoints}}</p>
-<p><span class="title">Actual User</span> {{task.userId | scrumTeam: 'name'}}</p>
+<p><span class="title">Actual User</span> {{task.userId | scrumTeam: 'full'}}</p>
 <p><span class="title">Created</span> {{task.date | date: 'dd/MM/yyyy hh:mm:ss'}}
   <span *ngIf="task.statusId === 1 || task.statusId === 2">
     <span><button class="btn btn-sm btn-secondary float-right" [disabled]="task.executedPoints === 0" (click)="substractExecutedPoints(task)" data-toggle="tooltip" title="Substract Executed Point"><i class="fa fa-minus"></i></button></span>

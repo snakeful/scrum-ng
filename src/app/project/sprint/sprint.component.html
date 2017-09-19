@@ -40,7 +40,7 @@
               <tr *ngFor="let task of story.tasks">
                 <td>{{task.name}}</td>
                 <td>{{task.statusId | taskStatus}}</td>
-                <td>{{task.userId | scrumTeam: 'name'}}</td>
+                <td>{{task.userId | scrumTeam: 'full'}}</td>
                 <td>{{task.points}}</td>
               </tr>
             </tbody>
@@ -68,22 +68,22 @@
             <div class="col-md-6 col-sm-12">
               <label for="taskUser">User</label>
               <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
-                <option *ngFor="let user of sprint.project.scrumTeam" [value]="user.id">{{user.name}}</option>
+                <option *ngFor="let user of sprint.project.scrumTeam" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
               </select>
             </div>
             <div class="col-md-6 col-sm-12">
               <label for="taskPoints">Points</label>
               <select class="form-control" [(ngModel)]="newTask.points" name="taskPoints" id="taskPoints">
-                <option value="1">1 Pts - Low Easy</option>
-                <option value="2">2 Pts - Medium Easy</option>
-                <option value="3">3 Pts - Easy High</option>
-                <option value="4">4 Pts - Low Normal</option>
-                <option value="5">5 Pts - Medium Normal</option>
-                <option value="6">6 Pts - Normal High</option>
-                <option value="7">7 Pts - Low Hard</option>
-                <option value="8">8 Pts - Normal Hard</option>
-                <option value="9">9 Pts - Medium Hard</option>
-                <option value="10">10 Pts - Hard High</option>
+                <option [ngValue]="1">1 Pts - Low Easy</option>
+                <option [ngValue]="2">2 Pts - Medium Easy</option>
+                <option [ngValue]="3">3 Pts - Easy High</option>
+                <option [ngValue]="4">4 Pts - Low Normal</option>
+                <option [ngValue]="5">5 Pts - Medium Normal</option>
+                <option [ngValue]="6">6 Pts - Normal High</option>
+                <option [ngValue]="7">7 Pts - Low Hard</option>
+                <option [ngValue]="8">8 Pts - Normal Hard</option>
+                <option [ngValue]="9">9 Pts - Medium Hard</option>
+                <option [ngValue]="10">10 Pts - Hard High</option>
               </select>
             </div>
           </div>

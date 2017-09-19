@@ -65,8 +65,9 @@ export class SprintComponent implements OnInit {
     this._showCreateTask = true;
   }
 
-  doCreateTask(task) {
+  doCreateTask(task: Task) {
     this.cleanNewTask();
+    console.log(task);
     if (this.story && this.story.tasks) {
       this.story.tasks.push(task);
       this.addTask(task);

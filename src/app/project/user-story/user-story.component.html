@@ -4,5 +4,5 @@
 <input type="text" class="form-control" [(ngModel)]="userStory.desc">
 <label for="priority">Priority</label>
 <select class="form-control" [(ngModel)]="userStory.priorityId" name="priority" id="priority">
-  <option *ngFor="let priority of priorities" [value]="priority.id">{{priority.name}}</option>
+  <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>
 </select>

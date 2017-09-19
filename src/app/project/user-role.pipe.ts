@@ -13,11 +13,10 @@ export class UserRolePipe implements PipeTransform {
     });
   }
 
-  transform(value: string, field: string): string {
-    const id: number = parseInt(value, 0);
+  transform(value: number, field: string): string {
     for (let index = 0; index < this._roles.length; index++) {
       const role: Role = this._roles[index];
-      if (role.id === id)  {
+      if (role.id === value)  {
         return role[field];
       }
     }

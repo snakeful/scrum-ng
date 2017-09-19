@@ -1,11 +1,13 @@
 <div class="modal-body">
-  <label for="name">User</label>
-  <input type="text" class="form-control" name="name" id="name" [(ngModel)]="tempUser.name">
-  <label for="desc">Description</label>
-  <input type="text" class="form-control" name="desc" id="desc" [(ngModel)]="tempUser.desc">
+  <label for="user">User</label>
+  <input type="text" class="form-control" name="user" id="user" [(ngModel)]="tempUser.user">
+  <label for="first">First Name</label>
+  <input type="text" class="form-control" name="first" id="first" [(ngModel)]="tempUser.firstName">
+  <label for="last">Last Name</label>
+  <input type="text" class="form-control" name="last" id="last" [(ngModel)]="tempUser.lastName">
   <label for="name">Role</label>
   <select class="form-control" [(ngModel)]="tempUser.roleId" name="role" id="role">
-    <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
   </select>
 </div>
 <div class="modal-footer">
