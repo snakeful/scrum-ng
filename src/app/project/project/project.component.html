@@ -44,11 +44,14 @@
   </div>
 </div>
 <div class="modal fade" id="userStoryData" role="dialog">
+  <app-user-story-modal (saveUserStory)="add = $event"></app-user-story-modal>
+</div>
+<div class="modal fade" id="sprintData" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">New User Story</h5>
-        <button #dataUserStoryClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
+        <h5 class="modal-title">New Sprint</h5>
+        <button #dataSprintClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
       </div>
       <div class="modal-body">
         <app-user-story (saveUserStory)="add = $event"></app-user-story>

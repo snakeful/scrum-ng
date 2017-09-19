@@ -97,7 +97,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       this._selected = cloneDeep(value);
     } else {
       this._actual = null;
-      this._selected = new Project();
+      this._selected = new Project(this._projects.length + 1);
     }
   }
 }
