@@ -31,6 +31,7 @@ import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
+import { UserModalComponent } from './users/user-modal/user-modal.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UserRolePipe } from './project/user-role.pipe';
     StoryStatusPipe,
     OriginPipe,
     ScrumTeamPipe,
-    UserRolePipe
+    UserRolePipe,
+    UserModalComponent
   ],
   imports: [
     BrowserModule,
