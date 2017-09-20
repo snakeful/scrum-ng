@@ -27,15 +27,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return this._users;
   }
 
-  set add(user: User) {
-    user.id = this._users.length;
-    this._users.push(user);
-    this.btnClose.nativeElement.click();
+  set add(user: any) {
+    user.user.id = this._users.length;
+    this._users.push(user.user);
+    user.btnClose.nativeElement.click();
   }
 
-  set update(user: User) {
-    Object.assign(this._selected, user);
-    this.btnClose.nativeElement.click();
+  set update(user: any) {
+    Object.assign(this._selected, user.user);
+    user.btnClose.nativeElement.click();
   }
 
   get selected(): User{

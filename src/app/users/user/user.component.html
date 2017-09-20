@@ -1,15 +1,10 @@
-<div class="modal-body">
-  <label for="user">User</label>
-  <input type="text" class="form-control" name="user" id="user" [(ngModel)]="tempUser.user">
-  <label for="first">First Name</label>
-  <input type="text" class="form-control" name="first" id="first" [(ngModel)]="tempUser.firstName">
-  <label for="last">Last Name</label>
-  <input type="text" class="form-control" name="last" id="last" [(ngModel)]="tempUser.lastName">
-  <label for="name">Role</label>
-  <select class="form-control" [(ngModel)]="tempUser.roleId" name="role" id="role">
-    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
-  </select>
-</div>
-<div class="modal-footer">
-  <button class="btn btn-primary float-right" (click)="doSaveUser()" title="Save User"><i class="fa fa-check"></i></button>
-</div>
+<label for="user">User</label>
+<input type="text" class="form-control" name="user" id="user" [(ngModel)]="user.user">
+<label for="first">First Name</label>
+<input type="text" class="form-control" name="first" id="first" [(ngModel)]="user.firstName">
+<label for="last">Last Name</label>
+<input type="text" class="form-control" name="last" id="last" [(ngModel)]="user.lastName">
+<label for="name">Role</label>
+<select class="form-control" [(ngModel)]="user.roleId" name="role" id="role">
+  <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
+</select>

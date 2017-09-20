@@ -8,9 +8,8 @@ import { UsersService, Role, User } from '../../services/shared/users.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private _user: User;
+  private _user: User = new User();
   private _roles: Role[];
-  private _tempUser: User = new User();
   @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
   constructor(private usersService: UsersService) {
     usersService.getRoles().then(roles => {
@@ -21,20 +20,19 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
-  public doSaveUser() {
-    this.saveUser.emit(this.tempUser);
+  get user(): User {
+    return this._user;
   }
 
   @Input() set user(value: User) {
-    this._user = value;
-    this._tempUser = Object.assign(new User(0, undefined, undefined, undefined, 0), value);
+    if (!value) {
+      this._user = new User();
+    } else {
+      this._user = value;
+    }
   }
 
   get roles(): Role[] {
     return this._roles;
-  }
-
-  get tempUser(): User {
-    return this._tempUser;
   }
 }
