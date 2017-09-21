@@ -54,9 +54,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   onChangeUser(project) {
     const user = this._scrumTeamUsers[project.selectedUser];
-    if (project.scrumTeam.indexOf(user) === -1) {
+    if (!project.scrumTeam.reduce((exists, scrumUser) => {
+      return exists || scrumUser.id === user.id
+    }, false)) {
       project.scrumTeam.push(user);
-    }
+    };
   }
 
   doSaveProject(project) {
@@ -70,7 +72,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   doRemoveUser(project: Project, user: User) {
-    project.scrumTeam.splice(project.scrumTeam.indexOf(user), 1);
+    project.scrumTeam.forEach((scrumUser, index, list) => {
+      if (scrumUser.id === user.id) {
+        list.splice(index, 1);
+      }
+    });
   }
 
   get projects(): Project[] {

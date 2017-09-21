@@ -1,18 +1,7 @@
-.container-fluid {
+.project-users {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   border-width: 1.5px;
-}
-
-.item {
-  flex: 0 1 auto;
-  align-self: baseline;
-  margin: 2.5px;
-  cursor: pointer;
-}
-
-span.title {
-  font-weight: bolder;
 }
