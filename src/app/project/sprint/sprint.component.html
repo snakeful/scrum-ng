@@ -1,98 +1,98 @@
-<div class="container-fluid text-center">
-  <h3 class="">{{sprint.name}}</h3>
-  <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}
-    <a href="#collapseSprint" class="btn btn-sm btn-secondary float-right" data-toggle="collapse" aria-expanded="true" aria-controls="collapseSprint"><i class="fa fa-bars"></i></a>
-  </p>
-</div>
-<div class="collapse show container-fluid" id="collapseSprint">
-  <div class="row">
-    <div class="col-3">
-      <h3 class="text-center">User Stories</h3>
-      <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
-        <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
-        <app-user-stories [object]="sprint" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-stories>
-      </div>
-    </div>
-    <div class="col-4">
-      <h3 class="text-center">User Story Selected</h3>
-      <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
-      <ng-template #storyData>
-        <h5 class="mb-1">{{story.name}}</h5>
-        <p>{{story.desc}}</p>
-        <div class="row col"><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></div>
-        <div class="row col"><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></div>
-      </ng-template>
-    </div>
-    <div class="col-5">
-      <div *ngIf="!showCreateTask;else createTask">
-        <h3 class="text-center">Tasks<span><button *ngIf="sprint.userStories.length !== 0" class="btn btn-sm btn-primary float-right" (click)="doNewTask()"><i class="fa fa-plus"></i></button></span></h3>
-        <div class="table-responsive" class="scrollspy-mini" data-spy="scroll" data-offset="0">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Status</th>
-                <th>Responsible User</th>
-                <th>Points</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="story && story.tasks">
-              <tr *ngFor="let task of story.tasks">
-                <td>{{task.name}}</td>
-                <td>{{task.statusId | taskStatus}}</td>
-                <td>{{task.userId | scrumTeam: 'full'}}</td>
-                <td>{{task.points}}</td>
-              </tr>
-            </tbody>
-          </table>
+<div class="container-fluid">
+  <div class="alert alert-secondary text-center">
+    <h3>{{sprint.name}}</h3>
+    <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}
+      <a href="#collapseSprint" class="btn btn-sm btn-secondary float-right" data-toggle="collapse" aria-expanded="true" aria-controls="collapseSprint"><i class="fa fa-bars"></i></a>
+    </p>
+  </div>
+  <div class="collapse show" id="collapseSprint">
+    <div class="row">
+      <div class="col-3">
+        <h3 class="text-center">User Stories</h3>
+        <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
+          <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
+          <app-user-stories [object]="sprint" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-stories>
         </div>
       </div>
-      <ng-template #createTask>
-        <h3 class="text-center">New Task<span><button class="btn btn-sm btn-danger float-right" (click)="doCancelCreateTask()"><i class="fa fa-times"></i></button></span></h3>
-        <form (ngSubmit)="doCreateTask(newTask)">
-          <div class="row">
-            <div class="col-md-10 col-sm-10">
-              <label for="taskName">Name</label>
-              <input type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
-            </div>
-            <div class="col-md-2 col-xs-2">
-              <label for="successTask">Success</label>
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <input type="checkbox" [(ngModel)]="newTask.successTask" name="successTask">
-                </span>
+      <div class="col-4">
+        <h3 class="text-center">User Story Selected</h3>
+        <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
+        <ng-template #storyData>
+          <h5 class="mb-1">{{story.name}}</h5>
+          <p>{{story.desc}}</p>
+          <div class="row col"><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></div>
+          <div class="row col"><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></div>
+        </ng-template>
+      </div>
+      <div class="col-5">
+        <div *ngIf="!showCreateTask;else createTask">
+          <h3 class="text-center">Tasks<span><button *ngIf="sprint.userStories.length !== 0" class="btn btn-sm btn-primary float-right" (click)="doNewTask()"><i class="fa fa-plus"></i></button></span></h3>
+          <div class="table-responsive" class="scrollspy-mini" data-spy="scroll" data-offset="0">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Status</th>
+                  <th>Responsible User</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="story && story.tasks">
+                <tr *ngFor="let task of story.tasks">
+                  <td>{{task.name}}</td>
+                  <td>{{task.statusId | taskStatus}}</td>
+                  <td>{{task.userId | scrumTeam: 'full'}}</td>
+                  <td>{{task.points}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ng-template #createTask>
+          <h3 class="text-center">New Task<span><button class="btn btn-sm btn-danger float-right" (click)="doCancelCreateTask()"><i class="fa fa-times"></i></button></span></h3>
+          <form (ngSubmit)="doCreateTask(newTask)">
+            <div class="row">
+              <div class="col-md-10 col-sm-10">
+                <label for="taskName">Name</label>
+                <input type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
+              </div>
+              <div class="col-md-2 col-xs-2">
+                <label for="successTask">Success</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" [(ngModel)]="newTask.successTask" name="successTask">
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-              <label for="taskUser">User</label>
-              <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
-                <option *ngFor="let user of sprint.project.scrumTeam" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
-              </select>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label for="taskUser">User</label>
+                <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
+                  <option *ngFor="let user of sprint.project.scrumTeam" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+                </select>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <label for="taskPoints">Points</label>
+                <select class="form-control" [(ngModel)]="newTask.points" name="taskPoints" id="taskPoints">
+                  <option [ngValue]="1">1 Pts - Low Easy</option>
+                  <option [ngValue]="2">2 Pts - Medium Easy</option>
+                  <option [ngValue]="3">3 Pts - Easy High</option>
+                  <option [ngValue]="4">4 Pts - Low Normal</option>
+                  <option [ngValue]="5">5 Pts - Medium Normal</option>
+                  <option [ngValue]="6">6 Pts - Normal High</option>
+                  <option [ngValue]="7">7 Pts - Low Hard</option>
+                  <option [ngValue]="8">8 Pts - Normal Hard</option>
+                  <option [ngValue]="9">9 Pts - Medium Hard</option>
+                  <option [ngValue]="10">10 Pts - Hard High</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-6 col-sm-12">
-              <label for="taskPoints">Points</label>
-              <select class="form-control" [(ngModel)]="newTask.points" name="taskPoints" id="taskPoints">
-                <option [ngValue]="1">1 Pts - Low Easy</option>
-                <option [ngValue]="2">2 Pts - Medium Easy</option>
-                <option [ngValue]="3">3 Pts - Easy High</option>
-                <option [ngValue]="4">4 Pts - Low Normal</option>
-                <option [ngValue]="5">5 Pts - Medium Normal</option>
-                <option [ngValue]="6">6 Pts - Normal High</option>
-                <option [ngValue]="7">7 Pts - Low Hard</option>
-                <option [ngValue]="8">8 Pts - Normal Hard</option>
-                <option [ngValue]="9">9 Pts - Medium Hard</option>
-                <option [ngValue]="10">10 Pts - Hard High</option>
-              </select>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
-        </form>
-      </ng-template>
+            <button type="submit" class="btn btn-sm btn-primary float-right"><i class="fa fa-check"></i></button>
+          </form>
+        </ng-template>
+      </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
   <app-sprint-tasks (onLoad)="tasks=$event"></app-sprint-tasks>
 </div>

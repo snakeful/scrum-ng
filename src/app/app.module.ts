@@ -11,6 +11,7 @@ import { UsersService } from './services/shared/users.service';
 import { ProjectsService } from './services/shared/projects.service';
 
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component'
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { ProjectComponent } from './project/project/project.component';
@@ -36,6 +37,7 @@ import { UserModalComponent } from './users/user-modal/user-modal.component';
   declarations: [
     AppComponent,
     HeaderComponent,
+    FooterComponent,
     HomeComponent,
     ProjectsComponent,
     ProjectComponent,
