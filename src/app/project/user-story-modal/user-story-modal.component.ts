@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { NotificationsService } from "angular2-notifications";
 
 import { UserStory } from '../../services/shared/projects.service';
 
@@ -12,7 +13,7 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   private _userStory: UserStory = new UserStory(++this._id, 'Test', 'This is a test.', 10, 0);
   private _saveUserStory: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dataUserStoryModalClose') private btnClose: ElementRef;
-  constructor() { }
+  constructor(private alert: NotificationsService) { }
 
   ngOnInit() {
   }
@@ -21,6 +22,10 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   }
 
   doSaveUserStory(story) {
+    this.alert.success(`User Story ${story.name}`, `User story saved.`, {
+      timeOut: 2000,
+      showProgressBar: false
+    })
     this._saveUserStory.emit({
       userStory: story,
       btnClose: this.btnClose

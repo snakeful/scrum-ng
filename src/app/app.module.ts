@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { UsersService } from './services/shared/users.service';
 import { ProjectsService } from './services/shared/projects.service';
@@ -65,6 +67,8 @@ import { UserModalComponent } from './users/user-modal/user-modal.component';
     HttpModule,
     ReactiveFormsModule,
     Ng2DragDropModule.forRoot(),
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
