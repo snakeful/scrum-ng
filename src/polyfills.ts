@@ -56,6 +56,11 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 
+/***************************************************************************************************
+ * Angular 2 Notifications
+ */
+import 'angular2-notifications';
+
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
