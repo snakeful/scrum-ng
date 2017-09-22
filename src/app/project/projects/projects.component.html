@@ -43,11 +43,13 @@
           <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUser(selected)" name="scrumTeam" id="scrumTeam">
             <option *ngFor="let user of scrumTeamUsers" [ngValue]="scrumTeamUsers.indexOf(user)">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
           </select>
-          <div *ngIf="selected.scrumTeam.length === 0">No Scrum Team assigned.</div>
-          <div class="project-users">
-            <span *ngFor="let user of selected.scrumTeam" class="item badge badge-pill badge-dark">
-                {{user.user}} <i class="fa fa-times" (click)="doRemoveUser(selected, user)"></i>
-            </span>
+          <div class="mt-2">
+            <div *ngIf="selected.scrumTeam.length === 0" class="text-center">No Scrum Team assigned.</div>
+            <div class="project-users">
+              <span *ngFor="let user of selected.scrumTeam" class="item badge badge-pill badge-dark">
+                  {{user.user}} <i class="fa fa-times" (click)="doRemoveUser(selected, user)"></i>
+              </span>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

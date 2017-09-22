@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
+import { NotificationsService } from "angular2-notifications";
+import { cloneDeep } from 'lodash';
+
 import { UsersService, User } from '../../services/shared/users.service';
 import { ProjectsService, Project } from '../../services/shared/projects.service';
-
-import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-projects',
@@ -19,7 +20,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   private _actual: Project;
   private _selected: Project = new Project();
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
-  constructor(private projectsService: ProjectsService, private usersService: UsersService) {
+  constructor(private projectsService: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
   }
 
   ngOnInit() {
@@ -64,9 +65,17 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   doSaveProject(project) {
     if (this._actual) {
       this._projects[this._projects.indexOf(this._actual)] = project;
+      this.alert.success(`Project ${project.name}`, `Project saved.`, {
+        timeOut: 2000,
+        showProgressBar: false
+      });
     } else {
       this._actual = null;
       this._projects.push(project);
+      this.alert.success(`Project ${project.name}`, `Project created.`, {
+        timeOut: 2000,
+        showProgressBar: false
+      });
     }
     this.btnClose.nativeElement.click();
   }

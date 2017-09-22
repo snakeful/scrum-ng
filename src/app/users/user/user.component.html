@@ -1,10 +1,10 @@
 <label for="user">User</label>
 <input type="text" class="form-control" name="user" id="user" [(ngModel)]="user.user">
-<label for="first">First Name</label>
+<label for="first" class="mt-1">First Name</label>
 <input type="text" class="form-control" name="first" id="first" [(ngModel)]="user.firstName">
-<label for="last">Last Name</label>
+<label for="last" class="mt-1">Last Name</label>
 <input type="text" class="form-control" name="last" id="last" [(ngModel)]="user.lastName">
-<label for="name">Role</label>
+<label for="name" class="mt-1">Role</label>
 <select class="form-control" [(ngModel)]="user.roleId" name="role" id="role">
   <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
 </select>
