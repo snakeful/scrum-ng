@@ -11,6 +11,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { UsersService } from './services/shared/users.service';
 import { ProjectsService } from './services/shared/projects.service';
+import { ApiRestService } from "./services/shared/api-rest/api-rest.service";
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component'
@@ -26,6 +27,7 @@ import { UserStoryModalComponent } from './project/user-story-modal/user-story-m
 import { SprintTasksComponent } from './project/sprint-tasks/sprint-tasks.component';
 import { SprintModalComponent } from './project/sprint-modal/sprint-modal.component';
 import { TaskComponent } from './project/task/task.component';
+import { UserModalComponent } from './users/user-modal/user-modal.component';
 import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
 import { StoryPriorityPipe } from './project/story-priority.pipe';
@@ -33,7 +35,6 @@ import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
-import { UserModalComponent } from './users/user-modal/user-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,14 +53,14 @@ import { UserModalComponent } from './users/user-modal/user-modal.component';
     SprintTasksComponent,
     SprintModalComponent,
     TaskComponent,
+    UserModalComponent,
     LimitToPipe,
     TaskStatusPipe,
     StoryPriorityPipe,
     StoryStatusPipe,
     OriginPipe,
     ScrumTeamPipe,
-    UserRolePipe,
-    UserModalComponent
+    UserRolePipe
   ],
   imports: [
     BrowserModule,
@@ -94,7 +95,8 @@ import { UserModalComponent } from './users/user-modal/user-modal.component';
   ],
   providers: [
     ProjectsService,
-    UsersService
+    UsersService,
+    ApiRestService
   ],
   bootstrap: [AppComponent]
 })

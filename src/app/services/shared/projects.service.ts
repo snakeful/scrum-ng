@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScrumObject, Role, User } from './users.service';
+import { ApiRestService } from "../../services/shared/api-rest/api-rest.service";
 
 @Injectable()
 
@@ -90,7 +91,7 @@ export class ProjectsService {
   private _storyStatus: StoryStatus[];
   private origins: Origin[];
 
-  constructor() {
+  constructor(private api: ApiRestService) {
     this._taskStatus = [
       new TaskStatus(0, 'To Do'),
       new TaskStatus(1, 'In Progress'),
