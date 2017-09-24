@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects.service';
+import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-project',

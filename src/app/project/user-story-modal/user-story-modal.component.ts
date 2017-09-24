@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NotificationsService } from "angular2-notifications";
 
-import { UserStory } from '../../services/shared/projects.service';
+import { UserStory } from '../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-user-story-modal',

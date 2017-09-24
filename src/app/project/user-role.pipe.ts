@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Role, UsersService } from '../services/shared/users.service';
+import { Role, UsersService } from '../services/shared/users/users.service';
 
 @Pipe({
   name: 'userRole'

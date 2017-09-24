@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProjectsService, TaskStatus } from '../services/shared/projects.service';
+import { ProjectsService, TaskStatus } from '../services/shared/projects/projects.service';
 
 @Pipe({
   name: 'taskStatus'

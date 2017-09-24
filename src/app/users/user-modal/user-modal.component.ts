@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NotificationsService } from "angular2-notifications";
 import { cloneDeep } from "lodash";
-import { UsersService, Role, User } from "../../services/shared/users.service";
+import { UsersService, Role, User } from "../../services/shared/users/users.service";
 
 @Component({
   selector: 'app-user-modal',

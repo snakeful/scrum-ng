@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 
-import { ScrumObject } from "./../users.service";
-import { Project } from './../projects.service';
+import { ScrumObject } from "./../users/users.service";
+import { Project } from './../projects/projects.service';
 
 class Api {
   url: string;

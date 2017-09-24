@@ -3,8 +3,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { NotificationsService } from "angular2-notifications";
 import { cloneDeep } from 'lodash';
 
-import { UsersService, User } from '../../services/shared/users.service';
-import { ProjectsService, Project } from '../../services/shared/projects.service';
+import { UsersService, User } from '../../services/shared/users/users.service';
+import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-projects',

@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
-import { UsersService } from './services/shared/users.service';
-import { ProjectsService } from './services/shared/projects.service';
+import { UsersService } from './services/shared/users/users.service';
+import { ProjectsService } from './services/shared/projects/projects.service';
 import { ApiRestService } from "./services/shared/api-rest/api-rest.service";
 
 import { HeaderComponent } from './header/header.component';

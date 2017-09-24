@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
-import { UsersService, User } from '../../services/shared/users.service';
+import { UsersService, User } from '../../services/shared/users/users.service';
 
 @Component({
   selector: 'app-users',
