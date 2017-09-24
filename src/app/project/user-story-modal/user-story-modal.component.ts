@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { NotificationsService } from "angular2-notifications";
+import { NotificationsService } from 'angular2-notifications';
 
 import { UserStory } from '../../services/shared/projects/projects.service';
 
@@ -25,7 +25,7 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
     this.alert.success(`User Story ${story.name}`, `User story saved.`, {
       timeOut: 2000,
       showProgressBar: false
-    })
+    });
     this._saveUserStory.emit({
       userStory: story,
       btnClose: this.btnClose

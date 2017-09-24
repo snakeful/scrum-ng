@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,10 +11,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { UsersService } from './services/shared/users/users.service';
 import { ProjectsService } from './services/shared/projects/projects.service';
-import { ApiRestService } from "./services/shared/api-rest/api-rest.service";
 
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component'
+import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { ProjectComponent } from './project/project/project.component';
@@ -95,8 +94,7 @@ import { UserRolePipe } from './project/user-role.pipe';
   ],
   providers: [
     ProjectsService,
-    UsersService,
-    ApiRestService
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
-import { NotificationsService } from "angular2-notifications";
+import { NotificationsService } from 'angular2-notifications';
 import { cloneDeep } from 'lodash';
 
 import { UsersService, User } from '../../services/shared/users/users.service';
@@ -56,10 +56,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   onChangeUser(project) {
     const user = this._scrumTeamUsers[project.selectedUser];
     if (!project.scrumTeam.reduce((exists, scrumUser) => {
-      return exists || scrumUser.id === user.id
+      return exists || scrumUser.id === user.id;
     }, false)) {
       project.scrumTeam.push(user);
-    };
+    }
   }
 
   doSaveProject(project) {

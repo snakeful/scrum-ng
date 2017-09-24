@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { polyfill } from "mobile-drag-drop";
+import { polyfill } from 'mobile-drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent {
   constructor() {
     polyfill({}); // Drag and Drop for mobile devices.
   }
-  
+
   get title(): string {
     return this._title;
   }

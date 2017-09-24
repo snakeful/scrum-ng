@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+
 import { ScrumObject, Role, User } from '../users/users.service';
-import { ApiRestService } from "../api-rest/api-rest.service";
 
 @Injectable()
-
 export class Project extends ScrumObject {
   userStories: UserStory[];
   sprints: Sprint[];

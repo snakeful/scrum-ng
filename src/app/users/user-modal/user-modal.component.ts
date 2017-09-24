@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { NotificationsService } from "angular2-notifications";
-import { cloneDeep } from "lodash";
-import { UsersService, Role, User } from "../../services/shared/users/users.service";
+import { NotificationsService } from 'angular2-notifications';
+import { cloneDeep } from 'lodash';
+import { UsersService, Role, User } from '../../services/shared/users/users.service';
 
 @Component({
   selector: 'app-user-modal',
@@ -22,9 +22,9 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
   }
-  
+
   public doSaveUser() {
     this.alert.success(`User ${this._user.user}`, `User ${this._user.id ? 'saved' : 'created'}.`, {
       timeOut: 2000,
@@ -35,11 +35,11 @@ export class UserModalComponent implements OnInit, AfterViewInit {
       btnClose: this.btnClose
     });
   }
-  
+
   get roles(): Role[] {
     return this._roles;
   }
-  
+
   get user(): User {
     return this._user;
   }
