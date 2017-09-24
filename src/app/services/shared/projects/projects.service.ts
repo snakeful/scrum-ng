@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ScrumObject, Role, User } from '../users/users.service';
+
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class Project extends ScrumObject {
@@ -91,7 +93,7 @@ export class ProjectsService {
   private _storyStatus: StoryStatus[];
   private origins: Origin[];
 
-  constructor() {
+  constructor(@Inject(Http) private http: Http) {
     this._taskStatus = [
       new TaskStatus(0, 'To Do'),
       new TaskStatus(1, 'In Progress'),
@@ -121,9 +123,13 @@ export class ProjectsService {
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
     ];
-    this.projects.forEach(project => {
-      project.sprints[0].userStories.push(project.userStories[0]);
-      project.userStories.splice(0, 1);
+    http.get('http://localhost:4201/api/projects').toPromise().then(res => {
+      console.log(res.json());
+      this.projects = res.json();
+      this.projects.forEach(project => {
+        project.sprints[0].userStories.push(project.userStories[0]);
+        project.userStories.splice(0, 1);
+      });
     });
   }
 
