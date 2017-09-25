@@ -11,7 +11,7 @@ export class Project extends ScrumObject {
   sprints: Sprint[];
   productOwnerId: number;
   productOwner: User;
-  scrumMasterId: User;
+  scrumMasterId: number;
   scrumMaster: User;
   scrumTeam: User[];
   constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
@@ -83,11 +83,7 @@ export class Origin extends ScrumObject {
 }
 
 export class ProjectsService {
-  private projects: Project[] = [
-    new Project(1, 'Project 1', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
-    new Project(2, 'Project 2', 'This is a project template', this.getNewUserStories(), this.getNewSprints()),
-    new Project(3, 'Project 3', 'This is a project template', this.getNewUserStories(), this.getNewSprints())
-  ];
+  private projects: Project[];
   private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
@@ -123,14 +119,6 @@ export class ProjectsService {
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
     ];
-    http.get('http://localhost:4201/api/projects').toPromise().then(res => {
-      console.log(res.json());
-      this.projects = res.json();
-      this.projects.forEach(project => {
-        project.sprints[0].userStories.push(project.userStories[0]);
-        project.userStories.splice(0, 1);
-      });
-    });
   }
 
   private getNewUserStories(): UserStory[] {
@@ -184,7 +172,16 @@ export class ProjectsService {
 
   getProjects(): Promise<Project[]> {
     return new Promise<Project[]>((resolve, reject) => {
-      resolve(this.projects);
+      this.http.get('http://localhost:4201/api/projects').toPromise().then(res => {
+        this.projects = res.json();
+        this.projects.forEach(project => {
+          project.sprints = this.getNewSprints();
+          project.userStories = this.getNewUserStories();
+          project.sprints[0].userStories.push(project.userStories[0]);
+          project.userStories.splice(0, 1);
+        });
+        resolve(this.projects);
+      });
     });
   }
 
@@ -197,6 +194,12 @@ export class ProjectsService {
         }
       });
       project ? resolve(project) : reject('Record not found');
+    });
+  }
+
+  createProject(project: Project) {
+    return new Promise<Project>((resolve, reject) => {
+      resolve(project);
     });
   }
 
