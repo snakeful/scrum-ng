@@ -83,6 +83,7 @@ export class Origin extends ScrumObject {
 }
 
 export class ProjectsService {
+  private url = 'http://localhost:4201';
   private projects: Project[];
   private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
@@ -172,7 +173,7 @@ export class ProjectsService {
 
   getProjects(): Promise<Project[]> {
     return new Promise<Project[]>((resolve, reject) => {
-      this.http.get('http://localhost:4201/api/projects').toPromise().then(res => {
+      this.http.get(`${this.url}/api/projects`).toPromise().then(res => {
         this.projects = res.json();
         this.projects.forEach(project => {
           project.sprints = this.getNewSprints();
@@ -199,7 +200,20 @@ export class ProjectsService {
 
   createProject(project: Project) {
     return new Promise<Project>((resolve, reject) => {
-      resolve(project);
+      this.http.post(`${this.url}/api/projects`, project).toPromise()
+      .then(res => {
+        project.id = res.json();
+        resolve(project);
+      });
+    });
+  }
+
+  saveProject(project: Project) {
+    return new Promise<Project>((resolve, reject) => {
+      this.http.put(`${this.url}/api/projects/${project.id}`, project).toPromise()
+      .then(res => {
+        resolve();
+      });
     });
   }
 

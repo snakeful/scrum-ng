@@ -64,17 +64,21 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   doSaveProject(project) {
     if (this._actual) {
-      this._projects[this._projects.indexOf(this._actual)] = project;
-      this.alert.success(`Project ${project.name}`, `Project saved.`, {
-        timeOut: 2000,
-        showProgressBar: false
+      this.projectsService.saveProject(project).then(() => {
+        this._projects[this._projects.indexOf(this._actual)] = project;
+        this.alert.success(`Project ${project.name}`, `Project saved.`, {
+          timeOut: 2000,
+          showProgressBar: false
+        });
       });
     } else {
       this._actual = null;
-      this._projects.push(project);
-      this.alert.success(`Project ${project.name}`, `Project created.`, {
-        timeOut: 2000,
-        showProgressBar: false
+      this.projectsService.createProject(project).then(newProject => {
+        this._projects.push(newProject);
+        this.alert.success(`Project ${newProject.name}`, `Project created.`, {
+          timeOut: 2000,
+          showProgressBar: false
+        });
       });
     }
     this.btnClose.nativeElement.click();
