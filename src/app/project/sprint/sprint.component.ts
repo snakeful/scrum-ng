@@ -10,7 +10,7 @@ declare let $: any;
   styleUrls: ['./sprint.component.css']
 })
 export class SprintComponent implements OnInit {
-  private _sprint: Sprint;
+  private _sprint: Sprint = new Sprint();
   private _story: UserStory;
   private _toDo: any;
   private _inProgress: any;
@@ -19,15 +19,7 @@ export class SprintComponent implements OnInit {
   private _showCreateTask: Boolean = false;
   private _newTask: Task = new Task();
 
-  constructor(private projectsService: ProjectsService, private route: ActivatedRoute) {
-    this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
-      parseInt(this.route.snapshot.params.id || 0, 10))
-      .then((sprint) => {
-        this._sprint = sprint;
-      }, err => {
-        console.log(err);
-      });
-  }
+  constructor(private projectsService: ProjectsService, private route: ActivatedRoute) { }
 
   private addTask(task) {
     switch (task.statusId) {
@@ -58,6 +50,13 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
+      parseInt(this.route.snapshot.params.id || 0, 10))
+      .then((sprint) => {
+        this._sprint = sprint;
+      }, err => {
+        console.log(err);
+      });
     this.cleanNewTask();
   }
 

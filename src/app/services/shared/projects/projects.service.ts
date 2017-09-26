@@ -173,7 +173,8 @@ export class ProjectsService {
 
   getProjects(): Promise<Project[]> {
     return new Promise<Project[]>((resolve, reject) => {
-      this.http.get(`${this.url}/api/projects`).toPromise().then(res => {
+      this.http.get(`${this.url}/api/projects`).toPromise()
+      .then(res => {
         this.projects = res.json();
         this.projects.forEach(project => {
           project.sprints = this.getNewSprints();
@@ -187,14 +188,14 @@ export class ProjectsService {
   }
 
   getProject(id: number): Promise<Project> {
-    let project: Project;
     return new Promise<Project>((resolve, reject) => {
-      this.projects.forEach(prj => {
-        if (id === prj.id) {
-          project = prj;
+      this.http.get(`${this.url}/api/projects/${id}`).toPromise()
+      .then(res => {
+        if (res.status === 404) {
+          return reject('Record not found.');
         }
+        resolve(res.json());
       });
-      project ? resolve(project) : reject('Record not found');
     });
   }
 

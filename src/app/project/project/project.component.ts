@@ -9,16 +9,15 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit, AfterViewInit {
-  private _project: Project;
+  private _project: Project = new Project();
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
-  constructor(private service: ProjectsService, private route: ActivatedRoute) {
+  constructor(private service: ProjectsService, private route: ActivatedRoute) { }
+
+  ngOnInit() {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
       .then((project) => {
         this._project = project;
       });
-  }
-
-  ngOnInit() {
   }
 
   ngAfterViewInit() {
@@ -52,13 +51,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this._project = value;
   }
 
-    set addUserStory(value: any) {
-      this._project.userStories.push(value.userStory);
-      value.btnClose.nativeElement.click();
-    }
+  set addUserStory(value: any) {
+    this._project.userStories.push(value.userStory);
+    value.btnClose.nativeElement.click();
+  }
 
-    set addSprint(value: any) {
-      this._project.sprints.push(value.sprint);
-      value.btnClose.nativeElement.click();
-    }
+  set addSprint(value: any) {
+    this._project.sprints.push(value.sprint);
+    value.btnClose.nativeElement.click();
+  }
 }
