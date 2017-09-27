@@ -6,16 +6,14 @@ import { ProjectsService } from '../services/shared/projects/projects.service';
   name: 'scrumTeam'
 })
 export class ScrumTeamPipe implements PipeTransform {
-  private scrumTeamUsers: User[] = [];
+  private users: User[] = [];
   constructor(private projectsService: ProjectsService, private usersService: UsersService) {
-    this.usersService.getScrumTeamUsers()
-      .then(users => {
-        this.scrumTeamUsers = users;
-      });
+    this.usersService.getUsers()
+      .subscribe(users => this.users = users);
   }
   transform(value: number, field: string): string {
-    for (let index = 0; index < this.scrumTeamUsers.length; index++) {
-      const user = this.scrumTeamUsers[index];
+    for (let index = 0; index < this.users.length; index++) {
+      const user = this.users[index];
       if (user.id === value) {
         return field === 'full' ? `${user.user} - ${user.firstName} ${user.lastName}` : user[field];
       }
