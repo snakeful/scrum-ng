@@ -4,7 +4,7 @@
 <input type="text" class="form-control" name="first" id="first" [(ngModel)]="user.firstName">
 <label for="last" class="mt-1">Last Name</label>
 <input type="text" class="form-control" name="last" id="last" [(ngModel)]="user.lastName">
-<label for="name" class="mt-1">Role</label>
-<select class="form-control" [(ngModel)]="user.roleId" name="role" id="role">
-  <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
-</select>
+<label for="email" class="mt-1">Email</label>
+<input type="email" class="form-control" name="email" id="email" [(ngModel)]="user.email">
+<label for="name" class="mt-1">Admin</label>
+<input type="checkbox" name="admin" id="admin" [(ngModel)]="user.admin">

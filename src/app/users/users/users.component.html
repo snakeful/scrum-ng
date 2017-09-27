@@ -8,10 +8,10 @@
   <div class="card-flex">
     <div *ngFor="let user of users" class="card" data-toggle="modal" data-target="#data-user" (click)="selected = user">
       <div class="card-body">
-        <h5 class="card-title text-center">{{user.user}}</h5>
+        <h5 class="card-title text-center">{{user.user}} <span *ngIf="user.admin" class="badge badge-success float-right">Admin</span> </h5>
         <p class="card-text"><span class="title">First Name</span>: {{user.firstName || '' | limitTo: 15}}</p>
         <p class="card-text"><span class="title">Last Name</span>: {{user.lastName || '' | limitTo: 15}}</p>
-        <p class="card-text"><span class="title">Role</span>: {{user.roleId | userRole: 'name'}}</p>
+        <p class="card-text"><span class="title">email</span>: {{user.email || '' | limitTo: 15}}</p>
       </div>
     </div>
   </div>

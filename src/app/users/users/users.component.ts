@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { UsersService, User } from '../../services/shared/users/users.service';
 
 @Component({
@@ -11,13 +13,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   private _users: User[];
   private _selected: User;
   @ViewChild('dataUserClose') private btnClose: ElementRef;
-  constructor(private usersService: UsersService) {
-    usersService.getScrumTeamUsers().then(users => {
-      this._users = users;
-    });
+  constructor(private usersService: UsersService, private alert: NotificationsService) {
   }
 
   ngOnInit() {
+    this.usersService.getUsers()
+      .subscribe(users => this._users = users,
+      err => this.alert.html(err, 'error', {
+        timeOut: 10000
+      }));
   }
 
   ngAfterViewInit() {
@@ -38,7 +42,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     user.btnClose.nativeElement.click();
   }
 
-  get selected(): User{
+  get selected(): User {
     return this._selected;
   }
 

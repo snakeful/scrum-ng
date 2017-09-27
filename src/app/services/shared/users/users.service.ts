@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http'
 
+import { Observable } from 'rxjs/Observable';
 
-@Injectable()
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
 export class ScrumObject {
   id: number;
   name: string;
@@ -34,80 +39,50 @@ export class Role extends ScrumObject {
 export class User extends ScrumUser {
 }
 
+@Injectable()
 export class UsersService {
+  private url = 'http://localhost:4201';
   private roles: Role[];
-  private productOwnerUsers: User[];
-  private scrumMasterUsers: User[];
-  private scrumTeamUsers: User[];
-  private stakeholderUsers: User[];
-  private administratorUsers: User[];
-  constructor() {
-    this.roles = [
-      new Role(0, 'Product Owner'),
-      new Role(1, 'Scrum Master'),
-      new Role(2, 'Scrum Team'),
-      new Role(3, 'Stakeholders'),
-      new Role(4, 'Administrators')
-    ];
-    this.productOwnerUsers = [
-      new User(0, 'owner1', 'Product', 'Owner 1', 0),
-      new User(1, 'owner2', 'Product', 'Owner 2', 0),
-      new User(2, 'owner3', 'Product', 'Owner 3', 0),
-      new User(3, 'owner4', 'Product', 'Owner 4', 0)
-    ];
-    this.scrumMasterUsers = [
-      new User(4, 'master1', 'Scrum', 'Master 1', 1),
-      new User(5, 'master2', 'Scrum', 'Master 2', 1),
-      new User(6, 'master3', 'Scrum', 'Master 3', 1),
-      new User(7, 'master4', 'Scrum', 'Master 4', 1)
-    ];
-    this.scrumTeamUsers = [
-      new User(8, 'team1', 'Scrum', ' Team 1', 2),
-      new User(9, 'team2', 'Scrum', 'Team 2', 2),
-      new User(10, 'team3', 'Scrum', 'Team 3', 2),
-      new User(11, 'team4', 'Scrum', 'Team 4', 2)
-    ];
-    this.stakeholderUsers = [
-      new User(12, 'stake1', 'Stakeholder', '1', 3),
-      new User(13, 'stake2', 'Stakeholder', '2', 3),
-      new User(14, 'stake3', 'Stakeholder', '3', 3),
-      new User(15, 'stake4', 'Stakeholder', '4', 3)
-    ];
-    this.administratorUsers = [
-      new User(16, 'admin1', 'Administrator', '1', 4),
-      new User(17, 'admin2', 'Administrator', '2', 4),
-      new User(18, 'admin3', 'Administrator', '3', 4),
-      new User(19, 'admin4', 'Administrator', '4', 4)
-    ];
+  private users: User[];
+  constructor(private http: Http) {
+  }
+  
+  private handleError(err: Response) {
+    console.log(err);
+    let msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
+    return Observable.throw(msg);
   }
 
-  public getRoles(): Promise<Role[]> {
-    return new Promise<Role[]>((resolve, reject) => {
-      resolve(this.roles);
-    });
+  public getRoles(): Observable<Role[]> {
+    return this.http.get(`${this.url}/api/roles`)
+    .map(res => res.json() as Role[])
+    .catch(this.handleError);
   }
 
-  getProductOwnerUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this.productOwnerUsers);
-    });
+  getUsers(): Observable<User[]> {
+    return this.http.get(`${this.url}/api/users`)
+    .map(res => res.json() as User[])
+    .catch(this.handleError);
   }
 
-  getScrumMasterUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this.scrumMasterUsers);
-    });
+  getUser(id: number): Observable<User> {
+    return this.http.get(`${this.url}/api/users/${id}`)
+    .map(res => res.json() as User)
+    .catch(this.handleError);
   }
 
-  getScrumTeamUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this.scrumTeamUsers);
-    });
+  createUser(user: User): Observable<User> {
+    return this.http.post(`${this.url}/api/users`, user)
+    .map(res => {
+      user.id = res.json();
+      return user;
+    })
+    .catch(this.handleError);
   }
 
-  getStakeholderUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-      resolve(this.stakeholderUsers);
-    });
+  saveUser(id: number, user: User): Observable<User> {
+    return this.http.put(`${this.url}/api/users/${id}`, user)
+    .map(res => user)
+    .catch(this.handleError);
   }
 }

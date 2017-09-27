@@ -28,26 +28,35 @@
           <label for="desc">Description</label>
           <input type="text" class="form-control" [(ngModel)]="selected.desc">
           <label for="stakeholder">Stakeholder</label>
-          <select class="form-control" [(ngModel)]="selected.stakeholderId" name="stakeholder" id="stakeholder">
-            <option *ngFor="let stakeholder of stakeholderUsers" [ngValue]="stakeholder.id">{{stakeholder.firstName}}{{stakeholder.lastName}}</option>
-          </select>
           <label for="productOwner">Product Owner</label>
           <select class="form-control" [(ngModel)]="selected.productOwnerId" name="productOwner" id="productOwner">
-            <option *ngFor="let productOwner of productOwnerUsers" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}}{{productOwner.lastName}}</option>
+            <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}}{{productOwner.lastName}}</option>
           </select>
           <label for="scrumMaster">Scrum Master</label>
           <select class="form-control" [(ngModel)]="selected.scrumMasterId" name="scrumMaster" id="scrumMaster">
-            <option *ngFor="let scrumMaster of scrumMasterUsers" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
+            <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
           </select>
           <label for="scrumTeam">Scrum Team</label>
-          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUser(selected)" name="scrumTeam" id="scrumTeam">
-            <option *ngFor="let user of scrumTeamUsers" [ngValue]="scrumTeamUsers.indexOf(user)">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeScrumTeam(selected)" name="scrumTeam" id="scrumTeam">
+            <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
           </select>
           <div class="mt-2">
-            <div *ngIf="selected.scrumTeam.length === 0" class="text-center">No Scrum Team assigned.</div>
+            <div *ngIf="scrumTeam.length === 0" class="text-center">No Scrum Team assigned.</div>
             <div class="project-users">
-              <span *ngFor="let user of selected.scrumTeam" class="item badge badge-pill badge-dark">
-                  {{user.user}} <i class="fa fa-times" (click)="doRemoveUser(selected, user)"></i>
+              <span *ngFor="let user of scrumTeam" class="item badge badge-pill badge-dark">
+                  {{user.user}} <i class="fa fa-times" (click)="doRemoveScrumTeam(selected, user)"></i>
+              </span>
+            </div>
+          </div>
+          <label for="stakeholders">Stakeholders</label>
+          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeStakeholder(selected)" name="stakeholders" id="stakeholders">
+            <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+          </select>
+          <div class="mt-2">
+            <div *ngIf="stakeholders.length === 0" class="text-center">No Stakeholders assigned.</div>
+            <div class="project-users">
+              <span *ngFor="let user of stakeholders" class="item badge badge-pill badge-dark">
+                  {{user.user}} <i class="fa fa-times" (click)="doRemoveStakeholder(selected, user)"></i>
               </span>
             </div>
           </div>

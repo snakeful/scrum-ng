@@ -13,12 +13,11 @@ import { ProjectsService, Project } from '../../services/shared/projects/project
 })
 export class ProjectsComponent implements OnInit, AfterViewInit {
   private _projects: Project[];
-  private _productOwnerUsers: User[];
-  private _scrumMasterUsers: User[];
-  private _scrumTeamUsers: User[];
-  private _stakeholderUsers: User[];
   private _actual: Project;
   private _selected: Project = new Project();
+  private _users: User[] = [];
+  private _scrumTeam: User[] = [];
+  private _stakeholders: User[] = [];
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
   constructor(private projectsService: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
   }
@@ -26,41 +25,40 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.projectsService.getProjects()
       .subscribe(projects => {
+        console.log(projects)
         this._projects = projects;
-      }, (err) => this.alert.html(err, 'error', {
+      },
+      (err) => this.alert.html(err, 'error', {
         timeOut: 10000
       }));
-
-    this.usersService.getProductOwnerUsers()
-      .then(users => {
-        this._productOwnerUsers = users;
-      });
-
-    this.usersService.getScrumMasterUsers()
-      .then(users => {
-        this._scrumMasterUsers = users;
-      });
-
-    this.usersService.getScrumTeamUsers()
-      .then(users => {
-        this._scrumTeamUsers = users;
-      });
-
-    this.usersService.getStakeholderUsers()
-      .then(users => {
-        this._stakeholderUsers = users;
-      });
+    this.usersService.getUsers()
+      .subscribe(users => this._users = users,
+      (err) => this.alert.html(err, 'error', {
+        timeOut: 10000
+      }));
+      console.log(this);
   }
 
   ngAfterViewInit() {
   }
 
-  onChangeUser(project) {
-    const user = this._scrumTeamUsers[project.selectedUser];
+  onChangeScrumTeam(project) {
+    const user = this._users[project.selectedUser];
     if (!project.scrumTeam.reduce((exists, scrumUser) => {
       return exists || scrumUser.id === user.id;
     }, false)) {
-      project.scrumTeam.push(user);
+      project.scrumTeam.push(user.id);
+      this.scrumTeam.push(user);
+    }
+  }
+  
+  onChangeStakeholder(project) {
+    const user = this._users[project.selectedUser];
+    if (!project.stakeholders.reduce((exists, stakeholder) => {
+      return exists || stakeholder.id === user.id;
+    }, false)) {
+      project.stakeholders.push(user.id);
+      this.stakeholders.push(user);
     }
   }
 
@@ -88,9 +86,19 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.btnClose.nativeElement.click();
   }
 
-  doRemoveUser(project: Project, user: User) {
-    project.scrumTeam.forEach((scrumUser, index, list) => {
+  doRemoveScrumTeam(project: Project, user: User) {
+    project.scrumTeam.splice(project.scrumTeam.indexOf(user.id), 1);
+    this.scrumTeam.forEach((scrumUser, index, list) => {
       if (scrumUser.id === user.id) {
+        list.splice(index, 1);
+      }
+    });
+  }
+  
+  doRemoveStakeholder(project: Project, user: User) {
+    project.stakeholders.splice(project.stakeholders.indexOf(user.id), 1);
+    this.stakeholders.forEach((stakeholder, index, list) => {
+      if (stakeholder.id === user.id) {
         list.splice(index, 1);
       }
     });
@@ -104,33 +112,47 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this._projects = value;
   }
 
-  get productOwnerUsers(): User[] {
-    return this._productOwnerUsers;
-  }
-
-  get scrumMasterUsers(): User[] {
-    return this._scrumMasterUsers;
-  }
-
-  get scrumTeamUsers(): User[] {
-    return this._scrumTeamUsers;
-  }
-
-  get stakeholderUsers(): User[] {
-    return this._stakeholderUsers;
-  }
-
   get selected(): Project {
     return this._selected;
   }
 
   set selected(value: Project) {
+    this.scrumTeam.length = 0;
+    this.stakeholders.length = 0;
     if (value) {
       this._actual = value;
       this._selected = cloneDeep(value);
+      value.scrumTeam.forEach(id => {
+        this._users.forEach(user => {
+          if (user.id === id) {
+            this.scrumTeam.push(user);
+          }
+        });
+      });
+      value.stakeholders.forEach(id => {
+        this._users.forEach(user => {
+          if (user.id === id) {
+            this.stakeholders.push(user);
+          }
+        });
+      });
+      console.log(value.scrumTeam);
+      console.log(value.stakeholders);
     } else {
       this._actual = null;
       this._selected = new Project(this._projects.length + 1);
     }
+  }
+
+  get users(): User[] {
+    return this._users;
+  }
+  
+  get scrumTeam(): User[] {
+    return this._scrumTeam;
+  }
+    
+  get stakeholders(): User[] {
+    return this._stakeholders;
   }
 }

@@ -15,12 +15,14 @@ export class Project extends ScrumObject {
   productOwner: User;
   scrumMasterId: number;
   scrumMaster: User;
-  scrumTeam: User[];
+  scrumTeam: number[];
+  stakeholders: number[];
   constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
     super(id, name, desc);
     this.userStories = userStories || [];
     this.sprints = sprints || [];
     this.scrumTeam = [];
+    this.stakeholders = [];
   }
 }
 
@@ -166,6 +168,7 @@ export class ProjectsService {
   }
 
   private handleError(err: Response) {
+    console.log(err);
     let msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
   }
@@ -183,7 +186,7 @@ export class ProjectsService {
   }
 
   getProjects(): Observable<Project[]> {
-    return this.http.get(`${this.url}/api/projectss`)
+    return this.http.get(`${this.url}/api/projects`)
       .map(res => res.json() as Project[])
       .catch(this.handleError);
   }

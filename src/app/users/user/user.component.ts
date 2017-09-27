@@ -12,9 +12,10 @@ export class UserComponent implements OnInit {
   private _roles: Role[];
   @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
   constructor(private usersService: UsersService) {
-    usersService.getRoles().then(roles => {
-      this._roles = roles;
-    });
+    usersService.getRoles()
+      .subscribe(roles => {
+        this._roles = roles;
+      });
   }
 
   ngOnInit() {
