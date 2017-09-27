@@ -8,11 +8,19 @@ import { polyfill } from 'mobile-drag-drop';
 })
 export class AppComponent {
   private _title = 'FUL-SCRUM App';
+  private _options: any = {
+    timeOut: 3000,
+    preventDuplicates: true
+  };
   constructor() {
     polyfill({}); // Drag and Drop for mobile devices.
   }
 
   get title(): string {
     return this._title;
+  }
+
+  get options(): any {
+    return this._options;
   }
 }
