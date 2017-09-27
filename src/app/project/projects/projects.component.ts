@@ -25,9 +25,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.projectsService.getProjects()
-      .then((projects) => {
+      .subscribe(projects => {
         this._projects = projects;
-      });
+      }, (err) => this.alert.html(err, 'error', {
+        timeOut: 10000
+      }));
 
     this.usersService.getProductOwnerUsers()
       .then(users => {
@@ -64,22 +66,24 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   doSaveProject(project) {
     if (this._actual) {
-      this.projectsService.saveProject(project).then(() => {
-        this._projects[this._projects.indexOf(this._actual)] = project;
-        this.alert.success(`Project ${project.name}`, `Project saved.`, {
-          timeOut: 2000,
-          showProgressBar: false
+      this.projectsService.saveProject(project)
+        .subscribe(() => {
+          this._projects[this._projects.indexOf(this._actual)] = project;
+          this.alert.success(`Project ${project.name}`, `Project saved.`, {
+            timeOut: 2000,
+            showProgressBar: false
+          });
         });
-      });
     } else {
       this._actual = null;
-      this.projectsService.createProject(project).then(newProject => {
-        this._projects.push(newProject);
-        this.alert.success(`Project ${newProject.name}`, `Project created.`, {
-          timeOut: 2000,
-          showProgressBar: false
+      this.projectsService.createProject(project)
+        .subscribe(newProject => {
+          this._projects.push(newProject);
+          this.alert.success(`Project ${newProject.name}`, `Project created.`, {
+            timeOut: 2000,
+            showProgressBar: false
+          });
         });
-      });
     }
     this.btnClose.nativeElement.click();
   }

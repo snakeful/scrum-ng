@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects/projects.service';
 
 @Component({
@@ -11,12 +13,16 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
 export class ProjectComponent implements OnInit, AfterViewInit {
   private _project: Project = new Project();
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
-  constructor(private service: ProjectsService, private route: ActivatedRoute) { }
+  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) { }
 
   ngOnInit() {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
-      .then((project) => {
+      .subscribe(project => {
         this._project = project;
+      }, (err) => {
+        this.alert.error('Projects', err, {
+          timeOut: 10000
+        });
       });
   }
 

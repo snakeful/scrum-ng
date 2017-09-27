@@ -52,10 +52,8 @@ export class SprintComponent implements OnInit {
   ngOnInit() {
     this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
       parseInt(this.route.snapshot.params.id || 0, 10))
-      .then((sprint) => {
+      .subscribe((sprint) => {
         this._sprint = sprint;
-      }, err => {
-        console.log(err);
       });
     this.cleanNewTask();
   }
