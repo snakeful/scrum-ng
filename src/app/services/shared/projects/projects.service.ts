@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { ScrumObject, Role, User } from '../users/users.service';
 
-import 'rxjs/add/operator/toPromise';
-
-@Injectable()
 export class Project extends ScrumObject {
   userStories: UserStory[];
   sprints: Sprint[];
@@ -82,6 +84,7 @@ export class TaskStatus extends ScrumObject {
 export class Origin extends ScrumObject {
 }
 
+@Injectable()
 export class ProjectsService {
   private url = 'http://localhost:4201';
   private projects: Project[];
@@ -90,7 +93,7 @@ export class ProjectsService {
   private _storyStatus: StoryStatus[];
   private origins: Origin[];
 
-  constructor(@Inject(Http) private http: Http) {
+  constructor(private http: Http) {
     this._taskStatus = [
       new TaskStatus(0, 'To Do'),
       new TaskStatus(1, 'In Progress'),
@@ -120,6 +123,9 @@ export class ProjectsService {
       new Origin(2, 'Process Change'),
       new Origin(3, 'New Requirement')
     ];
+  }
+
+  ngOnInit() {
   }
 
   private getNewUserStories(): UserStory[] {
@@ -159,6 +165,11 @@ export class ProjectsService {
     ];
   }
 
+  private handleError(err: Response) {
+    let msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
+    return Observable.throw(msg);
+  }
+
   get taskStatus(): TaskStatus[] {
     return this._taskStatus;
   }
@@ -171,74 +182,42 @@ export class ProjectsService {
     return this._storyStatus;
   }
 
-  getProjects(): Promise<Project[]> {
-    return new Promise<Project[]>((resolve, reject) => {
-      this.http.get(`${this.url}/api/projects`).toPromise()
-      .then(res => {
-        this.projects = res.json();
-        this.projects.forEach(project => {
-          project.sprints = this.getNewSprints();
-          project.userStories = this.getNewUserStories();
-          project.sprints[0].userStories.push(project.userStories[0]);
-          project.userStories.splice(0, 1);
-        });
-        resolve(this.projects);
-      });
-    });
+  getProjects(): Observable<Project[]> {
+    return this.http.get(`${this.url}/api/projectss`)
+      .map(res => res.json() as Project[])
+      .catch(this.handleError);
   }
 
-  getProject(id: number): Promise<Project> {
-    return new Promise<Project>((resolve, reject) => {
-      this.http.get(`${this.url}/api/projects/${id}`).toPromise()
-      .then(res => {
-        if (res.status === 404) {
-          return reject('Record not found.');
-        }
-        resolve(res.json());
-      });
-    });
+  getProject(id: number): Observable<Project> {
+    return this.http.get(`${this.url}/api/projects/${id}`)
+      .map(res => res.json() as Project)
+      .catch(this.handleError);
   }
 
-  createProject(project: Project) {
-    return new Promise<Project>((resolve, reject) => {
-      this.http.post(`${this.url}/api/projects`, project).toPromise()
-      .then(res => {
+  createProject(project: Project): Observable<Project> {
+    return this.http.post(`${this.url}/api/projects`, project)
+      .map(res => {
         project.id = res.json();
-        resolve(project);
-      });
-    });
+        return project;
+      })
+      .catch(this.handleError);
   }
 
   saveProject(project: Project) {
-    return new Promise<Project>((resolve, reject) => {
-      this.http.put(`${this.url}/api/projects/${project.id}`, project).toPromise()
-      .then(res => {
-        resolve();
-      });
-    });
+    return this.http.put(`${this.url}/api/projects/${project.id}`, project)
+    .catch(this.handleError);
   }
 
-  getSprints(projectId: number): Promise<Sprint[]> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.getProject(projectId).then(project => {
-        project.sprints.forEach(sprint => sprint.project = project);
-        project.sprints ? resolve(project.sprints) : reject('Project record not found.');
-      }, reject);
-    });
+  getSprints(projectId: number): Observable<Sprint[]> {
+    return this.http.get(`${this.url}/api/sprints/${projectId}`)
+      .map(res => res.json() as Sprint[])
+      .catch(this.handleError);
   }
 
-  getSprint(projectId: number, id: number): Promise<Sprint> {
-    return new Promise<Sprint>((resolve, reject) => {
-      let sprint: Sprint;
-      this.getSprints(projectId).then(sprints => {
-        sprints.forEach(spnt => {
-          if (id === spnt.id) {
-            sprint = spnt;
-          }
-        });
-        sprint ? resolve(sprint) : reject('Record not found.');
-      }, reject);
-    });
+  getSprint(projectId: number, id: number): Observable<Sprint> {
+    return this.http.get(`${this.url}/api/sprints/${projectId}/${id}`)
+    .map(res => res.json() as Sprint)
+    .catch(this.handleError);
   }
 
   getOrigins(): Promise<Origin[]> {
