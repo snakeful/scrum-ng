@@ -27,14 +27,15 @@ export class Project extends ScrumObject {
 }
 
 export class UserStory extends ScrumObject {
+  projectId: number;
   priorityId: number;
   statusId: number;
   tasks: Task[];
-  constructor(id?: number, name?: string, desc?: string, priorityId?: number, statusId?: number) {
+  constructor(id?: number, name?: string, desc?: string, projectId?: number, priorityId?: number, statusId?: number) {
     super(id, name, desc);
+    this.projectId = projectId;
     this.priorityId = priorityId;
     this.statusId = statusId;
-    this.tasks = [];
   }
 }
 
@@ -208,6 +209,21 @@ export class ProjectsService {
 
   saveProject(project: Project) {
     return this.http.put(`${this.url}/api/projects/${project.id}`, project)
+    .catch(this.handleError);
+  }
+
+  getUserStories(): Observable<UserStory[]> {
+    return this.http.get(`${this.url}/api/user-stories`)
+    .map(res => res.json() as UserStory[])
+    .catch(this.handleError);
+  }
+
+  createUserStory(userStory: UserStory): Observable<UserStory> {
+    return this.http.post(`${this.url}/api/user-stories`, userStory)
+    .map(res => {
+      userStory.id = res.json();
+      return userStory;
+    })
     .catch(this.handleError);
   }
 

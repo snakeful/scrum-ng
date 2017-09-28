@@ -9,8 +9,7 @@ import { UserStory } from '../../services/shared/projects/projects.service';
   styleUrls: ['./user-story-modal.component.css']
 })
 export class UserStoryModalComponent implements OnInit, AfterViewInit {
-  private _id = 0;
-  private _userStory: UserStory = new UserStory(++this._id, 'Test', 'This is a test.', 10, 0);
+  private _userStory: UserStory = new UserStory(undefined, null, null, null, 10, 0);
   private _saveUserStory: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dataUserStoryModalClose') private btnClose: ElementRef;
   constructor(private alert: NotificationsService) { }
@@ -30,7 +29,7 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
       userStory: story,
       btnClose: this.btnClose
     });
-    this._userStory = new UserStory(++this._id, 'Test', 'This is a test.', 10, 0);
+    this._userStory = new UserStory(undefined, null, null, null, 10, 0);
   }
 
   get userStory(): UserStory {

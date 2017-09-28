@@ -12,14 +12,16 @@ export class UserStoriesComponent implements OnInit {
   private _currentStory: UserStory;
   private _canDelete: Boolean = false;
   private _creatingUserStory: Boolean;
-  @Input() object: any;
+  @Input() object: UserStory[];
   @Input() showDescription: Boolean = true;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
-  constructor() { }
+  constructor() {
+    this.object = [];
+  }
 
   ngOnInit() {
-    if (this.object.userStories.length > 0) {
-      this.selectStory(this.object.userStories[0]);
+    if (this.object.length > 0) {
+      this.selectStory(this.object[0]);
     }
   }
 
@@ -31,7 +33,11 @@ export class UserStoriesComponent implements OnInit {
   }
 
   doDeleteUserStory(story) {
-    this.object.userStories.splice(this.object.userStories.indexOf(story), 1);
+    this.object.splice(this.object.indexOf(story), 1);
+  }
+
+  get userStories(): UserStory[] {
+    return this.object || [];
   }
 
   get currentStory(): UserStory {

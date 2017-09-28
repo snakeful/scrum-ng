@@ -25,7 +25,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.projectsService.getProjects()
       .subscribe(projects => {
-        console.log(projects)
         this._projects = projects;
       },
       (err) => this.alert.html(err, 'error', {
@@ -36,7 +35,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       (err) => this.alert.html(err, 'error', {
         timeOut: 10000
       }));
-      console.log(this);
   }
 
   ngAfterViewInit() {
@@ -136,8 +134,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
           }
         });
       });
-      console.log(value.scrumTeam);
-      console.log(value.stakeholders);
     } else {
       this._actual = null;
       this._selected = new Project(this._projects.length + 1);

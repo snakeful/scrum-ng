@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
@@ -11,14 +11,24 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit, AfterViewInit {
-  private _project: Project = new Project();
-  @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
-  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) { }
+  private _project: Project;
+  private _userStories: UserStory[];
+  private _sprints: Sprint[];
+  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
+    this._project = new Project();
+    this._userStories = [];
+    this._sprints = [];
+  }
 
   ngOnInit() {
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
       .subscribe(project => {
         this._project = project;
+        this.service.getUserStories()
+          .subscribe(userStories => {
+            console.log(userStories);
+            this._userStories = userStories;
+          });
       }, (err) => {
         this.alert.error('Projects', err, {
           timeOut: 10000
@@ -30,13 +40,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   assignStoryToUserStories(userStories: UserStory[], story: UserStory) {
-    this._project.userStories.push(story);
+    this._userStories.push(story);
     userStories.splice(userStories.indexOf(story), 1);
   }
 
   assignStoryToSprintStories(sprint: Sprint, story: UserStory) {
     sprint.userStories.push(story);
-    this._project.userStories.splice(this._project.userStories.indexOf(story), 1);
+    this._userStories.splice(this._userStories.indexOf(story), 1);
   }
 
   onStoryToSprintDrop(event, sprint: Sprint) {
@@ -57,13 +67,25 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this._project = value;
   }
 
+  get userStories(): UserStory[] {
+    return this._userStories;
+  }
+
+  get sprints(): Sprint[] {
+    return this._sprints;
+  }
+
   set addUserStory(value: any) {
-    this._project.userStories.push(value.userStory);
-    value.btnClose.nativeElement.click();
+    value.userStory.projectId = this._project.id;
+    this.service.createUserStory(value.userStory)
+      .subscribe(userStory => {
+        this._userStories.push(userStory);
+        value.btnClose.nativeElement.click();
+      });
   }
 
   set addSprint(value: any) {
-    this._project.sprints.push(value.sprint);
+    this._sprints.push(value.sprint);
     value.btnClose.nativeElement.click();
   }
 }
