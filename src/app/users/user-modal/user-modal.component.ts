@@ -27,15 +27,15 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   }
 
   public doSaveUser(user) {
-    let newUser: Boolean = user.id === null || user.id === undefined;
+    const newUser: Boolean = user.id === null || user.id === undefined;
     (newUser ? this.usersService.createUser(user) : this.usersService.saveUser(user.id, user))
-    .subscribe(user => {
-      this.alert.success(`User ${user.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
+    .subscribe(updatedUser => {
+      this.alert.success(`User ${updatedUser.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
         timeOut: 2000,
         showProgressBar: false
       });
       this.saveUser.emit({
-        user: user,
+        user: updatedUser,
         btnClose: this.btnClose
       });
     });

@@ -128,9 +128,6 @@ export class ProjectsService {
     ];
   }
 
-  ngOnInit() {
-  }
-
   private getNewUserStories(): UserStory[] {
     const stories: UserStory[] = [];
     stories.push(new UserStory(0, 'User Story 0', 'This is user story 0 for testing purposes', 0, 0));
@@ -170,7 +167,7 @@ export class ProjectsService {
 
   private handleError(err: Response) {
     console.log(err);
-    let msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
+    const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
   }
 
@@ -227,7 +224,7 @@ export class ProjectsService {
     })
     .catch(this.handleError);
   }
-  
+
   saveUserStory(userStory: UserStory): Observable<UserStory> {
     return this.http.post(`${this.url}/api/user-stories/${userStory.id}`, userStory)
     .map(() => userStory)

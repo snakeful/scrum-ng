@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http'
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -46,10 +46,10 @@ export class UsersService {
   private users: User[];
   constructor(private http: Http) {
   }
-  
+
   private handleError(err: Response) {
     console.log(err);
-    let msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
+    const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { UserStory, StoryPriority, ProjectsService } from '../../services/shared/projects/projects.service';
+import { UserStory, StoryPriority, ProjectsService } from '../../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-user-story',

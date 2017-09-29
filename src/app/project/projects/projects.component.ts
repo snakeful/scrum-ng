@@ -49,7 +49,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       this.scrumTeam.push(user);
     }
   }
-  
+
   onChangeStakeholder(project) {
     const user = this._users[project.selectedUser];
     if (!project.stakeholders.reduce((exists, stakeholder) => {
@@ -92,7 +92,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
+
   doRemoveStakeholder(project: Project, user: User) {
     project.stakeholders.splice(project.stakeholders.indexOf(user.id), 1);
     this.stakeholders.forEach((stakeholder, index, list) => {
@@ -143,11 +143,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   get users(): User[] {
     return this._users;
   }
-  
+
   get scrumTeam(): User[] {
     return this._scrumTeam;
   }
-    
+
   get stakeholders(): User[] {
     return this._stakeholders;
   }
