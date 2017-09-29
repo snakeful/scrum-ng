@@ -207,8 +207,9 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  saveProject(project: Project) {
+  saveProject(project: Project): Observable<Project> {
     return this.http.put(`${this.url}/api/projects/${project.id}`, project)
+    .map(() => project)
     .catch(this.handleError);
   }
 
@@ -224,6 +225,12 @@ export class ProjectsService {
       userStory.id = res.json();
       return userStory;
     })
+    .catch(this.handleError);
+  }
+  
+  saveUserStory(userStory: UserStory): Observable<UserStory> {
+    return this.http.post(`${this.url}/api/user-stories/${userStory.id}`, userStory)
+    .map(() => userStory)
     .catch(this.handleError);
   }
 

@@ -11,7 +11,7 @@ export class UserStoriesComponent implements OnInit {
   private _selectCurrentStory: Boolean = false;
   private _currentStory: UserStory;
   private _canDelete: Boolean = false;
-  private _creatingUserStory: Boolean;
+  private _canEdit: Boolean = false;
   @Input() object: UserStory[];
   @Input() showDescription: Boolean = true;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
@@ -33,6 +33,10 @@ export class UserStoriesComponent implements OnInit {
   }
 
   doDeleteUserStory(story) {
+    this.object.splice(this.object.indexOf(story), 1);
+  }
+  
+  doEditUserStory(story) {
     this.object.splice(this.object.indexOf(story), 1);
   }
 
@@ -60,11 +64,11 @@ export class UserStoriesComponent implements OnInit {
     this._canDelete = value;
   }
 
-  get creatingUserStory(): Boolean {
-    return this._creatingUserStory;
+  get canEdit(): Boolean {
+    return this._canEdit;
   }
 
-  @Input() set creatingUserStory(value: Boolean) {
-    this._creatingUserStory = value;
+  @Input() set canEdit(value: Boolean) {
+    this._canEdit = value;
   }
 }

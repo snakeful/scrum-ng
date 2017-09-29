@@ -8,7 +8,7 @@
       <h3 class="text-center">User Stories</h3>
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
-        <app-user-stories [object]="userStories" [canDelete]="true"></app-user-stories>
+        <app-user-stories [object]="userStories" [canDelete]="true" [canEdit]="true"></app-user-stories>
       </div>
     </div>
     <div class="col-8"><span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sprintData"><i class="fa fa-plus"></i></button></span>
