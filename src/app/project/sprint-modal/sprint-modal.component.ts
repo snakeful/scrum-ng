@@ -9,10 +9,13 @@ import { Sprint } from '../../services/shared/projects/projects.service';
 })
 export class SprintModalComponent implements OnInit, AfterViewInit {
   private _id = 0;
-  private _sprint: Sprint = new Sprint(++this._id, 'Test');
-  private _saveSprint: EventEmitter<any> = new EventEmitter<any>();
+  private _sprint: Sprint;
+  private _saveSprint: EventEmitter<any>;
   @ViewChild('dataSprintModalClose') private btnClose: ElementRef;
-  constructor() { }
+  constructor() {
+    this._sprint = new Sprint(++this._id, 'Test');
+    this._saveSprint = new EventEmitter<any>();
+  }
 
   ngOnInit() {
   }
@@ -20,12 +23,11 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  doSaveSprint(sprint) {
+  doSaveSprint(sprint: Sprint) {
     this._saveSprint.emit({
       sprint: sprint,
       btnClose: this.btnClose
     });
-    this._sprint = new Sprint(++this._id, 'Test');
   }
 
   get sprint(): Sprint {
@@ -39,5 +41,4 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
   @Output() get saveSprint(): EventEmitter<any> {
     return this._saveSprint;
   }
-
 }

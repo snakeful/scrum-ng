@@ -12,6 +12,7 @@ export class UserStoriesComponent implements OnInit {
   private _currentStory: UserStory;
   private _canDelete: Boolean = false;
   private _canEdit: Boolean = false;
+  private _showUserStoryModal: Boolean = false;
   @Input() object: UserStory[];
   @Input() showDescription: Boolean = true;
   @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
@@ -38,6 +39,10 @@ export class UserStoriesComponent implements OnInit {
 
   doEditUserStory(story) {
     this.object.splice(this.object.indexOf(story), 1);
+  }
+
+  editUserStory(value: any) {
+    console.log(value);
   }
 
   get userStories(): UserStory[] {
@@ -70,5 +75,9 @@ export class UserStoriesComponent implements OnInit {
 
   @Input() set canEdit(value: Boolean) {
     this._canEdit = value;
+  }
+
+  get showUserStoryModal(): Boolean {
+    return this._showUserStoryModal;
   }
 }

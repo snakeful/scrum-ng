@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { NotificationsService } from 'angular2-notifications';
 
 import { UserStory, ProjectsService } from '../../../services/shared/projects/projects.service';
 
@@ -9,10 +8,13 @@ import { UserStory, ProjectsService } from '../../../services/shared/projects/pr
   styleUrls: ['./user-story-modal.component.css']
 })
 export class UserStoryModalComponent implements OnInit, AfterViewInit {
-  private _userStory: UserStory = new UserStory(undefined, null, null, null, 10, 0);
-  @Output() private saveUserStory: EventEmitter<any> = new EventEmitter<any>();
+  private _userStory: UserStory;
+  private _saveUserStory: EventEmitter<any>;
   @ViewChild('dataUserStoryModalClose') private btnClose: ElementRef;
-  constructor(private projectsService: ProjectsService, private alert: NotificationsService) { }
+  constructor(private projectsService: ProjectsService) {
+    this._userStory = new UserStory(undefined, null, null, null, 10, 0);
+    this._saveUserStory = new EventEmitter<any>();
+  }
 
   ngOnInit() {
   }
@@ -21,24 +23,10 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   }
 
   doSaveUserStory(userStory: UserStory) {
-    const newStory: Boolean = userStory.id === null || userStory.id === undefined;
-    userStory.projectId = 0; // TODO Add project id.
-    (newStory ? this.projectsService.createUserStory(userStory) : this.projectsService.saveUserStory(userStory))
-    .subscribe(updatedStory => {
-      this.alert.success(`User Story ${updatedStory.name}`, `User Story ${newStory ? 'created' : 'saved'}.`, {
-        timeOut: 2000,
-        showProgressBar: false
-      });
-      this.saveUserStory.emit({
-        user: updatedStory,
-        btnClose: this.btnClose
-      });
-    });
     this.saveUserStory.emit({
       userStory: userStory,
       btnClose: this.btnClose
     });
-    this._userStory = new UserStory(undefined, null, null, null, 10, 0);
   }
 
   get userStory(): UserStory {
@@ -47,5 +35,9 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
 
   @Input() set userStory(value: UserStory) {
     this._userStory = value;
+  }
+
+  @Output() get saveUserStory(): EventEmitter<any> {
+    return this._saveUserStory;
   }
 }

@@ -14,6 +14,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _project: Project;
   private _userStories: UserStory[];
   private _sprints: Sprint[];
+  private _showUserStoryModal: Boolean;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._project = new Project();
     this._userStories = [];
@@ -21,12 +22,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log('OnInit');
+    this._showUserStoryModal = false;
     this.service.getProject(parseInt(this.route.snapshot.params.id || 0, 10))
       .subscribe(project => {
         this._project = project;
         this.service.getUserStories()
           .subscribe(userStories => {
-            console.log(userStories);
             this._userStories = userStories;
           });
       }, (err) => {
@@ -75,12 +77,22 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._sprints;
   }
 
-  set addUserStory(value: any) {
+  get showUserStoryModal(): Boolean {
+    return this._showUserStoryModal;
+  }
+
+  set showUserStoryModal(value: Boolean) {
+    this._showUserStoryModal = value;
+  }
+
+  public set addUserStory(value: any) {
+    console.log(value);
     value.userStory.projectId = this._project.id;
     this.service.createUserStory(value.userStory)
       .subscribe(userStory => {
         this._userStories.push(userStory);
         value.btnClose.nativeElement.click();
+        this._showUserStoryModal = false;
       });
   }
 

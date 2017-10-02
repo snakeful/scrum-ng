@@ -1,13 +1,10 @@
 <ul class="list-group">
   <li draggable [dragScope]="'story'" *ngFor="let story of userStories; let current = index" [attr.data-index]="current" [dragData]="story" class="list-group-item list-group-item-action flex-column align-items-start" (click)="selectStory(story)" [ngClass]="{'item-selected': current === userStories.indexOf(currentStory)}">
     <div class="d-flex w-100 justify-content-between">
-      <h4 class="mb-1">{{story.name}}</h4><span class="float-right"><button *ngIf="canDelete" class="btn btn-sm btn-danger" (click)="doDeleteUserStory(story)"><i class="fa fa-trash"></i></button><button *ngIf="canEdit" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#userStoryData"><i class="fa fa-edit"></i></button></span>
+      <h4 class="mb-1">{{story.name}}</h4><span class="float-right"><button *ngIf="canDelete" class="btn btn-sm btn-danger" (click)="doDeleteUserStory(story)"><i class="fa fa-trash"></i></button><button *ngIf="canEdit" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#userStoryData" (click)="showUserStoryModal = true"><i class="fa fa-edit"></i></button></span>
     </div>
     <p *ngIf="showDescription" class="mb-1">{{story.desc}}</p>
     <div class="row col"><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></div>
     <div class="row col"><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></div>
   </li>
 </ul>
-<div class="modal fade" id="userStoryData" role="dialog">
-  <app-user-story-modal (saveUserStory)="editUserStory = $event"></app-user-story-modal>
-</div>
