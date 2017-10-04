@@ -8,12 +8,11 @@ import { Sprint } from '../../services/shared/projects/projects.service';
   styleUrls: ['./sprint-modal.component.css']
 })
 export class SprintModalComponent implements OnInit, AfterViewInit {
-  private _id = 0;
   private _sprint: Sprint;
   private _saveSprint: EventEmitter<any>;
   @ViewChild('dataSprintModalClose') private btnClose: ElementRef;
   constructor() {
-    this._sprint = new Sprint(++this._id, 'Test');
+    this._sprint = new Sprint(undefined, 'Test');
     this._saveSprint = new EventEmitter<any>();
   }
 
@@ -35,7 +34,13 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set sprint(value: Sprint) {
-    this._sprint = value;
+    if (value) {
+      Object.assign(this._sprint, value);
+    } else {
+      this._sprint = new Sprint();
+      this._sprint.start = new Date();
+      this._sprint.end = new Date();
+    }
   }
 
   @Output() get saveSprint(): EventEmitter<any> {

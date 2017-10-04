@@ -46,9 +46,10 @@ export class StoryStatus extends ScrumObject {
 }
 
 export class Sprint extends ScrumObject {
-  project: Project;
   start: Date;
   end: Date;
+  projectId: number;
+  project: Project;
   userStories: UserStory[];
   constructor(id?: number, name?: string, desc?: string) {
     super(id, name, desc);
@@ -128,43 +129,6 @@ export class ProjectsService {
     ];
   }
 
-  private getNewUserStories(): UserStory[] {
-    const stories: UserStory[] = [];
-    stories.push(new UserStory(0, 'User Story 0', 'This is user story 0 for testing purposes', 0, 0));
-    stories.push(new UserStory(1, 'User Story 1', 'This is user story 1 for testing purposes', 1, 0));
-    stories.push(new UserStory(2, 'User Story 2', 'This is user story 2 for testing purposes', 2, 0));
-    stories.push(new UserStory(3, 'User Story 3', 'This is user story 3 for testing purposes', 3, 0));
-    stories.push(new UserStory(4, 'User Story 4', 'This is user story 4 for testing purposes', 4, 0));
-    stories.push(new UserStory(5, 'User Story 5', 'This is user story 5 for testing purposes', 5, 0));
-    stories.push(new UserStory(6, 'User Story 6', 'This is user story 6 for testing purposes', 6, 0));
-    stories.push(new UserStory(7, 'User Story 7', 'This is user story 7 for testing purposes', 7, 0));
-    stories.push(new UserStory(8, 'User Story 8', 'This is user story 8 for testing purposes', 8, 0));
-    stories.push(new UserStory(9, 'User Story 9', 'This is user story 9 for testing purposes', 9, 0));
-    stories.push(new UserStory(10, 'User Story 10', 'This is user story 10 for testing purposes', 10, 0));
-    stories.forEach((story) => {
-      story.tasks.push(new Task((0 + story.id * 10), `Test ${0 + story.id * 10}`, `Description of ${0 + story.id * 10}`, 9));
-      story.tasks.push(new Task((1 + story.id * 10), `Test ${1 + story.id * 10}`, `Description of ${1 + story.id * 10}`, 8));
-      story.tasks.push(new Task((2 + story.id * 10), `Test ${2 + story.id * 10}`, `Description of ${2 + story.id * 10}`, 7));
-      story.tasks.push(new Task((3 + story.id * 10), `Test ${3 + story.id * 10}`, `Description of ${3 + story.id * 10}`, 6));
-      story.tasks.push(new Task((4 + story.id * 10), `Test ${4 + story.id * 10}`, `Description of ${4 + story.id * 10}`, 5));
-      story.tasks.push(new Task((5 + story.id * 10), `Test ${5 + story.id * 10}`, `Description of ${5 + story.id * 10}`, 4));
-      story.tasks.push(new Task((6 + story.id * 10), `Test ${6 + story.id * 10}`, `Description of ${6 + story.id * 10}`, 3));
-      story.tasks.push(new Task((7 + story.id * 10), `Test ${7 + story.id * 10}`, `Description of ${7 + story.id * 10}`, 2));
-      story.tasks.push(new Task((8 + story.id * 10), `Test ${8 + story.id * 10}`, `Description of ${8 + story.id * 10}`, 1));
-      story.tasks.push(new Task((9 + story.id * 10), `Test ${9 + story.id * 10}`, `Description of ${9 + story.id * 10}`, 9));
-    });
-    return stories;
-  }
-
-  private getNewSprints(): Sprint[] {
-    return [
-      new Sprint(1, 'Sprint #1'),
-      new Sprint(2, 'Sprint #2'),
-      new Sprint(3, 'Sprint #3'),
-      new Sprint(4, 'Sprint #4')
-    ];
-  }
-
   private handleError(err: Response) {
     console.log(err);
     const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
@@ -206,41 +170,63 @@ export class ProjectsService {
 
   saveProject(project: Project): Observable<Project> {
     return this.http.put(`${this.url}/api/projects/${project.id}`, project)
-    .map(() => project)
-    .catch(this.handleError);
+      .map(() => project)
+      .catch(this.handleError);
   }
 
-  getUserStories(params?: any): Observable<UserStory[]> {
-    return this.http.get(`${this.url}/api/user-stories${params ? `?where=${JSON.stringify(params)}` : ''}`)
-    .map(res => res.json() as UserStory[])
-    .catch(this.handleError);
+  getUserStories(projectId: number): Observable<UserStory[]> {
+    return this.http.get(`${this.url}/api/user-stories?where=${JSON.stringify({
+      projectId: projectId
+    })}`)
+      .map(res => res.json() as UserStory[])
+      .catch(this.handleError);
   }
 
   createUserStory(userStory: UserStory): Observable<UserStory> {
     return this.http.post(`${this.url}/api/user-stories`, userStory)
-    .map(res => {
-      userStory.id = res.json();
-      return userStory;
-    })
-    .catch(this.handleError);
+      .map(res => {
+        userStory.id = res.json();
+        return userStory;
+      })
+      .catch(this.handleError);
   }
 
   saveUserStory(userStory: UserStory): Observable<UserStory> {
     return this.http.put(`${this.url}/api/user-stories/${userStory.id}`, userStory)
-    .map(() => userStory)
-    .catch(this.handleError);
+      .map(() => userStory)
+      .catch(this.handleError);
   }
 
   getSprints(projectId: number): Observable<Sprint[]> {
-    return this.http.get(`${this.url}/api/sprints/${projectId}`)
+    return this.http.get(`${this.url}/api/sprints/?where=${JSON.stringify({
+      projectId: projectId
+    })}`)
       .map(res => res.json() as Sprint[])
       .catch(this.handleError);
   }
 
   getSprint(projectId: number, id: number): Observable<Sprint> {
-    return this.http.get(`${this.url}/api/sprints/${projectId}/${id}`)
-    .map(res => res.json() as Sprint)
-    .catch(this.handleError);
+    return this.http.get(`${this.url}/api/sprints?where${JSON.stringify({
+      id: id,
+      projectId: projectId
+    })}`)
+      .map(res => res.json() as Sprint)
+      .catch(this.handleError);
+  }
+
+  createSprint(sprint: Sprint): Observable<Sprint> {
+    return this.http.post(`${this.url}/api/sprints`, sprint)
+      .map(res => {
+        sprint.id = res.json() as number;
+        return sprint;
+      })
+      .catch(this.handleError);
+  }
+
+  saveSprint(sprint: Sprint): Observable<Sprint> {
+    return this.http.put(`${this.url}/api/sprints/${sprint.id}`, sprint)
+      .map(() => sprint)
+      .catch(this.handleError);
   }
 
   getOrigins(): Promise<Origin[]> {

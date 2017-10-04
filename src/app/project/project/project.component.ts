@@ -13,28 +13,37 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
 export class ProjectComponent implements OnInit, AfterViewInit {
   private _project: Project;
   private _userStory: UserStory;
+  private _sprint: Sprint;
   private _userStories: UserStory[];
   private _sprints: Sprint[];
   private _showUserStoryModal: Boolean;
+  private _showSprintModal: Boolean;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
+  @ViewChild('dataSprintModal') private sprintModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];
     this._sprints = [];
     this._showUserStoryModal = false;
+    this._showSprintModal = false;
   }
 
   ngOnInit() {
-    let projectId = parseInt(this.route.snapshot.params.id || 0, 10);
+    const projectId = parseInt(this.route.snapshot.params.id || 0, 10);
     this.service.getProject(projectId)
       .subscribe(project => {
         this._project = project;
-        this.service.getUserStories({
-          projectId: projectId
-        })
+        this.service.getUserStories(projectId)
           .subscribe(userStories => {
             this._userStories = userStories;
+          });
+        this.service.getSprints(projectId)
+          .subscribe(sprints => {
+            this._sprints = sprints;
+            sprints.forEach(sprint => {
+              sprint.userStories = [];
+            });
           });
       }, (err) => {
         this.alert.error('Projects', err, {
@@ -87,6 +96,19 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     }, 50);
   }
 
+  get sprint(): Sprint {
+    return this._sprint;
+  }
+
+  set sprint(value: Sprint) {
+    this._showSprintModal = false;
+    this._sprint = value;
+    setTimeout(() => {
+      this._showSprintModal = true;
+      setTimeout(() => this.sprintModal.nativeElement.click(), 50);
+    }, 50);
+  }
+
   get userStories(): UserStory[] {
     return this._userStories;
   }
@@ -99,7 +121,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._showUserStoryModal;
   }
 
-  public set saveUserStory(value: any) {
+  get showSprintModal(): Boolean {
+    return this._showSprintModal;
+  }
+
+  set saveUserStory(value: any) {
     if (this._userStory === null) {
       value.userStory.projectId = this._project.id;
       this.service.createUserStory(value.userStory)
@@ -109,15 +135,27 @@ export class ProjectComponent implements OnInit, AfterViewInit {
         });
     } else {
       this.service.saveUserStory(value.userStory)
-      .subscribe(userStory => {
-        this._userStories[this._userStories.indexOf(this._userStory)] = userStory;
-        value.btnClose.nativeElement.click();
-      });
+        .subscribe(userStory => {
+          this._userStories[this._userStories.indexOf(this._userStory)] = userStory;
+          value.btnClose.nativeElement.click();
+        });
     }
   }
 
-  set addSprint(value: any) {
-    this._sprints.push(value.sprint);
-    value.btnClose.nativeElement.click();
+  set saveSprint(value: any) {
+    if (this._sprint === null) {
+      value.sprint.projectId = this._project.id;
+      this.service.createSprint(value.sprint)
+        .subscribe(sprint => {
+          this._sprints.push(value.sprint);
+          value.btnClose.nativeElement.click();
+        });
+    } else {
+      this.service.saveSprint(value.sprint)
+        .subscribe(sprint => {
+          this._sprints[this._sprints.indexOf(this._sprint)] = value.sprint;
+          value.btnClose.nativeElement.click();
+        });
+    }
   }
 }
