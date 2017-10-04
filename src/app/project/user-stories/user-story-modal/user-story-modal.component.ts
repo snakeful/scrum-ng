@@ -17,6 +17,7 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log('OnInit');
   }
 
   ngAfterViewInit() {
@@ -34,7 +35,11 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set userStory(value: UserStory) {
-    this._userStory = value;
+    if (value) {
+      Object.assign(this._userStory, value);
+    } else {
+      this._userStory = new UserStory(undefined, null, null, null, 10, 0);
+    }
   }
 
   @Output() get saveUserStory(): EventEmitter<any> {

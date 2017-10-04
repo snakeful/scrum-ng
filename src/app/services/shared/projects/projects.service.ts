@@ -226,7 +226,7 @@ export class ProjectsService {
   }
 
   saveUserStory(userStory: UserStory): Observable<UserStory> {
-    return this.http.post(`${this.url}/api/user-stories/${userStory.id}`, userStory)
+    return this.http.put(`${this.url}/api/user-stories/${userStory.id}`, userStory)
     .map(() => userStory)
     .catch(this.handleError);
   }

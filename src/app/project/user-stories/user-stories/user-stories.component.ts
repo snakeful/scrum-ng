@@ -26,10 +26,8 @@ export class UserStoriesComponent implements OnInit {
   }
 
   selectStory(story) {
-    if (this._selectCurrentStory) {
-      this._currentStory = story;
-      this.onSelect.emit(story);
-    }
+    this._currentStory = story;
+    this.onSelect.emit(story);
   }
 
   doDeleteUserStory(story) {

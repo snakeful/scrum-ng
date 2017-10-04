@@ -10,3 +10,7 @@
     height: 305px;
   }
 }
+
+.hidden {
+  display: none;
+}

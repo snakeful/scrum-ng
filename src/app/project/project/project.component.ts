@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
@@ -15,15 +15,17 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _userStory: UserStory;
   private _userStories: UserStory[];
   private _sprints: Sprint[];
+  private _showUserStoryModal: Boolean;
+  @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];
     this._sprints = [];
+    this._showUserStoryModal = false;
   }
 
   ngOnInit() {
-    console.log('OnInit');
     let projectId = parseInt(this.route.snapshot.params.id || 0, 10);
     this.service.getProject(projectId)
       .subscribe(project => {
@@ -77,7 +79,12 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set userStory(value: UserStory) {
+    this._showUserStoryModal = false;
     this._userStory = value;
+    setTimeout(() => {
+      this._showUserStoryModal = true;
+      setTimeout(() => this.userStoryModal.nativeElement.click(), 50);
+    }, 50);
   }
 
   get userStories(): UserStory[] {
@@ -86,6 +93,10 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   get sprints(): Sprint[] {
     return this._sprints;
+  }
+
+  get showUserStoryModal(): Boolean {
+    return this._showUserStoryModal;
   }
 
   public set saveUserStory(value: any) {
