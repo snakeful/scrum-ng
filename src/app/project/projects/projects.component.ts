@@ -106,6 +106,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     return this._projects;
   }
 
+  get actual(): Project {
+    return this._actual;
+  }
+
   set projects(value: Project[]) {
     this._projects = value;
   }

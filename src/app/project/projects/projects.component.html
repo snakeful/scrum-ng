@@ -19,7 +19,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{(selected && selected.id) ? 'Edit' : 'New'}} Project {{selected && selected.name}}</h5>
+          <h5 class="modal-title">{{(actual) ? 'Edit' : 'New'}} Project {{selected && selected.name}}</h5>
           <button #dataUserStoryClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -27,7 +27,6 @@
           <input type="text" class="form-control" [(ngModel)]="selected.name">
           <label for="desc">Description</label>
           <input type="text" class="form-control" [(ngModel)]="selected.desc">
-          <label for="stakeholder">Stakeholder</label>
           <label for="productOwner">Product Owner</label>
           <select class="form-control" [(ngModel)]="selected.productOwnerId" name="productOwner" id="productOwner">
             <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}}{{productOwner.lastName}}</option>
