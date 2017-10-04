@@ -25,9 +25,8 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
     "@types/jasmine": "^2.6.0",
-    "@types/lodash": "^4.14.76",
-    "@types/node": "^8.0.31",
-    "angular2-notifications": "^0.7.7",
+    "@types/lodash": "^4.14.77",
+    "angular2-notifications": "^0.7.8",
     "bootstrap": "^4.0.0-beta",
     "codelyzer": "^3.2.0",
     "core-js": "^2.4.1",
@@ -45,7 +44,7 @@
     "@angular/language-service": "^4.3.6",
     "@types/jasmine": "^2.6.0",
     "@types/jasminewd2": "~2.0.2",
-    "@types/node": "^8.0.28",
+    "@types/node": "^8.0.32",
     "codelyzer": "^3.2.0",
     "install": "^0.10.1",
     "jasmine-core": "^2.8.0",
@@ -59,6 +58,6 @@
     "protractor": "~5.1.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.5.3"
   }
 }
