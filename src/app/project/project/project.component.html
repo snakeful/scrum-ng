@@ -4,11 +4,11 @@
     <p class="lead text-muted">{{project.desc}}</p>
   </div>
   <div class="row">
-    <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#userStoryData" (click)="showUserStoryModal"><i class="fa fa-plus"></i></button></span>
+    <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#userStoryData" (click)="userStory = null"><i class="fa fa-plus"></i></button></span>
       <h3 class="text-center">User Stories</h3>
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
-        <app-user-stories [object]="userStories" [canDelete]="true" [canEdit]="true"></app-user-stories>
+        <app-user-stories [object]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
       </div>
     </div>
     <div class="col-8"><span class="float-right"><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sprintData"><i class="fa fa-plus"></i></button></span>
@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="modal" id="userStoryData" role="dialog">
-    <app-user-story-modal (saveUserStory)="addUserStory = $event"></app-user-story-modal>
+    <app-user-story-modal (userStory)="userStory" (saveUserStory)="saveUserStory = $event"></app-user-story-modal>
   </div>
   <div class="modal fade" id="sprintData" role="dialog">
     <app-sprint-modal (saveSprint)="addSprint = $event"></app-sprint-modal>

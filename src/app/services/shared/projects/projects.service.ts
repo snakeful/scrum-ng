@@ -210,8 +210,8 @@ export class ProjectsService {
     .catch(this.handleError);
   }
 
-  getUserStories(): Observable<UserStory[]> {
-    return this.http.get(`${this.url}/api/user-stories`)
+  getUserStories(params?: any): Observable<UserStory[]> {
+    return this.http.get(`${this.url}/api/user-stories${params ? `?where=${JSON.stringify(params)}` : ''}`)
     .map(res => res.json() as UserStory[])
     .catch(this.handleError);
   }

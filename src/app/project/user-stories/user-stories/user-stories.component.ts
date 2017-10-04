@@ -11,7 +11,6 @@ export class UserStoriesComponent implements OnInit {
   private _selectCurrentStory: Boolean = false;
   private _currentStory: UserStory;
   private _canDelete: Boolean = false;
-  private _canEdit: Boolean = false;
   private _showUserStoryModal: Boolean = false;
   @Input() object: UserStory[];
   @Input() showDescription: Boolean = true;
@@ -67,14 +66,6 @@ export class UserStoriesComponent implements OnInit {
 
   @Input() set canDelete(value: Boolean) {
     this._canDelete = value;
-  }
-
-  get canEdit(): Boolean {
-    return this._canEdit;
-  }
-
-  @Input() set canEdit(value: Boolean) {
-    this._canEdit = value;
   }
 
   get showUserStoryModal(): Boolean {
