@@ -29,6 +29,18 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this._showSprintModal = false;
   }
 
+  private assignDataFunctionsArray(array: any[]) {
+    const userStories = this._userStories;
+    array.push = function (value: UserStory): number {
+      userStories.splice(userStories.indexOf(value), 1);
+      return Array.prototype.push.call(this, value);
+    };
+    array.splice = function (start, deleteCount): UserStory[] {
+      userStories.push(this[start]);
+      return Array.prototype.splice.call(this, start, deleteCount);
+    };
+  }
+
   ngOnInit() {
     const projectId = parseInt(this.route.snapshot.params.id || 0, 10);
     this.service.getProject(projectId)
@@ -43,14 +55,22 @@ export class ProjectComponent implements OnInit, AfterViewInit {
             this._sprints = sprints;
             sprints.forEach(sprint => {
               sprint.userStories = [];
-              sprint.userStories.push = (value: UserStory): number => {
-                this._userStories.splice(this._userStories.indexOf(value), 1);
-                return Array.prototype.push.call(sprint.userStories, value);
-              };
-              sprint.userStories.splice = (start, deleteCount): UserStory[] => {
-                this._userStories.push(sprint.userStories[start]);
-                return Array.prototype.splice.call(sprint.userStories, start, deleteCount);
-              };
+              this.assignDataFunctionsArray(sprint.userStories);
+              this.service.getSprintUserStories(sprint.id)
+                .subscribe(stories => {
+                  stories.forEach(story => {
+                    this._userStories.forEach(userStory => {
+                      if (userStory.id === story.userStoryId) {
+                        sprint.userStories.push(userStory);
+                      }
+                    });
+                  });
+                },
+                (err) => {
+                  this.alert.error('Sprint User Stories', err, {
+                    timeOut: 10000
+                  });
+                });
             });
           });
       }, (err) => {
@@ -147,6 +167,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this.service.createSprint(value.sprint)
         .subscribe(sprint => {
           this._sprints.push(value.sprint);
+          this.assignDataFunctionsArray(value.sprint.userStories);
           value.btnClose.nativeElement.click();
         });
     } else {
