@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Project, UserStory } from '../../../services/shared/projects/projects.service';
+import { ProjectsService, Project, UserStory } from '../../../services/shared/projects/projects.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-user-stories',
@@ -8,42 +9,52 @@ import { Project, UserStory } from '../../../services/shared/projects/projects.s
   styleUrls: ['./user-stories.component.css']
 })
 export class UserStoriesComponent implements OnInit {
-  private _selectCurrentStory: Boolean = false;
+  private _selectCurrentStory: Boolean;
   private _currentStory: UserStory;
-  private _canDelete: Boolean = false;
-  private _showUserStoryModal: Boolean = false;
-  @Input() userStory: UserStory[];
-  @Input() showDescription: Boolean = true;
-  @Output() onSelect: EventEmitter<UserStory> = new EventEmitter<UserStory>();
-  constructor() {
-    this.userStory = [];
+  private _canDelete: Boolean;
+  private deleting: Boolean;
+  private _showDescription: Boolean;
+  private _onSelect: EventEmitter<UserStory>;
+  private _userStory: UserStory[];
+  constructor(private projectsService: ProjectsService, private alert: NotificationsService) {
+    this._userStory = [];
+    this._selectCurrentStory = false;
+    this._canDelete = false;
+    this.deleting = false;
+    this._showDescription = true;
+    this._onSelect = new EventEmitter<UserStory>();
   }
 
   ngOnInit() {
-    if (this.userStory.length > 0) {
-      this.selectStory(this.userStory[0]);
+    if (this._userStory.length > 0) {
+      this.selectStory(this._userStory[0]);
     }
   }
 
   selectStory(story) {
-    this._currentStory = story;
-    this.onSelect.emit(story);
+    if (!this.deleting) {
+      this._currentStory = story;
+      this._onSelect.emit(story);
+    }
   }
 
   doDeleteUserStory(story) {
-    this.userStory.splice(this.userStory.indexOf(story), 1);
-  }
-
-  doEditUserStory(story) {
-    this.userStory.splice(this.userStory.indexOf(story), 1);
-  }
-
-  editUserStory(value: any) {
-    console.log(value);
+    this.deleting = true;
+    this.projectsService.deleteUserStory(story)
+      .subscribe(deleted => {
+        this._userStory.splice(this._userStory.indexOf(story), 1);
+        this.deleting = false;
+      },
+      (err) => {
+        this.deleting = false;
+        this.alert.html(err, 'error', {
+          timeOut: 10000
+        });
+      });
   }
 
   get userStories(): UserStory[] {
-    return this.userStory || [];
+    return this._userStory || [];
   }
 
   get currentStory(): UserStory {
@@ -58,6 +69,14 @@ export class UserStoriesComponent implements OnInit {
     this._selectCurrentStory = value;
   }
 
+  get showDescription(): Boolean {
+    return this._showDescription;
+  }
+
+  @Input() set showDescription(value: Boolean) {
+    this._showDescription = value;
+  }
+
   get canDelete(): Boolean {
     return this._canDelete;
   }
@@ -66,7 +85,11 @@ export class UserStoriesComponent implements OnInit {
     this._canDelete = value;
   }
 
-  get showUserStoryModal(): Boolean {
-    return this._showUserStoryModal;
+  @Output() get onSelect(): EventEmitter<UserStory> {
+    return this._onSelect;
+  }
+
+  @Input() set userStory(value: UserStory[]) {
+    this._userStory = value;
   }
 }

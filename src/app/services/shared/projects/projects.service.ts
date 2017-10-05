@@ -197,6 +197,12 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  deleteUserStory(userStory: UserStory): Observable<Boolean> {
+    return this.http.delete(`${this.url}/api/user-stories/${userStory.id}`)
+    .map(() => true)
+    .catch(this.handleError);
+  }
+
   getSprints(projectId: number): Observable<Sprint[]> {
     return this.http.get(`${this.url}/api/sprints/?where=${JSON.stringify({
       projectId: projectId
