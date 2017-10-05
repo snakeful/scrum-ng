@@ -15,7 +15,7 @@ export class SprintsComponent implements OnInit {
   private deleting: Boolean;
   private _sprints: Sprint[];
   private _onSelect: EventEmitter<Sprint>;
-  constructor(private projectsService: ProjectsService, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._selectCurrentSprint = false;
     this._canDelete = false;
     this._sprints = [];
@@ -32,7 +32,7 @@ export class SprintsComponent implements OnInit {
 
   deleteSprint(sprint) {
     this.deleting = true;
-    this.projectsService.deleteSprint(sprint)
+    this.service.deleteSprint(sprint)
       .subscribe(deleted => {
         this._sprints.splice(this._sprints.indexOf(sprint), 1);
         this.deleting = false;
@@ -46,15 +46,29 @@ export class SprintsComponent implements OnInit {
   }
 
   assignStoryToSprintStories(sprint: Sprint, story: UserStory) {
-    sprint.userStories.push(story);
+    this.service.assignUserStoryToSprint(sprint, story)
+      .subscribe(assigned => sprint.userStories.push(story),
+      (err) => {
+        this.deleting = false;
+        this.alert.html(err, 'error', {
+          timeOut: 10000
+        });
+      });
   }
 
   onStoryToSprintDrop(event, sprint: Sprint) {
     this.assignStoryToSprintStories(sprint, event.dragData);
   }
 
-  deleteUserStoryFromSprint(sprint: Sprint, story: UserStory) {
-    sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
+  unassignedUserStoryFromSprint(sprint: Sprint, story: UserStory) {
+    this.service.unassignUserStoryFromSprint(sprint, story)
+      .subscribe(unassigned => sprint.userStories.splice(sprint.userStories.indexOf(story), 1),
+      (err) => {
+        this.deleting = false;
+        this.alert.html(err, 'error', {
+          timeOut: 10000
+        });
+      });
   }
 
   get sprints(): Sprint[] {
@@ -65,7 +79,11 @@ export class SprintsComponent implements OnInit {
     this._sprints = value;
   }
 
-  @Input() canDelete(value: Boolean) {
+  get canDelete(): Boolean {
+    return this._canDelete;
+  }
+
+  @Input() set canDelete(value: Boolean) {
     this._canDelete = value;
   }
 
