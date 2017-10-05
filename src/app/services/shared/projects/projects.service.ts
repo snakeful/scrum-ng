@@ -235,6 +235,12 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  deleteSprint(sprint: Sprint): Observable<Boolean> {
+    return this.http.delete(`${this.url}/api/sprints/${sprint.id}`)
+    .map(() => true)
+    .catch(this.handleError);
+  }
+
   getOrigins(): Promise<Origin[]> {
     return new Promise<Origin[]>((resolve, reject) => {
       resolve(this.origins);

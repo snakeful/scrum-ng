@@ -38,7 +38,7 @@ export class UserStoriesComponent implements OnInit {
     }
   }
 
-  doDeleteUserStory(story) {
+  deleteUserStory(story) {
     this.deleting = true;
     this.projectsService.deleteUserStory(story)
       .subscribe(deleted => {

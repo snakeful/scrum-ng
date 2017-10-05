@@ -5,8 +5,9 @@
         <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
           {{sprint.name}}
         </a><span> - Stories: {{sprint.userStories.length}}</span>
-        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.projectId, sprint.id]">Go to sprint</button>
+        <button class="btn btn-sm btn-danger float-right" (click)="deleteSprint(sprint)"><i class="fa fa-trash"></i></button>
         <button class="btn btn-sm btn-primary float-right" (click)="selectSprint(sprint)"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.projectId, sprint.id]">Go to sprint</button>
         <p><span>{{sprint.start | date}}</span> to <span>{{sprint.start | date}}</span></p>
       </h5>
     </div>
@@ -18,7 +19,7 @@
               <td>{{story.name}}</td>
               <td><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></td>
               <td><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></td>
-              <td class="float-right"><button type="button" class="btn btn-sm btn-danger" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
+              <td class="float-right"><button type="button" class="btn btn-sm btn-danger" (click)="deleteUserStoryFromSprint(sprint, story)"><i class="fa fa-trash"></i></button></td>
             </tr>
           </tbody>
         </table>

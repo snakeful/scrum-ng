@@ -46,7 +46,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
               sprint.userStories.push = (value: UserStory): number => {
                 this._userStories.splice(this._userStories.indexOf(value), 1);
                 return Array.prototype.push.call(sprint.userStories, value);
-              }
+              };
+              sprint.userStories.splice = (start, deleteCount): UserStory[] => {
+                this._userStories.push(sprint.userStories[start]);
+                return Array.prototype.splice.call(sprint.userStories, start, deleteCount);
+              };
             });
           });
       }, (err) => {

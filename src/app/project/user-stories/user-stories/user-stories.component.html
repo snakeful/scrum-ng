@@ -1,7 +1,7 @@
 <ul class="list-group">
   <li draggable [dragScope]="'story'" *ngFor="let story of userStories; let current = index" [attr.data-index]="current" [dragData]="story" class="list-group-item list-group-item-action flex-column align-items-start" (click)="selectStory(story)" [ngClass]="{'item-selected': current === userStories.indexOf(currentStory)}">
     <div class="d-flex w-100 justify-content-between">
-      <h4 class="mb-1">{{story.name}}</h4><span class="float-right"><button *ngIf="canDelete" class="btn btn-sm btn-danger" (click)="doDeleteUserStory(story)"><i class="fa fa-trash"></i></button></span>
+      <h4 class="mb-1">{{story.name}}</h4><span class="float-right"><button *ngIf="canDelete" class="btn btn-sm btn-danger" (click)="deleteUserStory(story)"><i class="fa fa-trash"></i></button></span>
     </div>
     <p *ngIf="showDescription" class="mb-1">{{story.desc}}</p>
     <div class="row col"><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></div>
