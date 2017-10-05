@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
-import { Sprint } from '../../services/shared/projects/projects.service';
+import { Sprint } from '../../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-sprint-modal',

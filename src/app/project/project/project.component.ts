@@ -43,6 +43,10 @@ export class ProjectComponent implements OnInit, AfterViewInit {
             this._sprints = sprints;
             sprints.forEach(sprint => {
               sprint.userStories = [];
+              sprint.userStories.push = (value: UserStory): number => {
+                this._userStories.splice(this._userStories.indexOf(value), 1);
+                return Array.prototype.push.call(sprint.userStories, value);
+              }
             });
           });
       }, (err) => {
@@ -58,15 +62,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   assignStoryToUserStories(userStories: UserStory[], story: UserStory) {
     this._userStories.push(story);
     userStories.splice(userStories.indexOf(story), 1);
-  }
-
-  assignStoryToSprintStories(sprint: Sprint, story: UserStory) {
-    sprint.userStories.push(story);
-    this._userStories.splice(this._userStories.indexOf(story), 1);
-  }
-
-  onStoryToSprintDrop(event, sprint: Sprint) {
-    this.assignStoryToSprintStories(sprint, event.dragData);
   }
 
   onSprintStoryToUserStoriesDrop(event) {

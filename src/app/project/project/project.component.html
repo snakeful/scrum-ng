@@ -8,39 +8,13 @@
       <h3 class="text-center">User Stories</h3>
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
-        <app-user-stories [object]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
+        <app-user-stories [userStory]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
       </div>
     </div>
     <div class="col-8"><span class="float-right"><button class="btn btn-sm btn-primary" (click)="sprint = null"><i class="fa fa-plus"></i></button><button #dataSprintModal class="hidden" data-toggle="modal" data-target="#sprintData"></button></span>
       <h3 class="text-center">Sprints</h3>
       <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
-      <div class="scrollspy" data-spy="scroll" data-offset="0" id="accordion" role="tablist">
-        <div *ngFor="let sprint of sprints" class="card">
-          <div class="card-header" role="tab" [id]="'heading' + sprint.id" droppable [dropScope]="'story'" (onDrop)="onStoryToSprintDrop($event, sprint)">
-            <h5 class="mb-0">
-              <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
-                {{sprint.name}}
-              </a>
-              <a class="btn btn-primary float-right" [routerLink]="['/project/sprint', project.id, sprint.id]">Go to sprint</a>
-              <p><span>{{sprint.start | date}}</span> to <span>{{sprint.start | date}}</span></p>
-            </h5>
-          </div>
-          <div [id]="'collapse' + sprint.id" [ngClass]="{'show' : sprints.indexOf(sprint) === 0}" class="collapse" role="tabpanel" data-parent="#accordion">
-            <div droppable [dropScope]="'story'" (onDrop)="onStoryToSprintDrop($event, sprint)" class="card-body">
-              <table class="table table-striped">
-                <tbody>
-                  <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'sprintStory'" [dragData]="[sprint.userStories, story]">
-                    <td>{{story.name}}</td>
-                    <td><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></td>
-                    <td><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></td>
-                    <td class="float-right"><button type="button" class="btn btn-sm btn-danger" (click)="assignStoryToUserStories(sprint.userStories, story)"><i class="fa fa-trash"></i></button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-sprints [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></app-sprints>
     </div>
   </div>
   <div *ngIf="showUserStoryModal" class="modal" id="userStoryData" role="dialog">
