@@ -59,6 +59,16 @@ export class Sprint extends ScrumObject {
   }
 }
 
+export class SprintUserStory extends ScrumObject {
+  sprintId: number;
+  userStoryId: number;
+  constructor(id?: number, sprintId?: number, userStoryId?: number) {
+    super(id);
+    this.sprintId = sprintId;
+    this.userStoryId = userStoryId;
+  }
+}
+
 export class Task extends ScrumObject {
   userStoryId: number;
   date: Date;
@@ -199,8 +209,8 @@ export class ProjectsService {
 
   deleteUserStory(userStory: UserStory): Observable<Boolean> {
     return this.http.delete(`${this.url}/api/user-stories/${userStory.id}`)
-    .map(() => true)
-    .catch(this.handleError);
+      .map(() => true)
+      .catch(this.handleError);
   }
 
   getSprints(projectId: number): Observable<Sprint[]> {
@@ -237,8 +247,32 @@ export class ProjectsService {
 
   deleteSprint(sprint: Sprint): Observable<Boolean> {
     return this.http.delete(`${this.url}/api/sprints/${sprint.id}`)
-    .map(() => true)
-    .catch(this.handleError);
+      .map(() => true)
+      .catch(this.handleError);
+  }
+
+  getSprintUserStories(id: number): Observable<SprintUserStory[]> {
+    return this.http.get(`${this.url}/api/sprint-user-stories?where=${JSON.stringify({
+      sprintId: id
+    })}`)
+      .map(res => res.json() as SprintUserStory[])
+      .catch(this.handleError);
+  }
+
+  assignUserStoryToSprint(sprint: Sprint, story: UserStory): Observable<Boolean> {
+    return this.http.post(`${this.url}/api/sprint-user-stories`, {
+      sprintId: sprint.id,
+      userStoryId: story.id
+    }).map(() => true)
+      .catch(this.handleError);
+  }
+
+  unassignUserStoryFromSprint(sprint: Sprint, story: UserStory): Observable<Boolean> {
+    return this.http.delete(`${this.url}/api/sprint-user-stories/0?where=${JSON.stringify({
+      sprintId: sprint.id,
+      userStoryId: story.id
+    })}`).map(() => true)
+      .catch(this.handleError);
   }
 
   getOrigins(): Promise<Origin[]> {
