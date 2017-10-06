@@ -11,7 +11,7 @@
         <h3 class="text-center">User Stories</h3>
         <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
           <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
-          <app-user-stories [userStory]="story" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story=$event"></app-user-stories>
+          <app-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" (onSelect)="story = $event"></app-user-stories>
         </div>
       </div>
       <div class="col-4">
@@ -54,7 +54,7 @@
             <div class="row">
               <div class="col-md-10 col-sm-10">
                 <label for="taskName">Name</label>
-                <input type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
+                <input #taskName type="text" class="form-control" [(ngModel)]="newTask.name" name="taskName" id="taskName" required>
               </div>
               <div class="col-md-2 col-xs-2">
                 <label for="successTask">Success</label>
@@ -69,7 +69,7 @@
               <div class="col-md-6 col-sm-12">
                 <label for="taskUser">User</label>
                 <select class="form-control" [(ngModel)]="newTask.userId" name="taskUser" id="taskUser">
-                  <option *ngFor="let user of sprint.project.scrumTeam" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+                  <option *ngFor="let id of sprint.project.scrumTeam" [ngValue]="id">{{id | scrumTeam: 'user'}}</option>
                 </select>
               </div>
               <div class="col-md-6 col-sm-12">

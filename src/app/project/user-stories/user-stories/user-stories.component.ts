@@ -15,9 +15,9 @@ export class UserStoriesComponent implements OnInit {
   private deleting: Boolean;
   private _showDescription: Boolean;
   private _onSelect: EventEmitter<UserStory>;
-  private _userStory: UserStory[];
+  private _userStories: UserStory[];
   constructor(private projectsService: ProjectsService, private alert: NotificationsService) {
-    this._userStory = [];
+    this._userStories = [];
     this._selectCurrentStory = false;
     this._canDelete = false;
     this.deleting = false;
@@ -26,8 +26,8 @@ export class UserStoriesComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this._userStory.length > 0) {
-      this.selectStory(this._userStory[0]);
+    if (this._userStories.length > 0) {
+      this.selectStory(this._userStories[0]);
     }
   }
 
@@ -42,7 +42,7 @@ export class UserStoriesComponent implements OnInit {
     this.deleting = true;
     this.projectsService.deleteUserStory(story)
       .subscribe(deleted => {
-        this._userStory.splice(this._userStory.indexOf(story), 1);
+        this._userStories.splice(this._userStories.indexOf(story), 1);
         this.deleting = false;
       },
       (err) => {
@@ -54,7 +54,7 @@ export class UserStoriesComponent implements OnInit {
   }
 
   get userStories(): UserStory[] {
-    return this._userStory || [];
+    return this._userStories || [];
   }
 
   get currentStory(): UserStory {
@@ -89,7 +89,7 @@ export class UserStoriesComponent implements OnInit {
     return this._onSelect;
   }
 
-  @Input() set userStory(value: UserStory[]) {
-    this._userStory = value;
+  @Input() set userStories(value: UserStory[]) {
+    this._userStories = value;
   }
 }
