@@ -15,6 +15,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _userStory: UserStory;
   private _sprint: Sprint;
   private _userStories: UserStory[];
+  private _userStoriesLoad: UserStory[];
   private _sprints: Sprint[];
   private _showUserStoryModal: Boolean;
   private _showSprintModal: Boolean;
@@ -24,13 +25,14 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];
+    this._userStoriesLoad = [];
     this._sprints = [];
     this._showUserStoryModal = false;
     this._showSprintModal = false;
   }
 
   private assignDataFunctionsArray(array: any[]) {
-    const userStories = this._userStories;
+    const userStories = this._userStoriesLoad;
     array.push = function (value: UserStory): number {
       userStories.splice(userStories.indexOf(value), 1);
       return Array.prototype.push.call(this, value);
@@ -48,30 +50,31 @@ export class ProjectComponent implements OnInit, AfterViewInit {
         this._project = project;
         this.service.getUserStories(projectId)
           .subscribe(userStories => {
-            this._userStories = userStories;
-          });
-        this.service.getSprints(projectId)
-          .subscribe(sprints => {
-            this._sprints = sprints;
-            sprints.forEach(sprint => {
-              sprint.userStories = [];
-              this.assignDataFunctionsArray(sprint.userStories);
-              this.service.getSprintUserStories(sprint.id)
-                .subscribe(stories => {
-                  stories.forEach(story => {
-                    this._userStories.forEach(userStory => {
-                      if (userStory.id === story.userStoryId) {
-                        sprint.userStories.push(userStory);
-                      }
+            this._userStoriesLoad = userStories;
+            this.service.getSprints(projectId)
+              .subscribe(sprints => {
+                this._sprints = sprints;
+                sprints.forEach(sprint => {
+                  sprint.userStories = [];
+                  this.assignDataFunctionsArray(sprint.userStories);
+                  this.service.getSprintUserStories(sprint.id)
+                    .subscribe(stories => {
+                      stories.forEach(story => {
+                        this._userStoriesLoad.forEach(userStory => {
+                          if (userStory.id === story.userStoryId) {
+                            sprint.userStories.push(userStory);
+                          }
+                        });
+                      });
+                      this._userStories = this._userStoriesLoad;
+                    },
+                    (err) => {
+                      this.alert.error('Sprint User Stories', err, {
+                        timeOut: 10000
+                      });
                     });
-                  });
-                },
-                (err) => {
-                  this.alert.error('Sprint User Stories', err, {
-                    timeOut: 10000
-                  });
                 });
-            });
+              });
           });
       }, (err) => {
         this.alert.error('Projects', err, {
