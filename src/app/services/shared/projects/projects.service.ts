@@ -192,6 +192,12 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
+  getUserStory(id: number): Observable<UserStory> {
+    return this.http.get(`${this.url}/api/user-stories/${id}`)
+    .map(res => res.json() as UserStory)
+    .catch(this.handleError);
+  }
+
   createUserStory(userStory: UserStory): Observable<UserStory> {
     return this.http.post(`${this.url}/api/user-stories`, userStory)
       .map(res => {
@@ -221,12 +227,13 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getSprint(projectId: number, id: number): Observable<Sprint> {
-    return this.http.get(`${this.url}/api/sprints?where${JSON.stringify({
-      id: id,
-      projectId: projectId
-    })}`)
-      .map(res => res.json() as Sprint)
+  getSprint(id: number): Observable<Sprint> {
+    return this.http.get(`${this.url}/api/sprints/${id}`)
+      .map(res => {
+        const sprint = res.json() as Sprint;
+        sprint.userStories = [];
+        return sprint;
+      })
       .catch(this.handleError);
   }
 
