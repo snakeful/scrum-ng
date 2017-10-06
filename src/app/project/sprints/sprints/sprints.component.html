@@ -7,7 +7,7 @@
         </a><span> - Stories: {{sprint.userStories.length}}</span>
         <button *ngIf="canDelete" class="btn btn-sm btn-danger float-right ml-1" (click)="deleteSprint(sprint)"><i class="fa fa-trash"></i></button>
         <button class="btn btn-sm btn-primary float-right ml-1" (click)="selectSprint(sprint)"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.projectId, sprint.id]">Go to sprint</button>
+        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.id]">Go to sprint</button>
         <p><span>{{sprint.start | date}}</span> to <span>{{sprint.start | date}}</span></p>
       </h5>
     </div>

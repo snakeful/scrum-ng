@@ -81,7 +81,7 @@ import { UserRolePipe } from './project/user-role.pipe';
       path: 'project/:id',
       component: ProjectComponent
     }, {
-      path: 'project/sprint/:projectId/:id',
+      path: 'project/sprint/:id',
       component: SprintComponent
     }, {
       path: 'users',

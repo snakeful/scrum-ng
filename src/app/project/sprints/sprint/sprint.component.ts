@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { ProjectsService, UserStory, Sprint, Task } from '../../../services/shared/projects/projects.service';
-declare let $: any;
 
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
   styleUrls: ['./sprint.component.css']
 })
-export class SprintComponent implements OnInit {
-  private _sprint: Sprint = new Sprint();
+export class SprintComponent implements OnInit, AfterViewInit {
+  private _sprint: Sprint;
   private _story: UserStory;
   private _toDo: any;
   private _inProgress: any;
   private _testing: any;
   private _done: any;
-  private _showCreateTask: Boolean = false;
-  private _newTask: Task = new Task();
-
-  constructor(private projectsService: ProjectsService, private route: ActivatedRoute) { }
+  private _showCreateTask: Boolean;
+  private _newTask: Task;
+  @ViewChild('taskName') private taskName: ElementRef;
+  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
+    this._sprint = new Sprint();
+    this._showCreateTask = false;
+    this._newTask = new Task();
+  }
 
   private addTask(task) {
     switch (task.statusId) {
@@ -50,12 +55,26 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectsService.getSprint(parseInt(this.route.snapshot.params.projectId || 0, 10),
-      parseInt(this.route.snapshot.params.id || 0, 10))
+    const sprintId = parseInt(this.route.snapshot.params.id || 0, 10);
+    this.service.getSprint(sprintId)
       .subscribe((sprint) => {
         this._sprint = sprint;
+        this.service.getProject(sprint.projectId)
+          .subscribe(project => sprint.project = project)
+        this.service.getSprintUserStories(sprintId)
+          .subscribe(sprintUserStories => {
+            sprintUserStories.forEach(sprintUserStory => {
+              this.service.getUserStory(sprintUserStory.userStoryId)
+                .subscribe(userStory => {
+                  sprint.userStories.push(userStory);
+                });
+            });
+          });
       });
     this.cleanNewTask();
+  }
+
+  ngAfterViewInit() {
   }
 
   doNewTask() {
@@ -63,12 +82,15 @@ export class SprintComponent implements OnInit {
   }
 
   doCreateTask(task: Task) {
-    this.cleanNewTask();
-    if (this.story && this.story.tasks) {
-      this.story.tasks.push(task);
-      this.addTask(task);
+    if (!this._story) {
+      return this.alert.error('New Task', 'No user story selected', {
+        timeOut: 3000
+      })
     }
-    $('#taskName').focus();
+    this.cleanNewTask();
+    this._story.tasks.push(task);
+    this.addTask(task);
+    this.taskName.nativeElement.focus();
   }
 
   doCancelCreateTask() {
@@ -85,7 +107,8 @@ export class SprintComponent implements OnInit {
     return this._story;
   }
 
-  set story(value) {
+  set story(value: UserStory) {
+    value.tasks = value.tasks || [];
     this._story = value;
   }
 
