@@ -194,8 +194,8 @@ export class ProjectsService {
 
   getUserStory(id: number): Observable<UserStory> {
     return this.http.get(`${this.url}/api/user-stories/${id}`)
-    .map(res => res.json() as UserStory)
-    .catch(this.handleError);
+      .map(res => res.json() as UserStory)
+      .catch(this.handleError);
   }
 
   createUserStory(userStory: UserStory): Observable<UserStory> {
@@ -280,6 +280,25 @@ export class ProjectsService {
       userStoryId: story.id
     })}`).map(() => true)
       .catch(this.handleError);
+  }
+
+  getTasks(userStoryId: number): Observable<Task[]> {
+    return this.http.get(`${this.url}/api/tasks?where=${JSON.stringify({
+      userStoryId: userStoryId
+    })}`).map(res => res.json() as Task[])
+      .catch(this.handleError);
+  }
+
+  getTask(id: number): Observable<Task> {
+    return this.http.get(`${this.url}/api/tasks/${id}`)
+      .map(res => res.json() as Task)
+      .catch(this.handleError);
+  }
+
+  createTask(task: Task): Observable<Boolean> {
+    return this.http.post(`${this.url}/api/tasks`, task)
+    .map(res => true)
+    .catch(this.handleError);
   }
 
   getOrigins(): Promise<Origin[]> {
