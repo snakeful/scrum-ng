@@ -68,7 +68,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
                       });
                       this._userStories = this._userStoriesLoad;
                     },
-                    (err) => {
+                    err => {
                       this.alert.error('Sprint User Stories', err, {
                         timeOut: 10000
                       });
@@ -76,7 +76,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
                 });
               });
           });
-      }, (err) => {
+      }, err => {
         this.alert.error('Projects', err, {
           timeOut: 10000
         });

@@ -67,6 +67,13 @@ export class SprintComponent implements OnInit, AfterViewInit {
               this.service.getUserStory(sprintUserStory.userStoryId)
                 .subscribe(userStory => {
                   sprint.userStories.push(userStory);
+                  this.service.getTasks(userStory.id)
+                  .subscribe(tasks => {
+                    userStory.tasks = tasks;
+                    tasks.forEach(task => {
+                      this.addTask(task);
+                    });
+                  });
                 });
             });
           });
@@ -87,10 +94,18 @@ export class SprintComponent implements OnInit, AfterViewInit {
         timeOut: 3000
       })
     }
-    this.cleanNewTask();
-    this._story.tasks.push(task);
-    this.addTask(task);
-    this.taskName.nativeElement.focus();
+    task.userStoryId = this._story.id;
+    this.service.createTask(task)
+    .subscribe(created => {
+      this.cleanNewTask();
+      this._story.tasks.push(task);
+      this.addTask(task);
+      this.taskName.nativeElement.focus();
+    }, err => {
+      this.alert.error('User Stories Task', err, {
+        timeOut: 10000
+      });
+    });
   }
 
   doCancelCreateTask() {
