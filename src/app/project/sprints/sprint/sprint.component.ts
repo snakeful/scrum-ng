@@ -60,7 +60,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
       .subscribe((sprint) => {
         this._sprint = sprint;
         this.service.getProject(sprint.projectId)
-          .subscribe(project => sprint.project = project)
+          .subscribe(project => sprint.project = project);
         this.service.getSprintUserStories(sprintId)
           .subscribe(sprintUserStories => {
             sprintUserStories.forEach(sprintUserStory => {
@@ -92,7 +92,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
     if (!this._story) {
       return this.alert.error('New Task', 'No user story selected', {
         timeOut: 3000
-      })
+      });
     }
     task.userStoryId = this._story.id;
     this.service.createTask(task)

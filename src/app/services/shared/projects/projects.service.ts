@@ -301,6 +301,12 @@ export class ProjectsService {
     .catch(this.handleError);
   }
 
+  saveTask(task: Task): Observable<Boolean> {
+    return this.http.put(`${this.url}/api/tasks/${task.id}`, task)
+    .map(res => true)
+    .catch(this.handleError);
+  }
+
   getOrigins(): Promise<Origin[]> {
     return new Promise<Origin[]>((resolve, reject) => {
       resolve(this.origins);

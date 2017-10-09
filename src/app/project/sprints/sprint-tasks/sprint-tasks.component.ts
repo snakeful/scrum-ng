@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Task } from '../../../services/shared/projects/projects.service';
+import { NotificationsService } from 'angular2-notifications';
+
+import { ProjectsService, Task } from '../../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-sprint-tasks',
@@ -16,7 +18,7 @@ export class SprintTasksComponent implements OnInit {
   private _tasks;
   private _selectedTask: Task;
 
-  constructor() { }
+  constructor(private service: ProjectsService, private alert: NotificationsService) { }
 
   private addTask(task: Task): Task {
     switch (task.statusId) {
@@ -60,25 +62,39 @@ export class SprintTasksComponent implements OnInit {
     return task;
   }
 
+  private onDropStatus(task: Task, statusId: number, updateTask?: Function) {
+    const actualTask = Object.assign({}, this.removeTask(task));
+    actualTask.statusId = statusId;
+    if (statusId === 3 && updateTask) {
+      updateTask(actualTask);
+    }
+    this.service.saveTask(actualTask)
+    .subscribe(updated => {
+      this.addTask(actualTask);
+    }, err => {
+      this.addTask(task);
+      this.alert.error('User Stories Task', err, {
+        timeOut: 10000
+      });
+    });
+  }
+
   private onDropToDo = (task: Task) => {
-    this.removeTask(task).statusId = 0;
-    this.addTask(task);
+    this.onDropStatus(task, 0);
   }
 
   private onDropInProgress = (task: Task) => {
-    this.removeTask(task).statusId = 1;
-    this.addTask(task);
+    this.onDropStatus(task, 1);
   }
 
   private onDropTesting = (task: Task) => {
-    this.removeTask(task).statusId = 2;
-    this.addTask(task);
+    this.onDropStatus(task, 2);
   }
 
   private onDropDone = (task: Task) => {
-    this.removeTask(task).statusId = 3;
-    task.executedPoints = task.points;
-    this.addTask(task);
+    this.onDropStatus(task, 3, taskToUpdate => {
+      taskToUpdate.executedPoints = taskToUpdate.points;
+    });
   }
 
   ngOnInit() {
