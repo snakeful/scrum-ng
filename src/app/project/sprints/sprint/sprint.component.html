@@ -27,26 +27,6 @@
       <div class="col-5">
         <div *ngIf="!showCreateTask;else createTask">
           <h3 class="text-center">Tasks<span><button *ngIf="sprint.userStories.length !== 0" class="btn btn-sm btn-primary float-right" (click)="doNewTask()"><i class="fa fa-plus"></i></button></span></h3>
-          <div class="table-responsive" class="scrollspy-mini" data-spy="scroll" data-offset="0">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Task</th>
-                  <th>Status</th>
-                  <th>Responsible User</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="story && story.tasks">
-                <tr *ngFor="let task of story.tasks">
-                  <td>{{task.name}}</td>
-                  <td>{{task.statusId | taskStatus}}</td>
-                  <td>{{task.userId | scrumTeam: 'full'}}</td>
-                  <td>{{task.points}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
         <ng-template #createTask>
           <h3 class="text-center">New Task<span><button class="btn btn-sm btn-danger float-right" (click)="doCancelCreateTask()"><i class="fa fa-times"></i></button></span></h3>
@@ -94,5 +74,5 @@
       </div>
     </div>
   </div>
-  <app-sprint-tasks (onLoad)="tasks=$event"></app-sprint-tasks>
+  <app-sprint-tasks [actualStory]="story" (onLoad)="tasks = $event"></app-sprint-tasks>
 </div>

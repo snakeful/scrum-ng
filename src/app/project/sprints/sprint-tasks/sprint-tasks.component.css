@@ -21,3 +21,13 @@
 span.title {
   font-weight: bolder;
 }
+
+.highlight {
+  border-style: outset;
+  border-width: 2px;
+  border-color: forestgreen;
+}
+
+span.item:hover {
+  box-shadow: inset 0 0 0 1px black;
+}

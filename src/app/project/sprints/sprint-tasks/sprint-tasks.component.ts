@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, Task } from '../../../services/shared/projects/projects.service';
+import { ProjectsService, Task, UserStory } from '../../../services/shared/projects/projects.service';
 
 @Component({
   selector: 'app-sprint-tasks',
@@ -17,6 +17,7 @@ export class SprintTasksComponent implements OnInit {
   private _done;
   private _tasks;
   private _selectedTask: Task;
+  private userStory: UserStory;
 
   constructor(private service: ProjectsService, private alert: NotificationsService) { }
 
@@ -156,5 +157,13 @@ export class SprintTasksComponent implements OnInit {
 
   set selectedTask(value) {
     this._selectedTask = value;
+  }
+
+  get actualStory(): UserStory {
+    return this.userStory;
+  }
+
+  @Input() set actualStory(value: UserStory) {
+    this.userStory = value;
   }
 }
