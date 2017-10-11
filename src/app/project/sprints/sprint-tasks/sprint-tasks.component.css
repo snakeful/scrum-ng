@@ -3,13 +3,14 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-content: flex-start;
   border-width: 1.5px;
   height: 100%;
 }
 
 .item {
   flex: 0 1 auto;
-  align-self: center;
+  align-self: baseline;
   margin: 2.5px;
   cursor: pointer;
 }

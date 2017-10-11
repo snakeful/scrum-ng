@@ -1,7 +1,7 @@
-<div class="row">
-  <div *ngFor="let data of tasks" class="col-md-3 col-xs-3">
-    <h3 class="text-center">{{data.title}}</h3>
-    <div droppable [dropScope]="data.dropScope" class="container-fluid border-sprint-tasks" (onDrop)="data.onDrop($event.dragData)">
+<div class="row container-fluid">
+  <div *ngFor="let data of tasks" class="col-md-3 col-xs-3 p-0">
+    <h5 class="text-center">{{data.title}}</h5>
+    <div droppable [dropScope]="data.dropScope" class="container-fluid border-sprint-tasks p-0" (onDrop)="data.onDrop($event.dragData)">
       <p *ngIf="data.tasks.length === 0">No tasks assigned.</p>
       <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill {{data.color}}" [ngClass]="{'highlight': task.userStoryId === (actualStory && actualStory.id)}" data-toggle="modal" [dragData]="task" data-target="#taskData" (click)="selectedTask = task" title="Task: {{task.name}}  Points: {{task.points}}  Points Executed: {{task.executedPoints}}  Points Remaining: {{task.points - task.executedPoints}}">{{task.name | limitTo: 10}}</span>
     </div>

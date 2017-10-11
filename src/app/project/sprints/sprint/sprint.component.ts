@@ -20,6 +20,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _showCreateTask: Boolean;
   private _newTask: Task;
   @ViewChild('taskName') private taskName: ElementRef;
+  @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._showCreateTask = false;
@@ -81,7 +82,11 @@ export class SprintComponent implements OnInit, AfterViewInit {
     this.cleanNewTask();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() { }
+
+  editUserStory(userStory: UserStory) {
+    this._story = userStory;
+    this.userStoryModal.nativeElement.click();
   }
 
   doNewTask() {
@@ -113,6 +118,12 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   /* Properties */
+
+  set updateUserStory(userStory: UserStory) {
+    const stories = this.sprint.userStories;
+    stories[stories.indexOf(this._story)] = userStory;
+    this._story = userStory;
+  }
 
   get sprint(): Sprint {
     return this._sprint;

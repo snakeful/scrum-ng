@@ -17,3 +17,7 @@
 span.title {
   font-weight: bolder;
 }
+
+.hidden {
+  display: none;
+}
