@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { UserStory, ProjectsService } from '../../../services/shared/projects/projects.service';
 
 @Component({
@@ -9,25 +11,27 @@ import { UserStory, ProjectsService } from '../../../services/shared/projects/pr
 })
 export class UserStoryModalComponent implements OnInit, AfterViewInit {
   private _userStory: UserStory;
-  private _saveUserStory: EventEmitter<any>;
+  private _sendUserStory: EventEmitter<any>;
   @ViewChild('dataUserStoryModalClose') private btnClose: ElementRef;
-  constructor(private projectsService: ProjectsService) {
+  constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._userStory = new UserStory(undefined, null, null, null, 10, 0);
-    this._saveUserStory = new EventEmitter<any>();
+    this._sendUserStory = new EventEmitter<any>();
   }
 
-  ngOnInit() {
-    console.log('OnInit');
-  }
+  ngOnInit() { }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() { }
 
-  doSaveUserStory(userStory: UserStory) {
-    this.saveUserStory.emit({
-      userStory: userStory,
-      btnClose: this.btnClose
-    });
+  saveUserStory(userStory: UserStory) {
+    this.service.saveUserStory(userStory)
+      .subscribe(story => {
+        this.btnClose.nativeElement.click();
+        this.sendUserStory.emit(story);
+      }, err => {
+        this.alert.error('Projects', err, {
+          timeOut: 10000
+        });
+      });
   }
 
   get userStory(): UserStory {
@@ -35,14 +39,10 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set userStory(value: UserStory) {
-    if (value) {
-      Object.assign(this._userStory, value);
-    } else {
-      this._userStory = new UserStory(undefined, null, null, null, 10, 0);
-    }
+    this._userStory = Object.assign({}, value);
   }
 
-  @Output() get saveUserStory(): EventEmitter<any> {
-    return this._saveUserStory;
+  @Output() get sendUserStory(): EventEmitter<any> {
+    return this._sendUserStory;
   }
 }

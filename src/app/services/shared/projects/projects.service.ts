@@ -140,7 +140,6 @@ export class ProjectsService {
   }
 
   private handleError(err: Response) {
-    console.log(err);
     const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
   }
@@ -198,18 +197,16 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createUserStory(userStory: UserStory): Observable<UserStory> {
-    return this.http.post(`${this.url}/api/user-stories`, userStory)
-      .map(res => {
-        userStory.id = res.json();
+  saveUserStory(userStory: UserStory): Observable<UserStory> {
+    const newStory = userStory.id == null
+    return this.http[newStory ? 'post' : 'put']
+      (`${this.url}/api/user-stories${newStory ? '' : `/${userStory.id}`}`, userStory)
+      .map(data => {
+        if (newStory) {
+          userStory.id = data.json();
+        }
         return userStory;
       })
-      .catch(this.handleError);
-  }
-
-  saveUserStory(userStory: UserStory): Observable<UserStory> {
-    return this.http.put(`${this.url}/api/user-stories/${userStory.id}`, userStory)
-      .map(() => userStory)
       .catch(this.handleError);
   }
 
@@ -297,14 +294,14 @@ export class ProjectsService {
 
   createTask(task: Task): Observable<Boolean> {
     return this.http.post(`${this.url}/api/tasks`, task)
-    .map(res => true)
-    .catch(this.handleError);
+      .map(res => true)
+      .catch(this.handleError);
   }
 
   saveTask(task: Task): Observable<Boolean> {
     return this.http.put(`${this.url}/api/tasks/${task.id}`, task)
-    .map(res => true)
-    .catch(this.handleError);
+      .map(res => true)
+      .catch(this.handleError);
   }
 
   getOrigins(): Promise<Origin[]> {

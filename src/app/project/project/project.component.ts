@@ -97,6 +97,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this.assignStoryToUserStories(userStories, story);
   }
 
+  doNewUserStory() {
+    this._userStory = new UserStory(undefined, null, null, this._project.id, 10, 0);
+    this.userStoryModal.nativeElement.click();
+  }
+
   get project(): Project {
     return this._project;
   }
@@ -147,20 +152,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._showSprintModal;
   }
 
-  set saveUserStory(value: any) {
-    if (this._userStory === null) {
-      value.userStory.projectId = this._project.id;
-      this.service.createUserStory(value.userStory)
-        .subscribe(userStory => {
-          this._userStories.push(userStory);
-          value.btnClose.nativeElement.click();
-        });
+  set saveUserStory(userStory: UserStory) {
+    if (this._userStory.id === undefined) {
+      this._userStories.push(userStory);
     } else {
-      this.service.saveUserStory(value.userStory)
-        .subscribe(userStory => {
-          this._userStories[this._userStories.indexOf(this._userStory)] = userStory;
-          value.btnClose.nativeElement.click();
-        });
+      this._userStories[this._userStories.indexOf(this._userStory)] = userStory;
     }
   }
 
