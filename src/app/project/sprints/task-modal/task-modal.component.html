@@ -1,0 +1,56 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <form (ngSubmit)="saveTask(task)">
+      <div class="modal-header">
+        <h5 class="modal-title">New Task</h5>
+        <button #dataTaskModalClose type="button" class="close" data-dismiss="modal" title="Close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <label for="taskName">Name</label>
+            <input #taskName type="text" class="form-control" [(ngModel)]="task.name" name="taskName" id="taskName" required>
+          </div>
+          <div class="col-md-2 col-xs-2">
+            <label for="successTask">Success</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <input type="checkbox" [(ngModel)]="task.successTask" name="successTask">
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <label for="taskUser">User</label>
+            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser">
+              <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'user'}}</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <label for="taskPoints">Points</label>
+            <select class="form-control" [(ngModel)]="task.points" name="taskPoints" id="taskPoints">
+              <option [ngValue]="1">1 Pts - Low Easy</option>
+              <option [ngValue]="2">2 Pts - Medium Easy</option>
+              <option [ngValue]="3">3 Pts - Easy High</option>
+              <option [ngValue]="4">4 Pts - Low Normal</option>
+              <option [ngValue]="5">5 Pts - Medium Normal</option>
+              <option [ngValue]="6">6 Pts - Normal High</option>
+              <option [ngValue]="7">7 Pts - Low Hard</option>
+              <option [ngValue]="8">8 Pts - Normal Hard</option>
+              <option [ngValue]="9">9 Pts - Medium Hard</option>
+              <option [ngValue]="10">10 Pts - Hard High</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-sm btn-primary float-right">
+          <i class="fa fa-check"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
