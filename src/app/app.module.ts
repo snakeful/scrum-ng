@@ -26,7 +26,7 @@ import { SprintModalComponent } from './project/sprints/sprint-modal/sprint-moda
 import { UserStoryComponent } from './project/user-stories/user-story/user-story.component';
 import { UserStoriesComponent } from './project/user-stories/user-stories/user-stories.component';
 import { UserStoryModalComponent } from './project/user-stories/user-story-modal/user-story-modal.component';
-import { TaskComponent } from './project/task/task.component';
+import { TaskComponent } from './project/sprints/task/task.component';
 import { UserModalComponent } from './users/user-modal/user-modal.component';
 import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
@@ -35,6 +35,7 @@ import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
+import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { UserRolePipe } from './project/user-role.pipe';
     StoryStatusPipe,
     OriginPipe,
     ScrumTeamPipe,
-    UserRolePipe
+    UserRolePipe,
+    TaskModalComponent
   ],
   imports: [
     BrowserModule,
