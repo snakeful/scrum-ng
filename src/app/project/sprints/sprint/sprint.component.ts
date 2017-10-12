@@ -17,42 +17,44 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _inProgress: any;
   private _testing: any;
   private _done: any;
-  private _showCreateTask: Boolean;
-  private _newTask: Task;
+  private _task: Task;
   @ViewChild('taskName') private taskName: ElementRef;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
-    this._showCreateTask = false;
-    this._newTask = new Task();
+    this._task = new Task();
+    this._story = new UserStory();
   }
 
-  private addTask(task) {
+  private getCurrentTaskList(task: Task): any {
+    let current: any;
     switch (task.statusId) {
       case 0:
-        this._toDo.tasks.push(task);
+        current = this._toDo;
         break;
       case 1:
-        this._inProgress.tasks.push(task);
+      current = this._inProgress;
         break;
       case 2:
-        this._testing.tasks.push(task);
+      current = this._testing;
         break;
       case 3:
-        this._done.tasks.push(task);
+      current = this._done;
         break;
       default:
-        this._toDo.tasks.push(task);
+      current = this._toDo;
         break;
     }
+    return current;
+  }
+
+  private addTask(task: Task) {
+    this.getCurrentTaskList(task).tasks.push(task);
     return task;
   }
 
-  private cleanNewTask() {
-    this._newTask = new Task();
-    this._newTask.statusId = 0;
-    this._newTask.points = 1;
-    this._newTask.executedPoints = 0;
+  private createNewTask() {
+    this._task = new Task(undefined, null, null, this._story.id, 1, 0, 0, false);
   }
 
   ngOnInit() {
@@ -64,22 +66,25 @@ export class SprintComponent implements OnInit, AfterViewInit {
           .subscribe(project => sprint.project = project);
         this.service.getSprintUserStories(sprintId)
           .subscribe(sprintUserStories => {
-            sprintUserStories.forEach(sprintUserStory => {
+            sprintUserStories.forEach((sprintUserStory, index) => {
               this.service.getUserStory(sprintUserStory.userStoryId)
                 .subscribe(userStory => {
+                  if (index === 0) {
+                    this._story = userStory;
+                  }
                   sprint.userStories.push(userStory);
                   this.service.getTasks(userStory.id)
-                  .subscribe(tasks => {
-                    userStory.tasks = tasks;
-                    tasks.forEach(task => {
-                      this.addTask(task);
+                    .subscribe(tasks => {
+                      userStory.tasks = tasks;
+                      tasks.forEach(task => {
+                        this.addTask(task);
+                      });
                     });
-                  });
                 });
             });
           });
       });
-    this.cleanNewTask();
+    this.createNewTask();
   }
 
   ngAfterViewInit() { }
@@ -89,35 +94,31 @@ export class SprintComponent implements OnInit, AfterViewInit {
     this.userStoryModal.nativeElement.click();
   }
 
-  doNewTask() {
-    this._showCreateTask = true;
+  newTask() {
+    this.createNewTask();
   }
 
   doCreateTask(task: Task) {
-    if (!this._story) {
-      return this.alert.error('New Task', 'No user story selected', {
-        timeOut: 3000
-      });
-    }
     task.userStoryId = this._story.id;
     this.service.createTask(task)
-    .subscribe(created => {
-      this.cleanNewTask();
-      this._story.tasks.push(task);
-      this.addTask(task);
-      this.taskName.nativeElement.focus();
-    }, err => {
-      this.alert.error('User Stories Task', err, {
-        timeOut: 10000
+      .subscribe(created => {
+        this.createNewTask();
+        this._story.tasks.push(task);
+        this.addTask(task);
+        this.taskName.nativeElement.focus();
+      }, err => {
+        this.alert.error('User Stories Task', err, {
+          timeOut: 10000
+        });
       });
-    });
-  }
-
-  doCancelCreateTask() {
-    this._showCreateTask = false;
   }
 
   /* Properties */
+
+  set updateTask(task: Task) {
+    this.addTask(task);
+    this._task = task;
+  }
 
   set updateUserStory(userStory: UserStory) {
     const stories = this.sprint.userStories;
@@ -152,11 +153,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
     }
   }
 
-  get showCreateTask(): Boolean {
-    return this._showCreateTask;
-  }
-
-  get newTask(): Task {
-    return this._newTask;
+  get task(): Task {
+    return this._task;
   }
 }

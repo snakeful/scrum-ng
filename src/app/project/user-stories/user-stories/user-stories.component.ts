@@ -31,14 +31,14 @@ export class UserStoriesComponent implements OnInit {
     }
   }
 
-  selectStory(story) {
+  selectStory(story: UserStory) {
     if (!this.deleting) {
       this._currentStory = story;
       this._onSelect.emit(story);
     }
   }
 
-  deleteUserStory(story) {
+  deleteUserStory(story: UserStory) {
     this.deleting = true;
     this.projectsService.deleteUserStory(story)
       .subscribe(deleted => {
@@ -65,7 +65,7 @@ export class UserStoriesComponent implements OnInit {
     return this._selectCurrentStory;
   }
 
-  @Input() set selectCurrentStory(value) {
+  @Input() set selectCurrentStory(value: Boolean) {
     this._selectCurrentStory = value;
   }
 

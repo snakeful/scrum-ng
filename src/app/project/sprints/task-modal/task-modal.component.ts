@@ -13,11 +13,13 @@ export class TaskModalComponent implements OnInit {
   private _task: Task;
   private _scrumTeam: number[];
   private _sendTask: EventEmitter<Task>;
+  private _closeOnSaveTask: Boolean;
   @ViewChild('dataTaskModalClose') private btnClose: ElementRef;
   constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._task = new Task();
     this._scrumTeam = [];
     this._sendTask = new EventEmitter<Task>();
+    this._closeOnSaveTask = true;
   }
 
   ngOnInit() {
@@ -31,7 +33,10 @@ export class TaskModalComponent implements OnInit {
     this.service.saveTask(task)
     .subscribe(updated => {
       this.sendTask.emit(task);
-      this.btnClose.nativeElement.click();
+      this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
+      if (this._closeOnSaveTask) {
+        this.btnClose.nativeElement.click();
+      }
     }, err => {
       this.alert.error('Tasks', err, {
         timeOut: 10000
@@ -53,5 +58,13 @@ export class TaskModalComponent implements OnInit {
 
   @Output() get sendTask(): EventEmitter<Task> {
     return this._sendTask;
+  }
+
+  get closeOnSaveTask(): Boolean {
+    return this._closeOnSaveTask;
+  }
+
+  set closeOnSaveTask(value: Boolean) {
+    this._closeOnSaveTask = value;
   }
 }

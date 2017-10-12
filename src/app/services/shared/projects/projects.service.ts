@@ -79,9 +79,10 @@ export class Task extends ScrumObject {
   points: number;
   executedPoints: number;
   successTask: Boolean;
-  constructor(id?: number, name?: string, desc?: string, points: number = 0, executedPoints: number = 0,
+  constructor(id?: number, name?: string, desc?: string, userStoryId?: number, points: number = 0, executedPoints: number = 0,
     originId: number = 0, successTask: boolean = false) {
     super(id, name, desc);
+    this.userStoryId = userStoryId;
     this.date = new Date();
     this.statusId = 0;
     this.userId = 0;
@@ -198,7 +199,7 @@ export class ProjectsService {
   }
 
   saveUserStory(userStory: UserStory): Observable<UserStory> {
-    const newStory = userStory.id == null
+    const newStory = userStory.id == null;
     return this.http[newStory ? 'post' : 'put']
       (`${this.url}/api/user-stories${newStory ? '' : `/${userStory.id}`}`, userStory)
       .map(data => {
@@ -299,8 +300,15 @@ export class ProjectsService {
   }
 
   saveTask(task: Task): Observable<Boolean> {
-    return this.http.put(`${this.url}/api/tasks/${task.id}`, task)
-      .map(res => true)
+    const newTask = task.id == null;
+    return this.http[newTask ? 'post' : 'put']
+      (`${this.url}/api/tasks${newTask ? '' : `/${task.id}`}`, task)
+      .map(data => {
+        if (newTask) {
+          task.id = data.json();
+        }
+        return task;
+      })
       .catch(this.handleError);
   }
 
