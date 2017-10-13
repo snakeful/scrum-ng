@@ -35,6 +35,9 @@ export class SprintsComponent implements OnInit {
     this.service.deleteSprint(sprint)
       .subscribe(deleted => {
         this._sprints.splice(this._sprints.indexOf(sprint), 1);
+        this.alert.success('Sprints', `Sprint ${sprint.name} deleted.`, {
+          timeOut: 3000
+        });
         this.deleting = false;
       },
       (err) => {
@@ -47,8 +50,12 @@ export class SprintsComponent implements OnInit {
 
   assignStoryToSprintStories(sprint: Sprint, story: UserStory) {
     this.service.assignUserStoryToSprint(sprint, story)
-      .subscribe(assigned => sprint.userStories.push(story),
-      (err) => {
+      .subscribe(assigned => {
+        sprint.userStories.push(story);
+        this.alert.success('Sprints', `User story ${story.name} assigned.`, {
+          timeOut: 3000
+        });
+      }, err => {
         this.deleting = false;
         this.alert.html(err, 'error', {
           timeOut: 10000
@@ -62,8 +69,12 @@ export class SprintsComponent implements OnInit {
 
   unassignedUserStoryFromSprint(sprint: Sprint, story: UserStory) {
     this.service.unassignUserStoryFromSprint(sprint, story)
-      .subscribe(unassigned => sprint.userStories.splice(sprint.userStories.indexOf(story), 1),
-      (err) => {
+      .subscribe(unassigned => {
+        sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
+        this.alert.success('Sprints', `User story ${story.name} unassigned.`, {
+          timeOut: 3000
+        });
+      }, err => {
         this.deleting = false;
         this.alert.html(err, 'error', {
           timeOut: 10000

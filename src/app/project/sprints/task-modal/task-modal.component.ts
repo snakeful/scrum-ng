@@ -34,7 +34,9 @@ export class TaskModalComponent implements OnInit {
     this.service.saveTask(task)
     .subscribe(updated => {
       this.sendTask.emit(task);
-      console.log(this._newTask)
+      this.alert.success('Task', 'Task saved.', {
+        timeOut: 3000
+      });
       if (this._newTask) {
         this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
       }
@@ -71,5 +73,9 @@ export class TaskModalComponent implements OnInit {
 
   set closeOnSaveTask(value: Boolean) {
     this._closeOnSaveTask = value;
+  }
+
+  get newTask(): Boolean {
+    return this._newTask;
   }
 }

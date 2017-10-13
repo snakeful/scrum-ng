@@ -25,10 +25,13 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
   saveUserStory(userStory: UserStory) {
     this.service.saveUserStory(userStory)
       .subscribe(story => {
-        this.btnClose.nativeElement.click();
         this.sendUserStory.emit(story);
+        this.btnClose.nativeElement.click();
+        this.alert.success('User Story', 'User story saved.', {
+          timeOut: 3000
+        });
       }, err => {
-        this.alert.error('Projects', err, {
+        this.alert.error('User Story', err, {
           timeOut: 10000
         });
       });
