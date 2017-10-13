@@ -18,12 +18,14 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _testing: any;
   private _done: any;
   private _task: Task;
+  private _newTask: Boolean;
   @ViewChild('taskName') private taskName: ElementRef;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._task = new Task();
     this._story = new UserStory();
+    this._newTask = false;
   }
 
   private getCurrentTaskList(task: Task): any {
@@ -54,7 +56,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   private createNewTask() {
-    this._task = new Task(undefined, null, null, this._story.id, 1, 0, 0, false);
+    this.task = new Task(undefined, null, null, this._story.id, 1, 0, 0, false);
   }
 
   ngOnInit() {
@@ -116,8 +118,17 @@ export class SprintComponent implements OnInit, AfterViewInit {
   /* Properties */
 
   set updateTask(task: Task) {
-    this.addTask(task);
-    this._task = task;
+    if (this._newTask) {
+      this.addTask(task);
+      this.createNewTask();
+    } else {
+      const tasks = this.getCurrentTaskList(task).tasks;
+      tasks.forEach((item, index, list) => {
+        if (item.id === task.id) {
+          list[index] = task;
+        }
+      });
+    }
   }
 
   set updateUserStory(userStory: UserStory) {
@@ -158,6 +169,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   set task(value: Task) {
+    this._newTask = value.id === undefined;
     this._task = value;
   }
 }

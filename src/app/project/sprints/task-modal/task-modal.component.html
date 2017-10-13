@@ -15,44 +15,36 @@
           </div>
           <div class="col-md-2 col-xs-2">
             <label for="successTask">Success</label>
-            <div class="input-group">
-              <span class="input-group-addon">
-                <input type="checkbox" [(ngModel)]="task.successTask" name="successTask">
-              </span>
-            </div>
+            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask">
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-10 col-sm-9">
             <label for="taskUser">User</label>
             <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser">
-              <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'user'}}</option>
+              <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'full'}}</option>
             </select>
           </div>
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-2 col-sm-3 pl-0">
             <label for="taskPoints">Points</label>
             <select class="form-control" [(ngModel)]="task.points" name="taskPoints" id="taskPoints">
-              <option [ngValue]="1">1 Pts - Low Easy</option>
-              <option [ngValue]="2">2 Pts - Medium Easy</option>
-              <option [ngValue]="3">3 Pts - Easy High</option>
-              <option [ngValue]="4">4 Pts - Low Normal</option>
-              <option [ngValue]="5">5 Pts - Medium Normal</option>
-              <option [ngValue]="6">6 Pts - Normal High</option>
-              <option [ngValue]="7">7 Pts - Low Hard</option>
-              <option [ngValue]="8">8 Pts - Normal Hard</option>
-              <option [ngValue]="9">9 Pts - Medium Hard</option>
-              <option [ngValue]="10">10 Pts - Hard High</option>
+              <option [ngValue]="1">1</option>
+              <option [ngValue]="2">2</option>
+              <option [ngValue]="3">3</option>
+              <option [ngValue]="4">4</option>
+              <option [ngValue]="5">5</option>
+              <option [ngValue]="6">6</option>
+              <option [ngValue]="7">7</option>
+              <option [ngValue]="8">8</option>
+              <option [ngValue]="9">9</option>
+              <option [ngValue]="10">10</option>
             </select>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <label for="closeOnSaveTask">Close On Save Task</label>
-        <div class="input-group">
-          <span class="input-group-addon">
-              <input class="" type="checkbox" [(ngModel)]="closeOnSaveTask" name="closeOnSaveTask">
-          </span>
-        </div>
+        <input type="checkbox" class="checkbox" [(ngModel)]="closeOnSaveTask" name="closeOnSaveTask">
         <button type="submit" class="btn btn-sm btn-primary float-right">
           <i class="fa fa-check"></i>
         </button>

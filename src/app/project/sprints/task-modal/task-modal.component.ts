@@ -14,6 +14,7 @@ export class TaskModalComponent implements OnInit {
   private _scrumTeam: number[];
   private _sendTask: EventEmitter<Task>;
   private _closeOnSaveTask: Boolean;
+  private _newTask: Boolean;
   @ViewChild('dataTaskModalClose') private btnClose: ElementRef;
   constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._task = new Task();
@@ -33,7 +34,10 @@ export class TaskModalComponent implements OnInit {
     this.service.saveTask(task)
     .subscribe(updated => {
       this.sendTask.emit(task);
-      this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
+      console.log(this._newTask)
+      if (this._newTask) {
+        this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
+      }
       if (this._closeOnSaveTask) {
         this.btnClose.nativeElement.click();
       }
@@ -45,6 +49,7 @@ export class TaskModalComponent implements OnInit {
   }
 
   @Input() set task(value: Task) {
+    this._newTask = value.id === undefined;
     this._task = value;
   }
 
