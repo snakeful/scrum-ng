@@ -77,7 +77,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
               });
           });
       }, err => {
-        this.alert.error('Projects', err, {
+        this.alert.error('Project', err, {
           timeOut: 10000
         });
       });
@@ -86,15 +86,21 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  assignStoryToUserStories(userStories: UserStory[], story: UserStory) {
-    this._userStories.push(story);
-    userStories.splice(userStories.indexOf(story), 1);
+  assignStoryToUserStories(sprint: Sprint, story: UserStory) {
+    this.service.unassignUserStoryFromSprint(sprint, story)
+    .subscribe(unassigned => {
+      sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
+    }, err => {
+      this.alert.error('Project', err, {
+        timeOut: 10000
+      });
+    })
   }
 
   onSprintStoryToUserStoriesDrop(event) {
-    const userStories = event.dragData[0];
+    const sprint = event.dragData[0];
     const story = event.dragData[1];
-    this.assignStoryToUserStories(userStories, story);
+    this.assignStoryToUserStories(sprint, story);
   }
 
   doNewUserStory() {

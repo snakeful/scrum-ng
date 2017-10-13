@@ -15,7 +15,7 @@
       <div droppable [dropScope]="'story'" (onDrop)="onStoryToSprintDrop($event, sprint)" class="card-body">
         <table class="table table-striped">
           <tbody>
-            <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'sprintStory'" [dragData]="[sprint.userStories, story]">
+            <tr draggable *ngFor="let story of sprint.userStories" [dragScope]="'sprintStory'" [dragData]="[sprint, story]">
               <td>{{story.name}}</td>
               <td><small>Priority <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span></small></td>
               <td><small>Status <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span></small></td>
