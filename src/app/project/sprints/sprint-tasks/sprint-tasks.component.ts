@@ -10,7 +10,6 @@ import { ProjectsService, Task, UserStory } from '../../../services/shared/proje
   styleUrls: ['./sprint-tasks.component.css']
 })
 export class SprintTasksComponent implements OnInit {
-  @Output() private onLoad: EventEmitter<any> = new EventEmitter<any>();
   private _toDo;
   private _inProgress;
   private _testing;
@@ -18,8 +17,12 @@ export class SprintTasksComponent implements OnInit {
   private _tasks;
   private _selectedTask: Task;
   private userStory: UserStory;
-
-  constructor(private service: ProjectsService, private alert: NotificationsService) { }
+  private _onLoad: EventEmitter<any>;
+  private _onSelect: EventEmitter<Task>;
+  constructor(private service: ProjectsService, private alert: NotificationsService) {
+    this._onLoad = new EventEmitter<any>();
+    this._onSelect = new EventEmitter<Task>();
+  }
 
   private addTask(task: Task): Task {
     switch (task.statusId) {
@@ -70,14 +73,14 @@ export class SprintTasksComponent implements OnInit {
       updateTask(actualTask);
     }
     this.service.saveTask(actualTask)
-    .subscribe(updated => {
-      this.addTask(actualTask);
-    }, err => {
-      this.addTask(task);
-      this.alert.error('User Stories Task', err, {
-        timeOut: 10000
+      .subscribe(updated => {
+        this.addTask(actualTask);
+      }, err => {
+        this.addTask(task);
+        this.alert.error('User Stories Task', err, {
+          timeOut: 10000
+        });
       });
-    });
   }
 
   private onDropToDo = (task: Task) => {
@@ -137,7 +140,7 @@ export class SprintTasksComponent implements OnInit {
       this._testing,
       this._done
     ];
-    this.onLoad.emit({
+    this._onLoad.emit({
       toDo: this._toDo,
       inProgress: this._inProgress,
       testing: this._testing,
@@ -155,7 +158,8 @@ export class SprintTasksComponent implements OnInit {
     return this._selectedTask;
   }
 
-  set selectedTask(value) {
+  set selectedTask(value: Task) {
+    this._onSelect.emit(value);
     this._selectedTask = value;
   }
 
@@ -165,5 +169,13 @@ export class SprintTasksComponent implements OnInit {
 
   @Input() set actualStory(value: UserStory) {
     this.userStory = value;
+  }
+
+  @Output() get onLoad(): EventEmitter<any> {
+    return this._onLoad;
+  }
+  
+  @Output() get onSelect(): EventEmitter<Task> {
+    return this._onSelect;
   }
 }

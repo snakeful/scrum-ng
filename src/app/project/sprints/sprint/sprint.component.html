@@ -41,7 +41,7 @@
         <app-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" [selectCurrentStory]="true" (onSelect)="story = $event"></app-user-stories>
       </div>
     </div>
-    <app-sprint-tasks class="col-8" [actualStory]="story" (onLoad)="tasks = $event"></app-sprint-tasks>
+    <app-sprint-tasks class="col-8" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>
   </div>
 </div>
 <div class="modal" id="taskData" role="dialog">

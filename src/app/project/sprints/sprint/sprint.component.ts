@@ -156,4 +156,8 @@ export class SprintComponent implements OnInit, AfterViewInit {
   get task(): Task {
     return this._task;
   }
+
+  set task(value: Task) {
+    this._task = value;
+  }
 }
