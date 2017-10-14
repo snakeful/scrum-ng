@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3 col-sm-3">
+          <div class="col-md-3 col-sm-3 text-center">
             <label for="taskPoints">Points</label>
             <select class="form-control" [(ngModel)]="task.points" name="taskPoints" id="taskPoints">
               <option [ngValue]="1">1</option>
@@ -40,11 +40,11 @@
               <option [ngValue]="10">10</option>
             </select>
           </div>
-          <div class="col-md-3 col-xs-3">
+          <div class="col-md-3 col-xs-3 text-center">
             <label for="executedPoints">Executed</label>
             <input class="form-control" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints">
           </div>
-          <div class="col-md-2 col-xs-2">
+          <div class="col-md-2 col-xs-2 text-center">
             <label for="successTask">Success</label>
             <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask">
           </div>
