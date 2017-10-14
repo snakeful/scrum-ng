@@ -132,12 +132,6 @@ export class ProjectsService {
       new StoryStatus(0, 'In Progress', 'badge-primary'),
       new StoryStatus(1, 'Done', 'badge-sucess')
     ];
-    this.origins = [
-      new Origin(0, 'New'),
-      new Origin(1, 'Bad Design'),
-      new Origin(2, 'Process Change'),
-      new Origin(3, 'New Requirement')
-    ];
   }
 
   private handleError(err: Response) {
@@ -312,10 +306,10 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getOrigins(): Promise<Origin[]> {
-    return new Promise<Origin[]>((resolve, reject) => {
-      resolve(this.origins);
-    });
+  getOrigins(): Observable<Origin[]> {
+    return this.http.get(`${this.url}/api/origins`)
+      .map(data => data.json() as Origin[])
+      .catch(this.handleError);
   }
 
   getPriorities(): Promise<StoryPriority[]> {

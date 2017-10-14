@@ -7,14 +7,21 @@ import { Origin, ProjectsService } from '../services/shared/projects/projects.se
 })
 export class OriginPipe implements PipeTransform {
   private origins: Origin[];
-  constructor(private projectsService: ProjectsService) {
-    projectsService.getOrigins().then((origins) => {
-      this.origins = origins;
-    });
+  constructor(private service: ProjectsService) {
+    this.origins = [];
+    service.getOrigins().
+      subscribe(origins => {
+        this.origins = origins;
+      });
   }
 
   transform(value: number, field: string): string {
-    console.log(this.origins);
+    if (this.origins.length === 0) {
+      return {
+        name: 'Generated',
+        desc: 'badge-success'
+      }[field];
+    }
     return this.origins && this.origins[value][field] || '';
   }
 
