@@ -23,16 +23,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.projectsService.getProjects()
-      .subscribe(projects => {
-        this._projects = projects;
-      },
-      (err) => this.alert.html(err, 'error', {
-        timeOut: 10000
-      }));
+    this.projectsService.projects.subscribe(projects => {
+      this._projects = projects;
+    }, err => this.alert.html(err, 'error', {
+      timeOut: 10000
+    }));
     this.usersService.getUsers()
       .subscribe(users => this._users = users,
-      (err) => this.alert.html(err, 'error', {
+      err => this.alert.html(err, 'error', {
         timeOut: 10000
       }));
   }

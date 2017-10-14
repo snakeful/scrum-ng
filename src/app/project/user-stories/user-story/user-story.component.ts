@@ -10,8 +10,8 @@ import { UserStory, StoryPriority, ProjectsService } from '../../../services/sha
 export class UserStoryComponent implements OnInit {
   private _userStory: UserStory = new UserStory();
   private _priorities: StoryPriority[];
-  constructor(private projectsService: ProjectsService) {
-    projectsService.getPriorities().then(priorities => {
+  constructor(private service: ProjectsService) {
+    service.priorities.then(priorities => {
       this._priorities = priorities;
     });
   }

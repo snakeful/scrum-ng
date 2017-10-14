@@ -9,10 +9,9 @@ export class OriginPipe implements PipeTransform {
   private origins: Origin[];
   constructor(private service: ProjectsService) {
     this.origins = [];
-    service.getOrigins().
-      subscribe(origins => {
-        this.origins = origins;
-      });
+    service.origins.subscribe(origins => {
+      this.origins = origins;
+    });
   }
 
   transform(value: number, field: string): string {

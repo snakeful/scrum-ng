@@ -174,7 +174,7 @@ export class SprintTasksComponent implements OnInit {
   @Output() get onLoad(): EventEmitter<any> {
     return this._onLoad;
   }
-  
+
   @Output() get onSelect(): EventEmitter<Task> {
     return this._onSelect;
   }

@@ -102,7 +102,7 @@ export class Origin extends ScrumObject {
 @Injectable()
 export class ProjectsService {
   private url = 'http://localhost:4201';
-  private projects: Project[];
+  private _projects: Project[];
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
 
@@ -145,7 +145,7 @@ export class ProjectsService {
     return this._storyStatus;
   }
 
-  getProjects(): Observable<Project[]> {
+  get projects(): Observable<Project[]> {
     return this.http.get(`${this.url}/api/projects`)
       .map(res => res.json() as Project[])
       .catch(this.handleError);
@@ -300,13 +300,13 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  getOrigins(): Observable<Origin[]> {
+  get origins(): Observable<Origin[]> {
     return this.http.get(`${this.url}/api/origins`)
       .map(data => data.json() as Origin[])
       .catch(this.handleError);
   }
 
-  getPriorities(): Promise<StoryPriority[]> {
+  get priorities(): Promise<StoryPriority[]> {
     return new Promise<StoryPriority[]>((resolve, reject) => {
       resolve(this._storyPriorities);
     });

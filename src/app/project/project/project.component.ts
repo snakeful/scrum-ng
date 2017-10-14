@@ -94,7 +94,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this.alert.error('Project', err, {
         timeOut: 10000
       });
-    })
+    });
   }
 
   onSprintStoryToUserStoriesDrop(event) {
