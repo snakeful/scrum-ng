@@ -103,18 +103,10 @@ export class Origin extends ScrumObject {
 export class ProjectsService {
   private url = 'http://localhost:4201';
   private projects: Project[];
-  private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
-  private origins: Origin[];
 
   constructor(private http: Http) {
-    this._taskStatus = [
-      new TaskStatus(0, 'To Do'),
-      new TaskStatus(1, 'In Progress'),
-      new TaskStatus(2, 'Testing'),
-      new TaskStatus(3, 'Done')
-    ];
     this._storyPriorities = [
       new StoryPriority(0, 'Highest', 'badge-danger'),
       new StoryPriority(1, 'Higher', 'badge-danger'),
@@ -139,8 +131,10 @@ export class ProjectsService {
     return Observable.throw(msg);
   }
 
-  get taskStatus(): TaskStatus[] {
-    return this._taskStatus;
+  get taskStatus(): Observable<TaskStatus[]> {
+    return this.http.get(`${this.url}/api/task-status`)
+      .map(data => data.json() as TaskStatus[])
+      .catch(this.handleError);
   }
 
   get storyPriorities(): StoryPriority[] {
