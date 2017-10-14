@@ -14,6 +14,7 @@ export class OriginPipe implements PipeTransform {
   }
 
   transform(value: number, field: string): string {
+    console.log(this.origins);
     return this.origins && this.origins[value][field] || '';
   }
 

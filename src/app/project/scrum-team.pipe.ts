@@ -15,7 +15,8 @@ export class ScrumTeamPipe implements PipeTransform {
     for (let index = 0; index < this.users.length; index++) {
       const user = this.users[index];
       if (user.id === value) {
-        return field === 'full' ? `${user.user} - ${user.firstName} ${user.lastName}` : user[field];
+        return field === 'full' ? `${user.user} - ${user.firstName} ${user.lastName}` :
+          (field === 'fullName' ? `${user.firstName} ${user.lastName}` : user[field]);
       }
     }
     return '';

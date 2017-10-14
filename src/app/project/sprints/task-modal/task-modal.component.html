@@ -2,30 +2,30 @@
   <div class="modal-content">
     <form (ngSubmit)="saveTask(task)">
       <div class="modal-header">
-        <h5 class="modal-title">{{newTask ? 'New' : 'Edit'}} Task {{!newTask ? task.name : ''}}</h5>
+        <h5 class="modal-title">{{newTask ? 'New' : 'Edit'}} Task {{!newTask ? task.name : ''}}</h5><span class="badge badge-pill badge-primary">{{task.statusId | taskStatus}}</span>
         <button #dataTaskModalClose type="button" class="close" data-dismiss="modal" title="Close">
           <i class="fa fa-times"></i>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-10 col-sm-10">
+          <div class="col-md-7 col-sm-7">
             <label for="taskName">Name</label>
             <input #taskName type="text" class="form-control" [(ngModel)]="task.name" name="taskName" id="taskName" required>
           </div>
-          <div class="col-md-2 col-xs-2">
-            <label for="successTask">Success</label>
-            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask">
+          <div class="col-md-5 col-sm-5">
+            <label for="taskUser">User</label>
+            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser">
+              <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'fullName'}}</option>
+            </select>
+          </div>
+          <div class="col-md-12 col-xs-12">
+            <label for="taskDesc">Description</label>
+            <textarea class="form-control" name="taskDesc" id="" cols="30" [(ngModel)]="task.desc"></textarea>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-10 col-sm-9">
-            <label for="taskUser">User</label>
-            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser">
-              <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'full'}}</option>
-            </select>
-          </div>
-          <div class="col-md-2 col-sm-3 pl-0">
+          <div class="col-md-2 col-sm-3">
             <label for="taskPoints">Points</label>
             <select class="form-control" [(ngModel)]="task.points" name="taskPoints" id="taskPoints">
               <option [ngValue]="1">1</option>
@@ -40,8 +40,20 @@
               <option [ngValue]="10">10</option>
             </select>
           </div>
+          <div class="col-md-3 col-xs-3">
+            <label for="executedPoints">Executed</label>
+            <input class="form-control" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints">
+          </div>
+          <div class="col-md-2 col-xs-2">
+            <label for="successTask">Success</label>
+            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask">
+          </div>
+          <div class="col-md-5 col-xs-5 text-center">
+            <label for="taskOrigin">Task Origin</label>
+            <div><span class="badge badge-pill" [ngClass]="{'badge-success': task.originId === 0, 'badge-danger': task.originId !== 0}">{{task.originId | origin : 'name'}}</span></div>
+          </div>
         </div>
-      </div>
+        </div>
       <div class="modal-footer">
         <label for="closeOnSaveTask">Close On Save Task</label>
         <input type="checkbox" class="checkbox" [(ngModel)]="closeOnSaveTask" name="closeOnSaveTask">
