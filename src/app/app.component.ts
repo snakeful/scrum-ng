@@ -9,7 +9,7 @@ import { polyfill } from 'mobile-drag-drop';
 export class AppComponent {
   private _title = 'FUL-SCRUM App';
   private _options: any = {
-    timeOut: 3000,
+    timeOut: 2000,
     preventDuplicates: true
   };
   constructor() {

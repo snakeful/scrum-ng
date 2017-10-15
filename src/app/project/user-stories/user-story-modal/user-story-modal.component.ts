@@ -28,7 +28,7 @@ export class UserStoryModalComponent implements OnInit, AfterViewInit {
         this.sendUserStory.emit(story);
         this.btnClose.nativeElement.click();
         this.alert.success('User Story', 'User story saved.', {
-          timeOut: 3000
+          timeOut: 2000
         });
       }, err => {
         this.alert.error('User Story', err, {

@@ -36,7 +36,7 @@ export class SprintsComponent implements OnInit {
       .subscribe(deleted => {
         this._sprints.splice(this._sprints.indexOf(sprint), 1);
         this.alert.success('Sprints', `Sprint ${sprint.name} deleted.`, {
-          timeOut: 3000
+          timeOut: 2000
         });
         this.deleting = false;
       },
@@ -53,7 +53,7 @@ export class SprintsComponent implements OnInit {
       .subscribe(assigned => {
         sprint.userStories.push(story);
         this.alert.success('Sprints', `User story ${story.name} assigned.`, {
-          timeOut: 3000
+          timeOut: 2000
         });
       }, err => {
         this.deleting = false;
@@ -72,7 +72,7 @@ export class SprintsComponent implements OnInit {
       .subscribe(unassigned => {
         sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
         this.alert.success('Sprints', `User story ${story.name} unassigned.`, {
-          timeOut: 3000
+          timeOut: 2000
         });
       }, err => {
         this.deleting = false;

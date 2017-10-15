@@ -35,7 +35,7 @@ export class TaskModalComponent implements OnInit {
     .subscribe(updated => {
       this.sendTask.emit(task);
       this.alert.success('Task', 'Task saved.', {
-        timeOut: 3000
+        timeOut: 2000
       });
       if (this._newTask) {
         this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
