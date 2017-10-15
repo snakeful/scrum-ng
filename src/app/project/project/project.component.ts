@@ -35,9 +35,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     const userStories = this._userStoriesLoad;
     array.push = function (value: UserStory): number {
       userStories.splice(userStories.indexOf(value), 1);
+      value.statusId = 1;
       return Array.prototype.push.call(this, value);
     };
     array.splice = function (start, deleteCount): UserStory[] {
+      this[start].statusId = 0;
       userStories.push(this[start]);
       return Array.prototype.splice.call(this, start, deleteCount);
     };

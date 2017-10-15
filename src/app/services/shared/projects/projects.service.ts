@@ -104,7 +104,6 @@ export class ProjectsService {
   private url = 'http://localhost:4201';
   private _projects: Project[];
   private _storyPriorities: StoryPriority[];
-  private _storyStatus: StoryStatus[];
 
   constructor(private http: Http) {
     this._storyPriorities = [
@@ -119,10 +118,6 @@ export class ProjectsService {
       new StoryPriority(8, 'Low', 'badge-dark'),
       new StoryPriority(9, 'Lower', 'badge-dark'),
       new StoryPriority(10, 'Lowest', 'badge-dark')
-    ];
-    this._storyStatus = [
-      new StoryStatus(0, 'In Progress', 'badge-primary'),
-      new StoryStatus(1, 'Done', 'badge-sucess')
     ];
   }
 
@@ -141,8 +136,10 @@ export class ProjectsService {
     return this._storyPriorities;
   }
 
-  get storyStatus(): StoryStatus[] {
-    return this._storyStatus;
+  get storyStatus(): Observable<StoryStatus[]> {
+    return this.http.get(`${this.url}/api/user-story-status`)
+      .map(data => data.json() as StoryStatus[])
+      .catch(this.handleError);
   }
 
   get projects(): Observable<Project[]> {
