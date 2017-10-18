@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-5 col-sm-5">
             <label for="taskUser">User</label>
-            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser">
+            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser" required>
               <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'fullName'}}</option>
             </select>
           </div>
@@ -25,28 +25,17 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3 col-sm-3 text-center">
+          <div class="col-md-2 col-sm-2 text-center">
             <label for="taskPoints">Points</label>
-            <select class="form-control" [(ngModel)]="task.points" name="taskPoints" id="taskPoints">
-              <option [ngValue]="1">1</option>
-              <option [ngValue]="2">2</option>
-              <option [ngValue]="3">3</option>
-              <option [ngValue]="4">4</option>
-              <option [ngValue]="5">5</option>
-              <option [ngValue]="6">6</option>
-              <option [ngValue]="7">7</option>
-              <option [ngValue]="8">8</option>
-              <option [ngValue]="9">9</option>
-              <option [ngValue]="10">10</option>
-            </select>
+            <input class="form-control" type="number" [(ngModel)]="task.points" min="1" name="taskPoints" id="taskPoints" required>
           </div>
-          <div class="col-md-3 col-xs-3 text-center">
+          <div class="col-md-2 col-xs-2 text-center">
             <label for="executedPoints">Executed</label>
-            <input class="form-control" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints">
+            <input class="form-control" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required>
           </div>
           <div class="col-md-2 col-xs-2 text-center">
             <label for="successTask">Success</label>
-            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask">
+            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask" required>
           </div>
         </div>
         </div>

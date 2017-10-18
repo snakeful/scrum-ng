@@ -1,16 +1,18 @@
 <div class="container-fluid">
-  <div class="row alert alert-secondary">
+  <div class="row alert alert-secondary mt-0">
     <div class="ml-auto text-center">
-      <h3>{{sprint.name}}</h3>
+      <h5 class="mb-1">{{sprint.name}}</h5>
       <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}</p>
     </div>
     <div class="ml-auto">
-      <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()"><i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i></button>
+      <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()">
+        <i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i>
+      </button>
     </div>
   </div>
   <div *ngIf="!toggle;else burndownChart" class="row">
     <div class="col-4">
-      <h3 class="text-center">User Story Selected</h3>
+      <h5 class="text-center">User Story Selected</h5>
       <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
       <ng-template #storyData>
         <div class="card">
@@ -22,14 +24,12 @@
             </span>
             <div title="Edit User Story" (click)="editUserStory(story)">
               <h5 class="mb-1">{{story.name}}</h5>
-              <p>{{story.desc}}</p>
-              <div class="row col">
-                <small>Priority
+              <p class="mb-1">{{story.desc}}</p>
+              <div class="row">
+                <small class="col mr-auto text-left">Priority
                   <span class="badge" [ngClass]="story.priorityId | storyPriority: 'desc'">{{story.priorityId | storyPriority: 'name'}}</span>
                 </small>
-              </div>
-              <div class="row col">
-                <small>Status
+                <small class="col ml-auto text-right">Status
                   <span class="badge" [ngClass]="story.statusId | storyStatus: 'desc'">{{story.statusId | storyStatus: 'name'}}</span>
                 </small>
               </div>
@@ -37,13 +37,14 @@
           </div>
         </div>
       </ng-template>
-      <h3 class="text-center">User Stories</h3>
+      <h5 class="text-center">User Stories</h5>
       <span>
         <button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
       </span>
       <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
         <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
-        <app-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" [selectCurrentStory]="true" (onSelect)="story = $event"></app-user-stories>
+        <app-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" [selectCurrentStory]="true"
+          (onSelect)="story = $event"></app-user-stories>
       </div>
     </div>
     <app-sprint-tasks class="col-8" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>

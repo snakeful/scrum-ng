@@ -1,13 +1,13 @@
 .scrollspy {
   position: relative;
-  height: 475px;
+  height: 20rem;
   margin-top: .5rem;
   overflow: auto;
 }
 
 @media screen and (max-height: 768) {
   .scrollspy{
-    height: 305px;
+    height: 19.0625rem;
   }
 }
 
