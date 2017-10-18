@@ -308,4 +308,10 @@ export class ProjectsService {
       resolve(this._storyPriorities);
     });
   }
+
+  getBurndownData(id: number): Observable<any[]> {
+    return this.http.get(`${this.url}/api/reports/burndown-charts/${id}`)
+      .map(data => data.json() as any[])
+      .catch(this.handleError);
+  }
 }
