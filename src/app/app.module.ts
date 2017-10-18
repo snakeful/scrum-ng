@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ChartsModule } from 'ng2-charts';
 
 import { UsersService } from './services/shared/users/users.service';
 import { ProjectsService } from './services/shared/projects/projects.service';
@@ -36,6 +37,7 @@ import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
 import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
+import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { TaskModalComponent } from './project/sprints/task-modal/task-modal.comp
     OriginPipe,
     ScrumTeamPipe,
     UserRolePipe,
-    TaskModalComponent
+    TaskModalComponent,
+    BurndownChartComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import { TaskModalComponent } from './project/sprints/task-modal/task-modal.comp
     Ng2DragDropModule.forRoot(),
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
+    ChartsModule,
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
