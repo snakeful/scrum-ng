@@ -1,6 +1,10 @@
 .scrollspy-mini {
   position: relative;
-  height: 287.5px;
+  height: 250px;
   margin-top: .5rem;
   overflow: auto;
+}
+
+.burndown-chart-center {
+  margin: auto;
 }

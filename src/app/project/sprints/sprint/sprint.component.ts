@@ -19,6 +19,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _done: any;
   private _task: Task;
   private _newTask: Boolean;
+  private _toggle: boolean;
   @ViewChild('taskName') private taskName: ElementRef;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
@@ -26,6 +27,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
     this._task = new Task();
     this._story = new UserStory();
     this._newTask = false;
+    this._toggle = false;
   }
 
   private getCurrentTaskList(task: Task): any {
@@ -90,6 +92,10 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() { }
+
+  toggleDataChart() {
+    this._toggle = !this._toggle;
+  }
 
   editUserStory(userStory: UserStory) {
     this._story = userStory;
@@ -171,5 +177,9 @@ export class SprintComponent implements OnInit, AfterViewInit {
   set task(value: Task) {
     this._newTask = value.id === undefined;
     this._task = value;
+  }
+
+  get toggle(): boolean {
+    return this._toggle;
   }
 }

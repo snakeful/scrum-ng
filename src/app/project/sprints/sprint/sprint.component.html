@@ -1,9 +1,14 @@
 <div class="container-fluid">
-  <div class="alert alert-secondary text-center">
-    <h3>{{sprint.name}}</h3>
-    <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}</p>
+  <div class="row alert alert-secondary">
+    <div class="ml-auto text-center">
+      <h3>{{sprint.name}}</h3>
+      <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}</p>
+    </div>
+    <div class="ml-auto">
+      <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()"><i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i></button>
+    </div>
   </div>
-  <div class="row">
+  <div *ngIf="!toggle;else burndownChart" class="row">
     <div class="col-4">
       <h3 class="text-center">User Story Selected</h3>
       <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
@@ -43,6 +48,11 @@
     </div>
     <app-sprint-tasks class="col-8" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>
   </div>
+  <ng-template #burndownChart>
+    <div class="row chart">
+      <app-burndown-chart class="burndown-chart-center" [sprintId]="sprint.id"></app-burndown-chart>
+    </div>
+  </ng-template>
 </div>
 <div class="modal" id="taskData" role="dialog">
   <app-task-modal [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (sendTask)="updateTask = $event"></app-task-modal>
