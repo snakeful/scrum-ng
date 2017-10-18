@@ -25,13 +25,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-2 col-sm-2 text-center">
+          <div class="col-md-3 col-sm-3 text-center">
             <label for="taskPoints">Points</label>
-            <input class="form-control" type="number" [(ngModel)]="task.points" min="1" name="taskPoints" id="taskPoints" required>
+            <div class="input-group">
+              <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.points" min="1" name="taskPoints" id="taskPoints" required readonly>
+              <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
+            </div>
           </div>
-          <div class="col-md-2 col-xs-2 text-center">
+          <div class="col-md-3 col-xs-3 text-center">
             <label for="executedPoints">Executed</label>
-            <input class="form-control" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required>
+            <div class="input-group">
+              <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required readonly>
+              <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
+            </div>
           </div>
           <div class="col-md-2 col-xs-2 text-center">
             <label for="successTask">Success</label>
