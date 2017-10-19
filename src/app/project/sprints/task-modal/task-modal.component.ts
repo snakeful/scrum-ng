@@ -32,22 +32,38 @@ export class TaskModalComponent implements OnInit {
 
   saveTask(task: Task) {
     this.service.saveTask(task)
-    .subscribe(updated => {
-      this.sendTask.emit(task);
-      this.alert.success('Task', 'Task saved.', {
-        timeOut: 2000
+      .subscribe(updated => {
+        this.sendTask.emit(task);
+        this.alert.success('Task', 'Task saved.', {
+          timeOut: 2000
+        });
+        if (this._newTask) {
+          this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
+        }
+        if (this._closeOnSaveTask) {
+          this.btnClose.nativeElement.click();
+        }
+      }, err => {
+        this.alert.error('Tasks', err, {
+          timeOut: 10000
+        });
       });
-      if (this._newTask) {
-        this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
-      }
-      if (this._closeOnSaveTask) {
-        this.btnClose.nativeElement.click();
-      }
-    }, err => {
-      this.alert.error('Tasks', err, {
-        timeOut: 10000
-      });
-    });
+  }
+
+  addPoint() {
+    this._task.points++;
+  }
+
+  substractPoint() {
+    if (this._task.points > (this._task.executedPoints + 1)) {
+      this._task.points--;
+    }
+  }
+
+  addExecutedPoint() {
+    if (this._task.executedPoints < (this._task.points - 1)) {
+      this._task.executedPoints++;
+    }
   }
 
   @Input() set task(value: Task) {

@@ -25,18 +25,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3 col-sm-3 text-center">
+          <div class="col-md-4 col-sm-4 text-center">
             <label for="taskPoints">Points</label>
             <div class="input-group">
               <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.points" min="1" name="taskPoints" id="taskPoints" required readonly>
-              <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
+              <button type="button" class="btn btn-sm btn-primary" (click)="addPoint()"><i class="fa fa-plus"></i></button>
+              <button type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()"><i class="fa fa-minus"></i></button>
             </div>
           </div>
           <div class="col-md-3 col-xs-3 text-center">
             <label for="executedPoints">Executed</label>
             <div class="input-group">
               <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required readonly>
-              <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
+              <button type="button" class="btn btn-sm btn-primary" (click)="addExecutedPoint()"><i class="fa fa-plus"></i></button>
             </div>
           </div>
           <div class="col-md-2 col-xs-2 text-center">
