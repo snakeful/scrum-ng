@@ -33,7 +33,7 @@
               <button type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()"><i class="fa fa-minus"></i></button>
             </div>
           </div>
-          <div class="col-md-3 col-xs-3 text-center">
+          <div *ngIf="!newTask" class="col-md-3 col-xs-3 text-center">
             <label for="executedPoints">Executed</label>
             <div class="input-group">
               <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required readonly>
