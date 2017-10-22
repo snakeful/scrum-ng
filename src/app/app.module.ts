@@ -20,6 +20,7 @@ import { ProjectsComponent } from './project/projects/projects.component';
 import { ProjectComponent } from './project/project/project.component';
 import { UsersComponent } from './users/users/users.component';
 import { UserComponent } from './users/user/user.component';
+import { LoginModalComponent } from './users/login-modal/login-modal.component';
 import { SprintsComponent } from './project/sprints/sprints/sprints.component';
 import { SprintComponent } from './project/sprints/sprint/sprint.component';
 import { SprintTasksComponent } from './project/sprints/sprint-tasks/sprint-tasks.component';
@@ -49,6 +50,7 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     ProjectComponent,
     UsersComponent,
     UserComponent,
+    LoginModalComponent,
     SprintsComponent,
     SprintComponent,
     UserStoryComponent,
