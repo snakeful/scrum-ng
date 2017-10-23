@@ -20,6 +20,7 @@ export class BurndownChartComponent implements OnInit {
   private _options: any;
   private _legend: boolean;
   private _type: string;
+  private _colors: any[];
   constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._data = [{
       label: 'Estimated Points',
@@ -36,6 +37,23 @@ export class BurndownChartComponent implements OnInit {
     };
     this._legend = true;
     this._type = 'line';
+    this._colors = [{
+      // info
+      backgroundColor: 'rgba(23,162,184,0.2)',
+      borderColor: 'rgba(23,162,184,1)',
+      pointBackgroundColor: 'rgba(23,162,184,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(23,162,184,0.8)'
+    }, {
+      // primary
+      backgroundColor: 'rgba(0,109,217,0.2)',
+      borderColor: 'rgba(0,109,217,1)',
+      pointBackgroundColor: 'rgba(0,109,217,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(0,109,217,0.8)'
+    }]
   }
 
   ngOnInit() {
@@ -92,23 +110,7 @@ export class BurndownChartComponent implements OnInit {
       });
   }
 
-  get colors(): Array<any> {
-    return [{
-      // info
-      backgroundColor: 'rgba(23,162,184,0.2)',
-      borderColor: 'rgba(23,162,184,1)',
-      pointBackgroundColor: 'rgba(23,162,184,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(23,162,184,0.8)'
-    }, {
-      // primary
-      backgroundColor: 'rgba(0,109,217,0.2)',
-      borderColor: 'rgba(0,109,217,1)',
-      pointBackgroundColor: 'rgba(0,109,217,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(0,109,217,0.8)'
-    }];
+  get colors(): any[] {
+    return this._colors;
   }
 }
