@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 
-span, h1, h2, h3, h4, h5, h6.title {
+span, h1, h2, h3, h4, h5, h6, label.title {
   font-weight: bolder;
 }
 
@@ -28,3 +28,19 @@ input[type=number].spinner-off::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+
+input[formcontrolname].ng-valid {
+  border-left: 0.15rem solid green;
+}
+
+/*input[formcontrolname].ng-valid.ng-dirty {
+  border: green;
+}*/
+
+input[formcontrolname].ng-invalid {
+  border-left: 0.15rem solid red;
+}
+
+/*input[formcontrolname].ng-invalid.ng-dirty {
+  border-color: red;
+}*/
