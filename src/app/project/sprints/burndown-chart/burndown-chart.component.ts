@@ -92,21 +92,23 @@ export class BurndownChartComponent implements OnInit {
       });
   }
 
-  public colors: Array<any> = [{
-    // info
-    backgroundColor: 'rgba(23,162,184,0.2)',
-    borderColor: 'rgba(23,162,184,1)',
-    pointBackgroundColor: 'rgba(23,162,184,1)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(23,162,184,0.8)'
-  }, { 
-    // primary
-    backgroundColor: 'rgba(0,109,217,0.2)',
-    borderColor: 'rgba(0,109,217,1)',
-    pointBackgroundColor: 'rgba(0,109,217,1)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(0,109,217,0.8)'
-  }];
+  get colors(): Array<any> {
+    return [{
+      // info
+      backgroundColor: 'rgba(23,162,184,0.2)',
+      borderColor: 'rgba(23,162,184,1)',
+      pointBackgroundColor: 'rgba(23,162,184,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(23,162,184,0.8)'
+    }, {
+      // primary
+      backgroundColor: 'rgba(0,109,217,0.2)',
+      borderColor: 'rgba(0,109,217,1)',
+      pointBackgroundColor: 'rgba(0,109,217,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(0,109,217,0.8)'
+    }];
+  }
 }
