@@ -1,5 +1,5 @@
 <div class="modal-dialog" role="document">
-  <div class="modal-content">
+  <form class="modal-content" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="modal-header">
       <h5 class="modal-title">Login</h5>
       <button #dataLoginClose type="button" class="close" data-dismiss="modal" title="Close">
@@ -7,13 +7,18 @@
       </button>
     </div>
     <div class="modal-body">
-      <label for="user">User</label>
-      <input type="text" class="form-control" name="user" id="user" [(ngModel)]="user">
-      <label for="password">password</label>
-      <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password">
+      <div class="form-group">
+        <label for="user" class="title">User</label>
+        <input type="text" class="form-control text-center" formControlName="user">
+      </div>
+      <div class="form-group">
+        <label for="password" class="title">Password</label>
+        <input type="password" class="form-control text-center" formControlName="password">
+      </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary float-right" (click)="login(user, password)" title="Login"><i class="fa fa-check"></i></button>
+      <button type="submit" class="btn btn-primary float-right" title="Login" [disabled]="!loginForm.valid"><i class="fa fa-check"></i></button>
+      <p>{{loginForm.errors}}</p>
     </div>
-  </div>
+  </form>
 </div>

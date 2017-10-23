@@ -1,35 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
   styleUrls: ['./login-modal.component.css']
 })
 export class LoginModalComponent implements OnInit {
-  private _user: string;
-  private _password: string;
-  constructor() { }
+  private _loginForm: FormGroup;
+  constructor(private builder: FormBuilder) {}
 
   ngOnInit() {
+    this._loginForm = this.builder.group({
+      user: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
   }
 
-  login(user: string, password: string) {
-    console.log(user, password);
+  login() {
+    console.log(this._loginForm.value);
   }
 
-  get user(): string {
-    return this._user;
-  }
-
-  set user(value: string) {
-    this._user = value;
-  }
-
-  get password(): string {
-    return this._password;
-  }
-
-  set password(value: string) {
-    this._password = value;
+  get loginForm(): FormGroup {
+    return this._loginForm;
   }
 }
