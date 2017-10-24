@@ -48,7 +48,6 @@ export class UsersService {
   }
 
   private handleError(err: Response) {
-    console.log(err);
     const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
   }
