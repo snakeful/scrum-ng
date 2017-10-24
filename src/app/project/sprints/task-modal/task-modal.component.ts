@@ -7,7 +7,7 @@ import { ProjectsService, Task } from '../../../services/shared/projects/project
 @Component({
   selector: 'app-task-modal',
   templateUrl: './task-modal.component.html',
-  styleUrls: ['./task-modal.component.css']
+  styleUrls: ['./task-modal.component.scss']
 })
 export class TaskModalComponent implements OnInit {
   private _task: Task;

@@ -7,7 +7,7 @@ import { UserStory, ProjectsService } from '../../../services/shared/projects/pr
 @Component({
   selector: 'app-user-story-modal',
   templateUrl: './user-story-modal.component.html',
-  styleUrls: ['./user-story-modal.component.css']
+  styleUrls: ['./user-story-modal.component.scss']
 })
 export class UserStoryModalComponent implements OnInit, AfterViewInit {
   private _userStory: UserStory;

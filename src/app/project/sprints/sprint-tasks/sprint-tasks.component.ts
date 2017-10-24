@@ -7,7 +7,7 @@ import { ProjectsService, Task, UserStory } from '../../../services/shared/proje
 @Component({
   selector: 'app-sprint-tasks',
   templateUrl: './sprint-tasks.component.html',
-  styleUrls: ['./sprint-tasks.component.css']
+  styleUrls: ['./sprint-tasks.component.scss']
 })
 export class SprintTasksComponent implements OnInit {
   private _toDo;

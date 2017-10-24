@@ -9,7 +9,7 @@ import { ProjectsService, Project } from '../../services/shared/projects/project
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit, AfterViewInit {
   private _projects: Project[];

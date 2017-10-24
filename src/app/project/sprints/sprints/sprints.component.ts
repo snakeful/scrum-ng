@@ -6,7 +6,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-sprints',
   templateUrl: './sprints.component.html',
-  styleUrls: ['./sprints.component.css']
+  styleUrls: ['./sprints.component.scss']
 })
 export class SprintsComponent implements OnInit {
   private _selectCurrentSprint: Boolean;

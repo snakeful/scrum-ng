@@ -6,7 +6,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-user-stories',
   templateUrl: './user-stories.component.html',
-  styleUrls: ['./user-stories.component.css']
+  styleUrls: ['./user-stories.component.scss']
 })
 export class UserStoriesComponent implements OnInit {
   private _selectCurrentStory: Boolean;

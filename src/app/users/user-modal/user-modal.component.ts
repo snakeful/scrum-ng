@@ -6,7 +6,7 @@ import { UsersService, Role, User } from '../../services/shared/users/users.serv
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
-  styleUrls: ['./user-modal.component.css']
+  styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit, AfterViewInit {
   private _roles: Role[];

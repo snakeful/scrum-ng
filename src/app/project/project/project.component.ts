@@ -8,7 +8,7 @@ import { ProjectsService, Project, UserStory, Sprint } from '../../services/shar
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit, AfterViewInit {
   private _project: Project;

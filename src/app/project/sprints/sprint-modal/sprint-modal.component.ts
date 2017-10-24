@@ -5,7 +5,7 @@ import { Sprint } from '../../../services/shared/projects/projects.service';
 @Component({
   selector: 'app-sprint-modal',
   templateUrl: './sprint-modal.component.html',
-  styleUrls: ['./sprint-modal.component.css']
+  styleUrls: ['./sprint-modal.component.scss']
 })
 export class SprintModalComponent implements OnInit, AfterViewInit {
   private _sprint: Sprint;

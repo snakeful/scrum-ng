@@ -5,7 +5,7 @@ import { UserStory, StoryPriority, ProjectsService } from '../../../services/sha
 @Component({
   selector: 'app-user-story',
   templateUrl: './user-story.component.html',
-  styleUrls: ['./user-story.component.css']
+  styleUrls: ['./user-story.component.scss']
 })
 export class UserStoryComponent implements OnInit {
   private _userStory: UserStory = new UserStory();
