@@ -2,7 +2,7 @@
   <div class="row alert alert-secondary mt-0">
     <div class="ml-auto text-center">
       <h5 class="mb-1">{{sprint.name}}</h5>
-      <p>From {{sprint.start | date: 'dd/MM/yyyy'}} to {{sprint.end | date: 'dd/MM/yyyy'}}</p>
+      <p>From {{sprint.start | date: 'yyyy/MM/dd'}} to {{sprint.end | date: 'yyyy/MM/dd'}}</p>
     </div>
     <div class="ml-auto">
       <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()">
