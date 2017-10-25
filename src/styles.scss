@@ -36,3 +36,9 @@ input[formcontrolname].ng-valid.ng-dirty {
 input[formcontrolname].ng-invalid.ng-dirty {
   border-left: 0.25rem solid red;
 }
+
+/* Date Range Picker */
+
+bs-daterangepicker-container {
+  z-index: 9999;
+}

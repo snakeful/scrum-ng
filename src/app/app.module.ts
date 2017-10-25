@@ -10,6 +10,7 @@ import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
 import { Ng2Webstorage } from "ng2-webstorage";
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { PasswordValidatorDirective } from './directives/shared/password-validator.directive';
 
@@ -89,6 +90,7 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
       separator: '-',
       caseSensitive: true
     }),
+    BsDatepickerModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
