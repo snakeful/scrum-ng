@@ -1,5 +1,5 @@
 <div class="modal-dialog" role="document">
-  <div class="modal-content">
+  <form class="modal-content" (ngSubmit)="doSaveUser(user)" novalidate>
     <div class="modal-header">
       <h5 class="modal-title">{{(user.id) ? 'Edit' : 'New'}} User {{user.user}}</h5>
       <button #dataUserClose type="button" class="close" data-dismiss="modal" title="Close">
@@ -10,7 +10,7 @@
       <app-user [user]="user"></app-user>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary float-right" (click)="doSaveUser(user)" title="Save User"><i class="fa fa-check"></i></button>
+      <button *ngIf="userLogged.admin" class="btn btn-primary float-right" title="Save User"><i class="fa fa-check"></i></button>
     </div>
-  </div>
+  </form>
 </div>

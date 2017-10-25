@@ -40,6 +40,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   set update(user: any) {
     Object.assign(this._selected, user.user);
     user.btnClose.nativeElement.click();
+    this._selected = new User();
   }
 
   get selected(): User {

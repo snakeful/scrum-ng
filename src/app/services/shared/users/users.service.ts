@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
+import { LocalStorageService } from "ng2-webstorage";
 
 import { Observable } from 'rxjs/Observable';
 
@@ -23,28 +25,48 @@ export class ScrumUser {
   user: string;
   firstName: string;
   lastName: string;
-  roleId: number;
-  constructor(id?: number, user?: string, firstName?: string, lastName?: string, roleId?: number) {
+  password: string;
+  confirm: string;
+  admin: boolean;
+  constructor(id?: number, user?: string, firstName?: string, lastName?: string) {
     this.id = id;
     this.user = user;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.roleId = roleId;
+    this.admin = false;
   }
+}
+
+export class UserLogged {
+  user: string;
+  admin: boolean;
+  token: string;
+  expiration: Date;
 }
 
 export class Role extends ScrumObject {
 }
 
 export class User extends ScrumUser {
+  clearPasswords() {
+    this.password = null;
+    this.confirm = null;
+  }
 }
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnInit {
+  private _user: UserLogged;
   private url = 'http://localhost:4201';
   private roles: Role[];
   private users: User[];
-  constructor(private http: Http) {
+  constructor(private http: Http, private storage: LocalStorageService) {
+    this._user = this.storage.retrieve('user') as UserLogged;
+  }
+
+  ngOnInit() {
+    this._user = this.storage.retrieve('user') as UserLogged;
+    console.log(this._user);
   }
 
   private handleError(err: Response) {
@@ -52,7 +74,7 @@ export class UsersService {
     return Observable.throw(msg);
   }
 
-  public getRoles(): Observable<Role[]> {
+  getRoles(): Observable<Role[]> {
     return this.http.get(`${this.url}/api/roles`)
     .map(res => res.json() as Role[])
     .catch(this.handleError);
@@ -83,5 +105,9 @@ export class UsersService {
     return this.http.put(`${this.url}/api/users/${id}`, user)
     .map(res => user)
     .catch(this.handleError);
+  }
+
+  get userLogged(): UserLogged {
+    return this._user;
   }
 }

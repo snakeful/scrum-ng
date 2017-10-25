@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
-import { cloneDeep } from 'lodash';
-import { UsersService, Role, User } from '../../services/shared/users/users.service';
+
+import { cloneDeep, isNil } from 'lodash';
+import { UsersService, Role, User, UserLogged } from '../../services/shared/users/users.service';
 
 @Component({
   selector: 'app-user-modal',
@@ -9,12 +10,14 @@ import { UsersService, Role, User } from '../../services/shared/users/users.serv
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit, AfterViewInit {
+  private _userLogged: UserLogged;
   private _roles: Role[];
   private _user: User = new User();
   @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dataUserClose') btnClose: ElementRef;
-  constructor(private usersService: UsersService, private alert: NotificationsService) {
-    usersService.getRoles()
+  constructor(private service: UsersService, private alert: NotificationsService) {
+    this._userLogged = service.userLogged;
+    service.getRoles()
       .subscribe(roles => {
         this._roles = roles;
       });
@@ -26,10 +29,19 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  public doSaveUser(user) {
-    const newUser: Boolean = user.id === null || user.id === undefined;
-    (newUser ? this.usersService.createUser(user) : this.usersService.saveUser(user.id, user))
+  doSaveUser(user: User) {
+    console.log(user);
+    if (!isNil(user.password) || !isNil(user.confirm)) {
+      if (user.password !== user.confirm) {
+        this.alert.warn('Password and confirm must be the same.')
+        return;
+      }
+    }
+    const newUser: Boolean = isNil(user.id);
+    (newUser ? this.service.createUser(user) : this.service.saveUser(user.id, user))
     .subscribe(updatedUser => {
+      updatedUser.password = null;
+      updatedUser.confirm = null;
       this.alert.success(`User ${updatedUser.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
         timeOut: 2000,
         showProgressBar: false
@@ -39,6 +51,10 @@ export class UserModalComponent implements OnInit, AfterViewInit {
         btnClose: this.btnClose
       });
     });
+  }
+
+  get userLogged(): UserLogged {
+    return this._userLogged;
   }
 
   get roles(): Role[] {
