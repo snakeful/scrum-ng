@@ -1,8 +1,14 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <form (ngSubmit)="saveTask(task)">
+    <form [formGroup]="taskForm" (ngSubmit)="saveTask(taskForm.value)" novalidate>
       <div class="modal-header">
-        <h5 class="modal-title">{{newTask ? 'New' : 'Edit'}} Task {{!newTask ? task.name : ''}}</h5><span class="title">Status: <span class="badge badge-pill" [ngClass]="task.statusId | taskStatus : 'desc'">{{task.statusId | taskStatus : 'name'}}</span></span><span class="title">Origin: <span class="badge badge-pill" [ngClass]="task.originId | origin : 'desc'">{{task.originId | origin : 'name'}}</span></span>
+        <h5 class="modal-title">{{newTask ? 'New' : 'Edit'}} Task {{!newTask ? taskForm.value.name : ''}}</h5>
+        <span class="title">Status:
+          <span class="badge badge-pill" [ngClass]="taskForm.value.statusId | taskStatus : 'desc'">{{taskForm.value.statusId | taskStatus : 'name'}}</span>
+        </span>
+        <span class="title">Origin:
+          <span class="badge badge-pill" [ngClass]="taskForm.value.originId | origin : 'desc'">{{taskForm.value.originId | origin : 'name'}}</span>
+        </span>
         <button #dataTaskModalClose type="button" class="close" data-dismiss="modal" title="Close">
           <i class="fa fa-times"></i>
         </button>
@@ -11,45 +17,52 @@
         <div class="row">
           <div class="col-md-7 col-sm-7">
             <label for="taskName">Name</label>
-            <input #taskName type="text" class="form-control" [(ngModel)]="task.name" name="taskName" id="taskName" required>
+            <input type="text" class="form-control" formControlName="name" name="taskName">
           </div>
           <div class="col-md-5 col-sm-5">
             <label for="taskUser">User</label>
-            <select class="form-control" [(ngModel)]="task.userId" name="taskUser" id="taskUser" required>
+            <select class="form-control" formControlName="userId" name="taskUser">
               <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'fullName'}}</option>
             </select>
           </div>
           <div class="col-md-12 col-xs-12">
             <label for="taskDesc">Description</label>
-            <textarea class="form-control" name="taskDesc" id="" cols="30" [(ngModel)]="task.desc"></textarea>
+            <textarea class="form-control" name="taskDesc" cols="30" formControlName="desc"></textarea>
           </div>
         </div>
         <div class="row">
           <div class="col-md-4 col-sm-4 text-center">
             <label for="taskPoints">Points</label>
             <div class="input-group">
-              <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.points" min="1" name="taskPoints" id="taskPoints" required readonly>
-              <button type="button" class="btn btn-sm btn-primary" (click)="addPoint()"><i class="fa fa-plus"></i></button>
-              <button type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()"><i class="fa fa-minus"></i></button>
+              <input class="form-control text-center spinner-off" type="number" formControlName="points" min="1" name="taskPoints" readonly>
+              <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary" (click)="addPoint()">
+                <i class="fa fa-plus"></i>
+              </button>
+              <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()">
+                <i class="fa fa-minus"></i>
+              </button>
             </div>
           </div>
           <div *ngIf="!newTask" class="col-md-3 col-xs-3 text-center">
             <label for="executedPoints">Executed</label>
             <div class="input-group">
-              <input class="form-control text-center spinner-off" type="number" [(ngModel)]="task.executedPoints" max="{{task.points}}" min="0" name="executedPoints" id="executedPoints" required readonly>
-              <button type="button" class="btn btn-sm btn-primary" (click)="addExecutedPoint()"><i class="fa fa-plus"></i></button>
+              <input class="form-control text-center spinner-off" type="number" formControlName="executedPoints" max="{{taskForm.value.points}}" min="0" name="executedPoints" readonly>
+              <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary"
+                (click)="addExecutedPoint()">
+                <i class="fa fa-plus"></i>
+              </button>
             </div>
           </div>
           <div class="col-md-2 col-xs-2 text-center">
             <label for="successTask">Success</label>
-            <input type="checkbox" class="checkbox" [(ngModel)]="task.successTask" name="successTask" required>
+            <input type="checkbox" class="checkbox" formControlName="successTask" name="successTask">
           </div>
         </div>
-        </div>
-      <div class="modal-footer">
+      </div>
+      <div *ngIf="taskForm.value.statusId !== 3" class="modal-footer">
         <label for="closeOnSaveTask">Close On Save Task</label>
-        <input type="checkbox" class="checkbox" [(ngModel)]="closeOnSaveTask" name="closeOnSaveTask">
-        <button type="submit" class="btn btn-sm btn-primary float-right">
+        <input type="checkbox" class="checkbox" formControlName="closeOnSaveTask" name="closeOnSaveTask">
+        <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!taskForm.valid">
           <i class="fa fa-check"></i>
         </button>
       </div>
