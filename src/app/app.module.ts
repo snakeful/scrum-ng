@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
+import { Ng2Webstorage } from "ng2-webstorage";
+
+import { PasswordValidatorDirective } from './directives/shared/password-validator.directive';
 
 import { UsersService } from './services/shared/users/users.service';
 import { ProjectsService } from './services/shared/projects/projects.service';
@@ -60,6 +63,7 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     SprintModalComponent,
     TaskComponent,
     UserModalComponent,
+    PasswordValidatorDirective,
     LimitToPipe,
     TaskStatusPipe,
     StoryPriorityPipe,
@@ -68,7 +72,8 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     ScrumTeamPipe,
     UserRolePipe,
     TaskModalComponent,
-    BurndownChartComponent
+    BurndownChartComponent,
+    PasswordValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -79,6 +84,11 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     ChartsModule,
+    Ng2Webstorage.forRoot({
+      prefix: 'scrum',
+      separator: '-',
+      caseSensitive: true
+    }),
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
