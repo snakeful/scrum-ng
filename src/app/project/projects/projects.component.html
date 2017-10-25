@@ -29,14 +29,15 @@
           <input type="text" class="form-control" [(ngModel)]="selected.desc">
           <label for="productOwner">Product Owner</label>
           <select class="form-control" [(ngModel)]="selected.productOwnerId" name="productOwner" id="productOwner">
-            <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}}{{productOwner.lastName}}</option>
+            <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}} {{productOwner.lastName}}</option>
           </select>
           <label for="scrumMaster">Scrum Master</label>
           <select class="form-control" [(ngModel)]="selected.scrumMasterId" name="scrumMaster" id="scrumMaster">
             <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
           </select>
           <label for="scrumTeam">Scrum Team</label>
-          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeScrumTeam(selected)" name="scrumTeam" id="scrumTeam">
+          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUserList(selected, selected.scrumTeam, scrumTeam)" name="scrumTeam" id="scrumTeam">
+            <option [value]="null">Select to add a scrum team</option>
             <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
           </select>
           <div class="mt-2">
@@ -48,7 +49,8 @@
             </div>
           </div>
           <label for="stakeholders">Stakeholders</label>
-          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeStakeholder(selected)" name="stakeholders" id="stakeholders">
+          <select class="form-control" [(ngModel)]="selected.selectedUser" (ngModelChange)="onChangeUserList(selected, selected.stakeholders, stakeholders)" name="stakeholders" id="stakeholders">
+            <option [value]="null">Select to add a stakeholder</option>
             <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
           </select>
           <div class="mt-2">

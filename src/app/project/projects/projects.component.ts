@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import { NotificationsService } from 'angular2-notifications';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isNil } from 'lodash';
 
 import { UsersService, User } from '../../services/shared/users/users.service';
 import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
@@ -19,16 +19,16 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   private _scrumTeam: User[] = [];
   private _stakeholders: User[] = [];
   @ViewChild('dataUserStoryClose') private btnClose: ElementRef;
-  constructor(private projectsService: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private userService: UsersService, private alert: NotificationsService) {
   }
 
   ngOnInit() {
-    this.projectsService.projects.subscribe(projects => {
+    this.service.projects.subscribe(projects => {
       this._projects = projects;
     }, err => this.alert.html(err, 'error', {
       timeOut: 10000
     }));
-    this.usersService.getUsers()
+    this.userService.getUsers()
       .subscribe(users => this._users = users,
       err => this.alert.html(err, 'error', {
         timeOut: 10000
@@ -38,29 +38,23 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  onChangeScrumTeam(project) {
-    const user = this._users[project.selectedUser];
-    if (!project.scrumTeam.reduce((exists, scrumUser) => {
-      return exists || scrumUser.id === user.id;
-    }, false)) {
-      project.scrumTeam.push(user.id);
-      this.scrumTeam.push(user);
+  onChangeUserList(project: Project, userIdList: number[], userList: User[]) {
+    if (isNil(project.selectedUser)) {
+      return;
     }
-  }
-
-  onChangeStakeholder(project) {
     const user = this._users[project.selectedUser];
-    if (!project.stakeholders.reduce((exists, stakeholder) => {
-      return exists || stakeholder.id === user.id;
+    if (!userIdList.reduce((exists, id) => {
+      return exists || id === user.id;
     }, false)) {
-      project.stakeholders.push(user.id);
-      this.stakeholders.push(user);
+      userIdList.push(user.id);
+      userList.push(user);
     }
+    project.selectedUser = null;
   }
 
   doSaveProject(project) {
     if (this._actual) {
-      this.projectsService.saveProject(project)
+      this.service.saveProject(project)
         .subscribe(() => {
           this._projects[this._projects.indexOf(this._actual)] = project;
           this.alert.success(`Project ${project.name}`, `Project saved.`, {
@@ -70,7 +64,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
         });
     } else {
       this._actual = null;
-      this.projectsService.createProject(project)
+      this.service.createProject(project)
         .subscribe(newProject => {
           this._projects.push(newProject);
           this.alert.success(`Project ${newProject.name}`, `Project created.`, {
@@ -117,6 +111,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   set selected(value: Project) {
+    value.selectedUser = null;
     this.scrumTeam.length = 0;
     this.stakeholders.length = 0;
     if (value) {

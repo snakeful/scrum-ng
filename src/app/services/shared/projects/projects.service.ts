@@ -17,6 +17,7 @@ export class Project extends ScrumObject {
   scrumMaster: User;
   scrumTeam: number[];
   stakeholders: number[];
+  selectedUser: number;
   constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
     super(id, name, desc);
     this.userStories = userStories || [];

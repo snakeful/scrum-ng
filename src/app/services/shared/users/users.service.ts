@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { LocalStorageService } from "ng2-webstorage";
@@ -55,18 +55,13 @@ export class User extends ScrumUser {
 }
 
 @Injectable()
-export class UsersService implements OnInit {
+export class UsersService {
   private _user: UserLogged;
   private url = 'http://localhost:4201';
   private roles: Role[];
   private users: User[];
   constructor(private http: Http, private storage: LocalStorageService) {
     this._user = this.storage.retrieve('user') as UserLogged;
-  }
-
-  ngOnInit() {
-    this._user = this.storage.retrieve('user') as UserLogged;
-    console.log(this._user);
   }
 
   private handleError(err: Response) {

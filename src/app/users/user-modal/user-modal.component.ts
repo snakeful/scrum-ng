@@ -30,7 +30,6 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   }
 
   doSaveUser(user: User) {
-    console.log(user);
     if (!isNil(user.password) || !isNil(user.confirm)) {
       if (user.password !== user.confirm) {
         this.alert.warn('Password and confirm must be the same.')
