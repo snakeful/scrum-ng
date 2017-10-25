@@ -57,6 +57,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
               .subscribe(sprints => {
                 this._sprints = sprints;
                 sprints.forEach(sprint => {
+                  sprint.start = new Date(sprint.start);
+                  sprint.end = new Date(sprint.end);
                   sprint.userStories = [];
                   this.assignDataFunctionsArray(sprint.userStories);
                   this.service.getSprintUserStories(sprint.id)
@@ -180,6 +182,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     } else {
       this.service.saveSprint(value.sprint)
         .subscribe(sprint => {
+          value.sprint.userStories = this._sprint.userStories;
           this._sprints[this._sprints.indexOf(this._sprint)] = value.sprint;
           value.btnClose.nativeElement.click();
         });

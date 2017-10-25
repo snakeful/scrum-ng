@@ -1,26 +1,28 @@
 <div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">New Sprint</h5>
-      <button #dataSprintModalClose type="button" class="close" data-dismiss="modal" title="Close">
-        <i class="fa fa-times"></i>
-      </button>
-    </div>
-    <div class="modal-body">
-      <label class="title" for="name">Name</label>
-      <input type="text" class="form-control" [(ngModel)]="sprint.name" name="name">
-      <label class="title" for="startEnd">Sprint Date Range</label>
-      <div class="input-group" name="startEnd">
-        <input class="form-control text-center" (click)="null" #drp="bsDaterangepicker" bsDaterangepicker [(bsValue)]="dates" [bsConfig]="dateConfig" value="{{ dates[0] | date: 'yyyy/MM/dd'}} - {{ dates[1] | date:'yyyy/MM/dd'}}">
-        <div class="input-group-btn">
-          <button class="btn btn-primary" (click)="drp.show()"><i class="fa fa-calendar"></i></button>
+  <form [formGroup]="sprintForm" (ngSubmit)="doSaveSprint(sprintForm.value)">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Sprint</h5>
+        <button #dataSprintModalClose type="button" class="close" data-dismiss="modal" title="Close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label class="title" for="name">Name</label>
+        <input type="text" class="form-control" formControlName="name" name="name">
+        <label class="title" for="startEnd">Sprint Date Range</label>
+        <div class="input-group" name="startEnd">
+          <input class="form-control text-center" (click)="null" #drp="bsDaterangepicker" bsDaterangepicker [(bsValue)]="dates" [bsConfig]="dateConfig" value="{{ dates[0] | date: 'yyyy/MM/dd'}} - {{ dates[1] | date:'yyyy/MM/dd'}}">
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="button" (click)="drp.show()"><i class="fa fa-calendar"></i></button>
+          </div>
         </div>
       </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-primary float-right" type="submit" [disabled]="!sprintForm.valid">
+          <i class="fa fa-check"></i>
+        </button>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-sm btn-primary float-right" (click)="doSaveSprint(sprint)">
-        <i class="fa fa-check"></i>
-      </button>
-    </div>
-  </div>
+  </form>
 </div>

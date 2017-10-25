@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -10,14 +11,23 @@ import { Sprint } from '../../../services/shared/projects/projects.service';
   styleUrls: ['./sprint-modal.component.scss']
 })
 export class SprintModalComponent implements OnInit, AfterViewInit {
+  private _sprintForm: FormGroup;
   private _sprint: Sprint;
   private _saveSprint: EventEmitter<any>;
   private _dates: Date[];
   @ViewChild('dataSprintModalClose') private btnClose: ElementRef;
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this._sprint = new Sprint(undefined, 'Test');
     this._saveSprint = new EventEmitter<any>();
     this._dates = [new Date(), new Date()];
+    this._sprintForm = this.formBuilder.group({
+      id: [''],
+      name: ['', [Validators.required]],
+      projectId: [],
+      start: [],
+      end: [],
+      startEnd: ['']
+    });
   }
 
   ngOnInit() {
@@ -35,6 +45,10 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get sprintForm(): FormGroup {
+    return this._sprintForm;
+  }
+
   get sprint(): Sprint {
     return this._sprint;
   }
@@ -47,6 +61,7 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
       this._sprint.start = new Date();
       this._sprint.end = new Date();
     }
+    this._sprintForm.patchValue(this._sprint);
     this.dates = [new Date(this._sprint.start.valueOf()), new Date(this._sprint.end.valueOf())];
   }
 
@@ -59,11 +74,11 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
       containerClass: 'theme-dark-blue'
     };
   }
- 
+
   get dates(): Date[] {
     return this._dates;
   }
- 
+
   set dates(dates: Date[]) {
     this._dates = dates;
   }
