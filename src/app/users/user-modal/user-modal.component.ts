@@ -86,6 +86,11 @@ export class UserModalComponent implements OnInit, AfterViewInit {
     } else {
       this._userForm.patchValue(value);
     }
+    this._userForm.patchValue({
+      password: '',
+      confirm: ''
+    });
+    this._userForm.markAsPristine();
   }
 
 }
