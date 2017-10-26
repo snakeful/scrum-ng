@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
-import { Ng2Webstorage } from "ng2-webstorage";
+import { Ng2Webstorage } from 'ng2-webstorage';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { PasswordValidatorDirective } from './directives/shared/password-validator.directive';
@@ -23,7 +23,6 @@ import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { ProjectComponent } from './project/project/project.component';
 import { UsersComponent } from './users/users/users.component';
-import { UserComponent } from './users/user/user.component';
 import { LoginModalComponent } from './users/login-modal/login-modal.component';
 import { SprintsComponent } from './project/sprints/sprints/sprints.component';
 import { SprintComponent } from './project/sprints/sprint/sprint.component';
@@ -53,7 +52,6 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     ProjectsComponent,
     ProjectComponent,
     UsersComponent,
-    UserComponent,
     LoginModalComponent,
     SprintsComponent,
     SprintComponent,
