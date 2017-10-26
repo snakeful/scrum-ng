@@ -9,10 +9,10 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./sprints.component.scss']
 })
 export class SprintsComponent implements OnInit {
-  private _selectCurrentSprint: Boolean;
+  private _selectCurrentSprint: boolean;
   private _currentSprint: Sprint;
-  private _canDelete: Boolean;
-  private deleting: Boolean;
+  private _canDelete: boolean;
+  private deleting: boolean;
   private _sprints: Sprint[];
   private _onSelect: EventEmitter<Sprint>;
   constructor(private service: ProjectsService, private alert: NotificationsService) {
@@ -90,11 +90,11 @@ export class SprintsComponent implements OnInit {
     this._sprints = value;
   }
 
-  get canDelete(): Boolean {
+  get canDelete(): boolean {
     return this._canDelete;
   }
 
-  @Input() set canDelete(value: Boolean) {
+  @Input() set canDelete(value: boolean) {
     this._canDelete = value;
   }
 

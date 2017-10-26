@@ -48,7 +48,7 @@ export class UserModalComponent implements OnInit, AfterViewInit {
         return;
       }
     }
-    const newUser: Boolean = isNil(user.id);
+    const newUser: boolean = isNil(user.id);
     (newUser ? this.service.createUser(user) : this.service.saveUser(user.id, user))
     .subscribe(updatedUser => {
       updatedUser.password = null;

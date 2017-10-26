@@ -9,11 +9,11 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-stories.component.scss']
 })
 export class UserStoriesComponent implements OnInit {
-  private _selectCurrentStory: Boolean;
+  private _selectCurrentStory: boolean;
   private _currentStory: UserStory;
-  private _canDelete: Boolean;
-  private deleting: Boolean;
-  private _showDescription: Boolean;
+  private _canDelete: boolean;
+  private deleting: boolean;
+  private _showDescription: boolean;
   private _onSelect: EventEmitter<UserStory>;
   private _userStories: UserStory[];
   constructor(private projectsService: ProjectsService, private alert: NotificationsService) {
@@ -61,27 +61,27 @@ export class UserStoriesComponent implements OnInit {
     return this._currentStory;
   }
 
-  get selectCurrentStory(): Boolean {
+  get selectCurrentStory(): boolean {
     return this._selectCurrentStory;
   }
 
-  @Input() set selectCurrentStory(value: Boolean) {
+  @Input() set selectCurrentStory(value: boolean) {
     this._selectCurrentStory = value;
   }
 
-  get showDescription(): Boolean {
+  get showDescription(): boolean {
     return this._showDescription;
   }
 
-  @Input() set showDescription(value: Boolean) {
+  @Input() set showDescription(value: boolean) {
     this._showDescription = value;
   }
 
-  get canDelete(): Boolean {
+  get canDelete(): boolean {
     return this._canDelete;
   }
 
-  @Input() set canDelete(value: Boolean) {
+  @Input() set canDelete(value: boolean) {
     this._canDelete = value;
   }
 

@@ -18,7 +18,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _testing: any;
   private _done: any;
   private _task: Task;
-  private _newTask: Boolean;
+  private _newTask: boolean;
   private _toggle: boolean;
   @ViewChild('taskName') private taskName: ElementRef;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;

@@ -79,7 +79,7 @@ export class Task extends ScrumObject {
   originId: number;
   points: number;
   executedPoints: number;
-  successTask: Boolean;
+  successTask: boolean;
   constructor(id?: number, name?: string, desc?: string, userStoryId?: number, points: number = 0, executedPoints: number = 0,
     originId: number = 0, successTask: boolean = false) {
     super(id, name, desc);
@@ -197,7 +197,7 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  deleteUserStory(userStory: UserStory): Observable<Boolean> {
+  deleteUserStory(userStory: UserStory): Observable<boolean> {
     return this.http.delete(`${this.url}/api/user-stories/${userStory.id}`)
       .map(() => true)
       .catch(this.handleError);
@@ -236,7 +236,7 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  deleteSprint(sprint: Sprint): Observable<Boolean> {
+  deleteSprint(sprint: Sprint): Observable<boolean> {
     return this.http.delete(`${this.url}/api/sprints/${sprint.id}`)
       .map(() => true)
       .catch(this.handleError);
@@ -250,7 +250,7 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  assignUserStoryToSprint(sprint: Sprint, story: UserStory): Observable<Boolean> {
+  assignUserStoryToSprint(sprint: Sprint, story: UserStory): Observable<boolean> {
     return this.http.post(`${this.url}/api/sprint-user-stories`, {
       sprintId: sprint.id,
       userStoryId: story.id
@@ -258,7 +258,7 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  unassignUserStoryFromSprint(sprint: Sprint, story: UserStory): Observable<Boolean> {
+  unassignUserStoryFromSprint(sprint: Sprint, story: UserStory): Observable<boolean> {
     return this.http.delete(`${this.url}/api/sprint-user-stories/0?where=${JSON.stringify({
       sprintId: sprint.id,
       userStoryId: story.id
@@ -279,13 +279,13 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createTask(task: Task): Observable<Boolean> {
+  createTask(task: Task): Observable<boolean> {
     return this.http.post(`${this.url}/api/tasks`, task)
       .map(res => true)
       .catch(this.handleError);
   }
 
-  saveTask(task: Task): Observable<Boolean> {
+  saveTask(task: Task): Observable<boolean> {
     const newTask = task.id == null;
     return this.http[newTask ? 'post' : 'put']
       (`${this.url}/api/tasks${newTask ? '' : `/${task.id}`}`, task)

@@ -17,8 +17,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _userStories: UserStory[];
   private _userStoriesLoad: UserStory[];
   private _sprints: Sprint[];
-  private _showUserStoryModal: Boolean;
-  private _showSprintModal: Boolean;
+  private _showUserStoryModal: boolean;
+  private _showSprintModal: boolean;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   @ViewChild('dataSprintModal') private sprintModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
@@ -154,11 +154,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._sprints;
   }
 
-  get showUserStoryModal(): Boolean {
+  get showUserStoryModal(): boolean {
     return this._showUserStoryModal;
   }
 
-  get showSprintModal(): Boolean {
+  get showSprintModal(): boolean {
     return this._showSprintModal;
   }
 
