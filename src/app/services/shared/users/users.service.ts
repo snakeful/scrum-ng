@@ -39,6 +39,8 @@ export class ScrumUser {
 
 export class UserLogged {
   user: string;
+  firstName: string;
+  lastName: string;
   admin: boolean;
   token: string;
   expiration: Date;
@@ -100,6 +102,16 @@ export class UsersService {
     return this.http.put(`${this.url}/api/users/${id}`, user)
     .map(res => user)
     .catch(this.handleError);
+  }
+
+  login(user: UserLogged) {
+    this._user = Object.assign({}, user);
+    this.storage.store('user', this._user);
+  }
+
+  logout() {
+    this._user = null;
+    this.storage.clear('user');
   }
 
   get userLogged(): UserLogged {

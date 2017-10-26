@@ -2,7 +2,7 @@
   <form class="modal-content" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="modal-header">
       <h5 class="modal-title">Login</h5>
-      <button #dataLoginClose type="button" class="close" data-dismiss="modal" title="Close">
+      <button #dataLoginClose type="button" class="close" data-dismiss="modal" title="Close" (click)="close()">
         <i class="fa fa-times"></i>
       </button>
     </div>
@@ -15,6 +15,7 @@
         <label for="password" class="title">Password</label>
         <input type="password" class="form-control text-center" formControlName="password" placeholder="Password">
       </div>
+      <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberMe" name="rememberMe" id="rememberMe"> Remember Me
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary float-right" title="Login" [disabled]="!loginForm.valid"><i class="fa fa-check"></i></button>

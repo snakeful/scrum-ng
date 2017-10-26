@@ -92,5 +92,4 @@ export class UserModalComponent implements OnInit, AfterViewInit {
     });
     this._userForm.markAsPristine();
   }
-
 }

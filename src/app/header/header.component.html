@@ -14,9 +14,20 @@
         <a class="nav-link" routerLink="/users">Users</a>
       </li>
     </ul>
-    <button class="btn btn-outline-primary my-2 my-sm-0" data-toggle="modal" data-target="#loginData">Login</button>
+    <button *ngIf="!userLogged; else userData" class="btn btn-outline-primary my-2 my-sm-0" data-toggle="modal" data-target="#loginData">Login</button>
+    <ng-template #userData>
+      <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{userLogged.user}}
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <button class="dropdown-item" type="button">Profile</button>
+          <button class="dropdown-item" type="button" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </nav>
-<div class="modal" id="loginData" role="dialog">
-  <app-login-modal></app-login-modal>
+<div *ngIf="!userLogged" class="modal" id="loginData" role="dialog" data-backdrop="static" data-keyboard="false">
+  <app-login-modal (onLogin)="login()"></app-login-modal>
 </div>
