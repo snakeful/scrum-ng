@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { NotificationsService } from 'angular2-notifications';
 
 import { cloneDeep, isNil } from 'lodash';
@@ -10,12 +12,22 @@ import { UsersService, Role, User, UserLogged } from '../../services/shared/user
   styleUrls: ['./user-modal.component.scss']
 })
 export class UserModalComponent implements OnInit, AfterViewInit {
+  private _userForm: FormGroup;
   private _userLogged: UserLogged;
   private _roles: Role[];
   private _user: User = new User();
   @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dataUserClose') btnClose: ElementRef;
-  constructor(private service: UsersService, private alert: NotificationsService) {
+  constructor(private service: UsersService, private formBuilder: FormBuilder, private alert: NotificationsService) {
+    this._userForm = formBuilder.group({
+      id: [null],
+      user: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      password: [''],
+      confirm: ['']
+    });
     this._userLogged = service.userLogged;
     service.getRoles()
       .subscribe(roles => {
@@ -32,7 +44,7 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   doSaveUser(user: User) {
     if (!isNil(user.password) || !isNil(user.confirm)) {
       if (user.password !== user.confirm) {
-        this.alert.warn('Password and confirm must be the same.')
+        this.alert.warn('Password and confirm must be the same.');
         return;
       }
     }
@@ -52,6 +64,10 @@ export class UserModalComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get userForm(): FormGroup {
+    return this._userForm;
+  }
+
   get userLogged(): UserLogged {
     return this._userLogged;
   }
@@ -66,9 +82,9 @@ export class UserModalComponent implements OnInit, AfterViewInit {
 
   @Input() set user(value: User) {
     if (!value) {
-      this._user = new User();
+      this._userForm.patchValue(new User());
     } else {
-      this._user = cloneDeep(value);
+      this._userForm.patchValue(value);
     }
   }
 
