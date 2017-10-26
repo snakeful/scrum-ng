@@ -11,7 +11,7 @@
     </div>
   </div>
   <div *ngIf="!toggle;else burndownChart" class="row">
-    <div class="col-4">
+    <div class="col-3">
       <h5 class="text-center">User Story Selected</h5>
       <div *ngIf="!story;else storyData" class="text-center">No user story selected.</div>
       <ng-template #storyData>
@@ -47,7 +47,7 @@
           (onSelect)="story = $event"></app-user-stories>
       </div>
     </div>
-    <app-sprint-tasks class="col-8" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>
+    <app-sprint-tasks class="col-9" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>
   </div>
   <ng-template #burndownChart>
     <div class="row chart">

@@ -1,4 +1,4 @@
-.container-fluid {
+.row.container-fluid {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -15,8 +15,12 @@
   cursor: pointer;
 }
 
-.border-sprint-tasks {
-  border: thin groove dodgerblue;
+.container-sprint-tasks {
+  border: thin groove gray;
+  background-image: url('/assets/cork-background.jpg');
+  background-size: 100%;
+  height: 100%;
+  border-radius: .25rem;
 }
 
 span.title {
