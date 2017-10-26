@@ -53,7 +53,7 @@ export class BurndownChartComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(0,109,217,0.8)'
-    }]
+    }];
   }
 
   ngOnInit() {

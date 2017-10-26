@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { LocalStorageService } from "ng2-webstorage";
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { Observable } from 'rxjs/Observable';
 

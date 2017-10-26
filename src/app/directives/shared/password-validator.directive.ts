@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS } from "@angular/forms";
+import { AbstractControl, NG_VALIDATORS } from '@angular/forms';
 
 function passwordValidator(control: AbstractControl) {
   if (!control.get('password') || control.get('confirm')) {
@@ -11,7 +11,7 @@ function passwordValidator(control: AbstractControl) {
 }
 
 @Directive({
-  selector: '[app-password-validator]',
+  selector: '[appPasswordValidator]',
   providers: [{
     provide: NG_VALIDATORS,
     multi: true,

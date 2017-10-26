@@ -15,6 +15,7 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
   private _sprint: Sprint;
   private _saveSprint: EventEmitter<any>;
   private _dates: Date[];
+  private _drp: any;
   @ViewChild('dataSprintModalClose') private btnClose: ElementRef;
   constructor(private formBuilder: FormBuilder) {
     this._sprint = new Sprint(undefined, 'Test');
@@ -81,5 +82,9 @@ export class SprintModalComponent implements OnInit, AfterViewInit {
 
   set dates(dates: Date[]) {
     this._dates = dates;
+  }
+
+  get drp(): any {
+    return this._drp;
   }
 }
