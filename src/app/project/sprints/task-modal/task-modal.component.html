@@ -61,7 +61,7 @@
       </div>
       <div *ngIf="taskForm.value.statusId !== 3" class="modal-footer">
         <label for="closeOnSaveTask">Close On Save Task</label>
-        <input type="checkbox" class="checkbox" formControlName="closeOnSaveTask" name="closeOnSaveTask">
+        <input type="checkbox" class="checkbox" [(ngModel)]="closeOnSaveTask" [ngModelOptions]="{standalone: true}" name="closeOnSaveTask">
         <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="!taskForm.valid">
           <i class="fa fa-check"></i>
         </button>

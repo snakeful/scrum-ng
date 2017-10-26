@@ -14,12 +14,14 @@ export class TaskModalComponent implements OnInit {
   private _taskForm: FormGroup;
   private _scrumTeam: number[];
   private _sendTask: EventEmitter<Task>;
+  private statusId: number;
   private points: number;
   private executed: number;
-  private _newTask: Boolean;
+  private _newTask: boolean;
+  private _closeOnSaveTask: boolean;
   @ViewChild('dataTaskModalClose') private btnClose: ElementRef;
   constructor(private service: ProjectsService, private formBuilder: FormBuilder, private alert: NotificationsService) {
-    this._taskForm = formBuilder.group({
+    this._taskForm = this.formBuilder.group({
       id: [null],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       desc: [''],
@@ -29,13 +31,14 @@ export class TaskModalComponent implements OnInit {
       originId: [0],
       points: [0, [Validators.required, Validators.min(1)]],
       executedPoints: [0, [Validators.required]],
-      successTask: [false],
-      closeOnSaveTask: [true]
+      successTask: [false]
     });
+    this.statusId = 0;
     this.points = 1;
     this.executed = 0;
     this._scrumTeam = [];
     this._sendTask = new EventEmitter<Task>();
+    this._closeOnSaveTask = true;
   }
 
   ngOnInit() {
@@ -51,7 +54,7 @@ export class TaskModalComponent implements OnInit {
         if (this._newTask) {
           this.task = new Task(undefined, null, null, task.userStoryId, 1, 0, 0, false);
         }
-        if (task.closeOnSaveTask) {
+        if (this._closeOnSaveTask) {
           this.btnClose.nativeElement.click();
         }
       }, err => {
@@ -83,9 +86,11 @@ export class TaskModalComponent implements OnInit {
 
   @Input() set task(value: Task) {
     this._newTask = value.id === undefined;
-    this._taskForm.patchValue(value);
+    this.statusId = value.statusId;
     this.points = value.points;
     this.executed = value.executedPoints;
+    this._taskForm.patchValue(value);
+    this._taskForm.updateValueAndValidity();
   }
 
   get scrumTeam(): number[] {
@@ -100,7 +105,15 @@ export class TaskModalComponent implements OnInit {
     return this._sendTask;
   }
 
-  get newTask(): Boolean {
+  get newTask(): boolean {
     return this._newTask;
+  }
+
+  get closeOnSaveTask(): boolean {
+    return this._closeOnSaveTask;
+  }
+
+  set closeOnSaveTask(value: boolean) {
+    this._closeOnSaveTask = value;
   }
 }
