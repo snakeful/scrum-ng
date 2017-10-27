@@ -50,18 +50,18 @@ export class UserModalComponent implements OnInit, AfterViewInit {
     }
     const newUser: boolean = isNil(user.id);
     (newUser ? this.service.createUser(user) : this.service.saveUser(user.id, user))
-    .subscribe(updatedUser => {
-      updatedUser.password = null;
-      updatedUser.confirm = null;
-      this.alert.success(`User ${updatedUser.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
-        timeOut: 2000,
-        showProgressBar: false
+      .subscribe(updatedUser => {
+        updatedUser.password = null;
+        updatedUser.confirm = null;
+        this.alert.success(`User ${updatedUser.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
+          timeOut: 2000,
+          showProgressBar: false
+        });
+        this.saveUser.emit({
+          user: updatedUser,
+          btnClose: this.btnClose
+        });
       });
-      this.saveUser.emit({
-        user: updatedUser,
-        btnClose: this.btnClose
-      });
-    });
   }
 
   get userForm(): FormGroup {
@@ -81,15 +81,11 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set user(value: User) {
-    if (!value) {
+    if (isNil(value)) {
       this._userForm.patchValue(new User());
     } else {
       this._userForm.patchValue(value);
     }
-    this._userForm.patchValue({
-      password: '',
-      confirm: ''
-    });
     this._userForm.markAsPristine();
   }
 }

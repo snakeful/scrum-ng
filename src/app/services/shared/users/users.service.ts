@@ -25,14 +25,18 @@ export class ScrumUser {
   user: string;
   firstName: string;
   lastName: string;
+  email: string;
   password: string;
   confirm: string;
   admin: boolean;
-  constructor(id?: number, user?: string, firstName?: string, lastName?: string) {
+  constructor(id?: number, user?: string, firstName?: string, lastName?: string, email?: string) {
     this.id = id;
     this.user = user;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.email = email;
+    this.password = null;
+    this.confirm = null;
     this.admin = false;
   }
 }

@@ -39,20 +39,26 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   onChangeUserList(project: Project, userIdList: number[], userList: User[]) {
-    if (isNil(project.selectedUser)) {
+    if (isNil(project.selectedUserId)) {
       return;
     }
-    const user = this._users[project.selectedUser];
-    if (!userIdList.reduce((exists, id) => {
+    let user: User;
+    this._users.forEach(userCheck => {
+      if (userCheck.id === project.selectedUserId) {
+        user = userCheck;
+      }
+    });
+
+    if (user && !userIdList.reduce((exists, id) => {
       return exists || id === user.id;
     }, false)) {
       userIdList.push(user.id);
       userList.push(user);
     }
-    project.selectedUser = null;
+    project.selectedUserId = null;
   }
 
-  doSaveProject(project) {
+  doSaveProject(project: Project) {
     if (this._actual) {
       this.service.saveProject(project)
         .subscribe(() => {
@@ -111,30 +117,29 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   set selected(value: Project) {
-    value.selectedUser = null;
     this.scrumTeam.length = 0;
     this.stakeholders.length = 0;
-    if (value) {
-      this._actual = value;
-      this._selected = cloneDeep(value);
-      value.scrumTeam.forEach(id => {
-        this._users.forEach(user => {
-          if (user.id === id) {
-            this.scrumTeam.push(user);
-          }
-        });
-      });
-      value.stakeholders.forEach(id => {
-        this._users.forEach(user => {
-          if (user.id === id) {
-            this.stakeholders.push(user);
-          }
-        });
-      });
+    if (isNil(value)) {
+      this._actual = new Project(this._projects.length + 1);
     } else {
-      this._actual = null;
-      this._selected = new Project(this._projects.length + 1);
+      this._actual = value;
     }
+    this._actual.selectedUserId = null;
+    this._selected = cloneDeep(this._actual);
+    this._actual.scrumTeam.forEach(id => {
+      this._users.forEach(user => {
+        if (user.id === id) {
+          this._actual.scrumTeam.push(id);
+        }
+      });
+    });
+    this._actual.stakeholders.forEach(id => {
+      this._users.forEach(user => {
+        if (user.id === id) {
+          this._actual.stakeholders.push(id);
+        }
+      });
+    });
   }
 
   get users(): User[] {

@@ -34,6 +34,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   set add(user: any) {
     user.user.id = this._users.length;
     this._users.push(user.user);
+    this._selected = user.user;
     user.btnClose.nativeElement.click();
   }
 

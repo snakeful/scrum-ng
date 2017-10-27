@@ -17,7 +17,7 @@ export class Project extends ScrumObject {
   scrumMaster: User;
   scrumTeam: number[];
   stakeholders: number[];
-  selectedUser: number;
+  selectedUserId: number;
   constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
     super(id, name, desc);
     this.userStories = userStories || [];
@@ -165,8 +165,15 @@ export class ProjectsService {
   }
 
   saveProject(project: Project): Observable<Project> {
-    return this.http.put(`${this.url}/api/projects/${project.id}`, project)
-      .map(() => project)
+    const newProject = project.id == null;
+    return this.http[newProject ? 'post' : 'put']
+      (`${this.url}/api/projects${newProject ? '' : `/${project.id}`}`, project)
+      .map(data => {
+        if (newProject) {
+          project.id = data.json();
+        }
+        return project;
+      })
       .catch(this.handleError);
   }
 
