@@ -42,6 +42,7 @@ import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
 import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
 import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
+import { ProjectFormComponent } from './project/project-form/project-form.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
     UserRolePipe,
     TaskModalComponent,
     BurndownChartComponent,
-    PasswordValidatorDirective
+    PasswordValidatorDirective,
+    ProjectFormComponent
   ],
   imports: [
     BrowserModule,

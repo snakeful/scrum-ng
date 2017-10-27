@@ -22,6 +22,8 @@ export class Project extends ScrumObject {
     super(id, name, desc);
     this.userStories = userStories || [];
     this.sprints = sprints || [];
+    this.productOwnerId = null;
+    this.scrumMasterId = null;
     this.scrumTeam = [];
     this.stakeholders = [];
   }

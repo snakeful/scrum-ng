@@ -20,50 +20,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{(actual) ? 'Edit' : 'New'}} Project {{selected && selected.name}}</h5>
-          <button #dataUserStoryClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
+          <button #dataProjectClose type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
         </div>
         <div class="modal-body">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" [(ngModel)]="selected.name">
-          <label for="desc">Description</label>
-          <input type="text" class="form-control" [(ngModel)]="selected.desc">
-          <label for="productOwner">Product Owner</label>
-          <select class="form-control" [(ngModel)]="selected.productOwnerId" name="productOwner" id="productOwner">
-            <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}} {{productOwner.lastName}}</option>
-          </select>
-          <label for="scrumMaster">Scrum Master</label>
-          <select class="form-control" [(ngModel)]="selected.scrumMasterId" name="scrumMaster" id="scrumMaster">
-            <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
-          </select>
-          <label for="scrumTeam">Scrum Team</label>
-          <select class="form-control" [(ngModel)]="selected.selectedUserId" (ngModelChange)="onChangeUserList(selected, selected.scrumTeam, scrumTeam)" name="scrumTeam" id="scrumTeam">
-            <option [value]="null">Select to add a scrum team</option>
-            <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
-          </select>
-          <div class="mt-2">
-            <div *ngIf="scrumTeam.length === 0" class="text-center">No Scrum Team assigned.</div>
-            <div class="project-users">
-              <span *ngFor="let user of scrumTeam" class="item badge badge-pill badge-dark">
-                  {{user.user}} <i class="fa fa-times" (click)="doRemoveScrumTeam(selected, user)"></i>
-              </span>
-            </div>
-          </div>
-          <label for="stakeholders">Stakeholders</label>
-          <select class="form-control" [(ngModel)]="selected.selectedUserId" (ngModelChange)="onChangeUserList(selected, selected.stakeholders, stakeholders)" name="stakeholders" id="stakeholders">
-            <option [value]="null">Select to add a stakeholder</option>
-            <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
-          </select>
-          <div class="mt-2">
-            <div *ngIf="stakeholders.length === 0" class="text-center">No Stakeholders assigned.</div>
-            <div class="project-users">
-              <span *ngFor="let user of stakeholders" class="item badge badge-pill badge-dark">
-                  {{user.user}} <i class="fa fa-times" (click)="doRemoveStakeholder(selected, user)"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary float-right" (click)="doSaveProject(selected)" title="Save Project"><i class="fa fa-check"></i></button>
+          <app-project-form [project]="selected" (onSaveProject)="updateProject = $event"></app-project-form>
         </div>
       </div>
     </div>
