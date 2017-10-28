@@ -81,13 +81,15 @@ export class ProjectFormComponent implements OnInit {
 
   saveProject(project: Project) {
     this.service.saveProject(project)
-      .subscribe(() => {
-        this._onSaveProject.emit(project);
+      .subscribe(obj => {
+        this._onSaveProject.emit(obj);
         this.alert.success(`Project ${project.name}`, `Project saved.`, {
           timeOut: 2000,
           showProgressBar: false
         });
-      });
+      }, err => this.alert.html(err, 'error', {
+        timeOut: 10000
+      }));
   }
 
   get projectForm(): FormGroup {
@@ -126,7 +128,6 @@ export class ProjectFormComponent implements OnInit {
         }
       });
     });
-    console.log(this._projectForm);
   }
 
   get users(): User[] {

@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
+import { isNil } from 'lodash';
 
 import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects/projects.service';
 
@@ -92,13 +93,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   assignStoryToUserStories(sprint: Sprint, story: UserStory) {
     this.service.unassignUserStoryFromSprint(sprint, story)
-    .subscribe(unassigned => {
-      sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
-    }, err => {
-      this.alert.error('Project', err, {
-        timeOut: 10000
+      .subscribe(unassigned => {
+        sprint.userStories.splice(sprint.userStories.indexOf(story), 1);
+      }, err => {
+        this.alert.error('Project', err, {
+          timeOut: 10000
+        });
       });
-    });
   }
 
   onSprintStoryToUserStoriesDrop(event) {
@@ -125,12 +126,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set userStory(value: UserStory) {
-    this._showUserStoryModal = false;
     this._userStory = value;
-    setTimeout(() => {
-      this._showUserStoryModal = true;
-      setTimeout(() => this.userStoryModal.nativeElement.click(), 50);
-    }, 50);
+    this.userStoryModal.nativeElement.click();
   }
 
   get sprint(): Sprint {
@@ -138,7 +135,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set sprint(value: Sprint) {
-    this._showSprintModal = false;
     this._sprint = value;
     setTimeout(() => {
       this._showSprintModal = true;
@@ -170,22 +166,14 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     }
   }
 
-  set saveSprint(value: any) {
-    if (this._sprint === null) {
-      value.sprint.projectId = this._project.id;
-      this.service.createSprint(value.sprint)
-        .subscribe(sprint => {
-          this._sprints.push(value.sprint);
-          this.assignDataFunctionsArray(value.sprint.userStories);
-          value.btnClose.nativeElement.click();
-        });
+  set saveSprint(value: Sprint) {
+    if (isNil(this._sprint)) {
+      this._sprints.push(value);
     } else {
-      this.service.saveSprint(value.sprint)
-        .subscribe(sprint => {
-          value.sprint.userStories = this._sprint.userStories;
-          this._sprints[this._sprints.indexOf(this._sprint)] = value.sprint;
-          value.btnClose.nativeElement.click();
-        });
+      value.userStories = this._sprint.userStories;
+      this._sprints[this._sprints.indexOf(this._sprint)] = value;
     }
+    this.sprintModal.nativeElement.click();
+    console.log(value);
   }
 }

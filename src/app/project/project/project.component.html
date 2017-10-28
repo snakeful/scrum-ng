@@ -4,14 +4,26 @@
     <p class="lead text-muted">{{project.desc}}</p>
   </div>
   <div class="row">
-    <div class="col-4"><span class="float-right"><button class="btn btn-sm btn-primary" (click)="doNewUserStory()"><i class="fa fa-plus"></i></button><button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button></span>
+    <div class="col-4">
+      <span class="float-right">
+        <button class="btn btn-sm btn-primary" (click)="doNewUserStory()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
+      </span>
       <h3 class="text-center">User Stories</h3>
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
         <app-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
       </div>
     </div>
-    <div class="col-8"><span class="float-right"><button class="btn btn-sm btn-primary" (click)="sprint = null"><i class="fa fa-plus"></i></button><button #dataSprintModal class="hidden" data-toggle="modal" data-target="#sprintData"></button></span>
+    <div class="col-8">
+      <span class="float-right">
+        <button class="btn btn-sm btn-primary" (click)="sprint = null">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button #dataSprintModal class="hidden" data-toggle="modal" data-target="#sprintData"></button>
+      </span>
       <h3 class="text-center">Sprints</h3>
       <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
       <app-sprints [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></app-sprints>
@@ -20,7 +32,19 @@
   <div class="modal" id="userStoryData" role="dialog">
     <app-user-story-modal [userStory]="userStory" (sendUserStory)="saveUserStory = $event"></app-user-story-modal>
   </div>
-  <div *ngIf="showSprintModal" class="modal" id="sprintData" role="dialog">
-    <app-sprint-modal [sprint]="sprint" (saveSprint)="saveSprint = $event"></app-sprint-modal>
+  <div class="modal" id="sprintData" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Sprint</h5>
+          <button type="button" class="close" data-dismiss="modal" title="Close">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-sprint-form [sprint]="sprint" (onSaveSprint)="saveSprint = $event"></app-sprint-form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
