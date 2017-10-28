@@ -38,7 +38,7 @@ export class UserStory extends ScrumObject {
     super(id, name, desc);
     this.projectId = projectId;
     this.priorityId = priorityId;
-    this.statusId = statusId;
+    this.statusId = statusId || 0;
   }
 }
 

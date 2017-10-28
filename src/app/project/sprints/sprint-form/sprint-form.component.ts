@@ -21,7 +21,7 @@ export class SprintFormComponent implements OnInit {
     this._sprintForm = this.formBuilder.group({
       id: [null],
       name: ['', [Validators.required]],
-      projectId: [],
+      projectId: [0],
       start: [],
       end: [],
       startEnd: ['']
@@ -53,11 +53,8 @@ export class SprintFormComponent implements OnInit {
   }
 
   @Input() set sprint(value: Sprint) {
-    if (isNil(value)) {
-      this._sprintForm.patchValue(new Sprint());
-    } else {
-      this._sprintForm.patchValue(value);
-    }
+    console.log(value);
+    this._sprintForm.patchValue(value || new Sprint());
   }
 
   get dateConfig(): Partial<BsDatepickerConfig> {

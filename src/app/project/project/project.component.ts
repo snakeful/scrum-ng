@@ -108,11 +108,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this.assignStoryToUserStories(sprint, story);
   }
 
-  doNewUserStory() {
-    this._userStory = new UserStory(undefined, null, null, this._project.id, 10, 0);
-    this.userStoryModal.nativeElement.click();
-  }
-
   get project(): Project {
     return this._project;
   }
@@ -126,7 +121,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set userStory(value: UserStory) {
-    this._userStory = value;
+    this._userStory = value || new UserStory();
+    this._userStory.projectId = this._project.id;
     this.userStoryModal.nativeElement.click();
   }
 
@@ -135,11 +131,9 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set sprint(value: Sprint) {
-    this._sprint = value;
-    setTimeout(() => {
-      this._showSprintModal = true;
-      setTimeout(() => this.sprintModal.nativeElement.click(), 50);
-    }, 50);
+    this._sprint = value || new Sprint();
+    this._sprint.projectId = this._project.id;
+    this.sprintModal.nativeElement.click()
   }
 
   get userStories(): UserStory[] {
@@ -158,22 +152,22 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._showSprintModal;
   }
 
-  set saveUserStory(userStory: UserStory) {
-    if (this._userStory.id === undefined) {
-      this._userStories.push(userStory);
+  set saveUserStory(value: UserStory) {
+    if (isNil(this._userStory.id)) {
+      this._userStories.push(value);
     } else {
-      this._userStories[this._userStories.indexOf(this._userStory)] = userStory;
+      this._userStories[this._userStories.indexOf(this._userStory)] = value;
     }
+    this.userStoryModal.nativeElement.click();
   }
 
   set saveSprint(value: Sprint) {
-    if (isNil(this._sprint)) {
+    if (isNil(this._sprint.id)) {
       this._sprints.push(value);
     } else {
       value.userStories = this._sprint.userStories;
       this._sprints[this._sprints.indexOf(this._sprint)] = value;
     }
     this.sprintModal.nativeElement.click();
-    console.log(value);
   }
 }
