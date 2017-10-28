@@ -157,15 +157,6 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createProject(project: Project): Observable<Project> {
-    return this.http.post(`${this.url}/api/projects`, project)
-      .map(res => {
-        project.id = res.json();
-        return project;
-      })
-      .catch(this.handleError);
-  }
-
   saveProject(project: Project): Observable<Project> {
     const newProject = project.id == null;
     return this.http[newProject ? 'post' : 'put']
@@ -230,18 +221,16 @@ export class ProjectsService {
       .catch(this.handleError);
   }
 
-  createSprint(sprint: Sprint): Observable<Sprint> {
-    return this.http.post(`${this.url}/api/sprints`, sprint)
-      .map(res => {
-        sprint.id = res.json() as number;
+  saveSprint(sprint: Sprint): Observable<Sprint> {
+    const newSprint = sprint.id == null;
+    return this.http[newSprint ? 'post' : 'put']
+      (`${this.url}/api/sprints${newSprint ? '' : `/${sprint.id}`}`, sprint)
+      .map(data => {
+        if (newSprint) {
+          sprint.id = data.json();
+        }
         return sprint;
       })
-      .catch(this.handleError);
-  }
-
-  saveSprint(sprint: Sprint): Observable<Sprint> {
-    return this.http.put(`${this.url}/api/sprints/${sprint.id}`, sprint)
-      .map(() => sprint)
       .catch(this.handleError);
   }
 

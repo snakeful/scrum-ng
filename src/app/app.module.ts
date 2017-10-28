@@ -27,12 +27,15 @@ import { LoginModalComponent } from './users/login-modal/login-modal.component';
 import { SprintsComponent } from './project/sprints/sprints/sprints.component';
 import { SprintComponent } from './project/sprints/sprint/sprint.component';
 import { SprintTasksComponent } from './project/sprints/sprint-tasks/sprint-tasks.component';
-import { SprintModalComponent } from './project/sprints/sprint-modal/sprint-modal.component';
 import { UserStoryComponent } from './project/user-stories/user-story/user-story.component';
 import { UserStoriesComponent } from './project/user-stories/user-stories/user-stories.component';
 import { UserStoryModalComponent } from './project/user-stories/user-story-modal/user-story-modal.component';
 import { TaskComponent } from './project/sprints/task/task.component';
 import { UserModalComponent } from './users/user-modal/user-modal.component';
+import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
+import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
+import { ProjectFormComponent } from './project/project-form/project-form.component';
+import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
 import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
 import { StoryPriorityPipe } from './project/story-priority.pipe';
@@ -40,10 +43,6 @@ import { StoryStatusPipe } from './project/story-status.pipe';
 import { OriginPipe } from './project/origin.pipe';
 import { ScrumTeamPipe } from './project/scrum-team.pipe';
 import { UserRolePipe } from './project/user-role.pipe';
-import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
-import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
-import { ProjectFormComponent } from './project/project-form/project-form.component';
-import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
 
 @NgModule({
   declarations: [
@@ -61,9 +60,10 @@ import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.c
     UserStoriesComponent,
     UserStoryModalComponent,
     SprintTasksComponent,
-    SprintModalComponent,
     TaskComponent,
     UserModalComponent,
+    ProjectFormComponent,
+    SprintFormComponent,
     PasswordValidatorDirective,
     LimitToPipe,
     TaskStatusPipe,
@@ -74,9 +74,7 @@ import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.c
     UserRolePipe,
     TaskModalComponent,
     BurndownChartComponent,
-    PasswordValidatorDirective,
-    ProjectFormComponent,
-    SprintFormComponent
+    PasswordValidatorDirective
   ],
   imports: [
     BrowserModule,
