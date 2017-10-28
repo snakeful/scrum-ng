@@ -36,6 +36,7 @@ import { BurndownChartComponent } from './project/sprints/burndown-chart/burndow
 import { ProjectFormComponent } from './project/project-form/project-form.component';
 import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
 import { UserStoryFormComponent } from './project/user-stories/user-story-form/user-story-form.component';
+import { TaskFormComponent } from './project/sprints/task-form/task-form.component';
 import { LimitToPipe } from './limit-to.pipe';
 import { TaskStatusPipe } from './project/task-status.pipe';
 import { StoryPriorityPipe } from './project/story-priority.pipe';
@@ -66,6 +67,7 @@ import { UserRolePipe } from './project/user-role.pipe';
     SprintFormComponent,
     TaskModalComponent,
     BurndownChartComponent,
+    TaskFormComponent,
     PasswordValidatorDirective,
     LimitToPipe,
     TaskStatusPipe,
