@@ -107,6 +107,7 @@ export class ProjectsService {
   private url = 'http://localhost:4201';
   private _projects: Project[];
   private _storyPriorities: StoryPriority[];
+  private _storyStatus: StoryStatus[];
 
   constructor(private http: Http) {
     this._storyPriorities = [
@@ -122,6 +123,11 @@ export class ProjectsService {
       new StoryPriority(9, 'Lower', 'badge-dark'),
       new StoryPriority(10, 'Lowest', 'badge-dark')
     ];
+    this.http.get(`${this.url}/api/user-story-status`)
+      .map(data => data.json() as StoryStatus[])
+      .catch(this.handleError).subscribe(storyStatus => {
+        this._storyStatus = storyStatus;
+      });
   }
 
   private handleError(err: Response) {
@@ -136,13 +142,11 @@ export class ProjectsService {
   }
 
   get storyPriorities(): StoryPriority[] {
-    return this._storyPriorities;
+    return this._storyPriorities || [];
   }
 
-  get storyStatus(): Observable<StoryStatus[]> {
-    return this.http.get(`${this.url}/api/user-story-status`)
-      .map(data => data.json() as StoryStatus[])
-      .catch(this.handleError);
+  get storyStatus(): StoryStatus[] {
+    return this._storyStatus || [];
   }
 
   get projects(): Observable<Project[]> {
@@ -274,12 +278,6 @@ export class ProjectsService {
   getTask(id: number): Observable<Task> {
     return this.http.get(`${this.url}/api/tasks/${id}`)
       .map(res => res.json() as Task)
-      .catch(this.handleError);
-  }
-
-  createTask(task: Task): Observable<boolean> {
-    return this.http.post(`${this.url}/api/tasks`, task)
-      .map(res => true)
       .catch(this.handleError);
   }
 
