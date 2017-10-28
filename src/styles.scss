@@ -29,11 +29,11 @@ input[type=number].spinner-off::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[formcontrolname].ng-valid.ng-dirty {
+input[formcontrolname].ng-valid {
   border-left: 0.25rem solid green;
 }
 
-input[formcontrolname].ng-invalid.ng-dirty {
+input[formcontrolname].ng-invalid {
   border-left: 0.25rem solid red;
 }
 
