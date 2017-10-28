@@ -18,7 +18,7 @@
         <div class="card">
           <div class="card-header">
             <span>
-              <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#taskData" title="New Task" (click)="newTask()">
+              <button class="btn btn-sm btn-primary float-right" title="New Task" (click)="newTask()">
                 <i class="fa fa-plus"></i>
               </button>
             </span>
@@ -39,7 +39,8 @@
       </ng-template>
       <h5 class="text-center">User Stories</h5>
       <span>
-        <button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
+        <button #userStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
+        <button #taskModal class="hidden" data-toggle="modal" data-target="#taskData"></button>
       </span>
       <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
         <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
@@ -56,17 +57,31 @@
   </ng-template>
 </div>
 <div class="modal" id="taskData" role="dialog">
-  <app-task-modal [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (sendTask)="updateTask = $event"></app-task-modal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{(task && task.id) ? 'Edit' : 'New'}} Task</h5>
+        <button type="button" class="close" data-dismiss="modal" title="Close">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-task-form [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (onSaveTask)="updateTask = $event"></app-task-form>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal" id="userStoryData" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{((userStory && userStory.id) ? 'Edit' : 'New')}} User Story</h5>
-        <button type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
+        <button type="button" class="close" data-dismiss="modal" title="Close">
+          <i class="fa fa-times"></i>
+        </button>
       </div>
       <div class="modal-body">
-          <app-user-story-form [userStory]="story" (onSaveUserStory)="updateUserStory = $event"></app-user-story-form>
+        <app-user-story-form [userStory]="story" (onSaveUserStory)="updateUserStory = $event"></app-user-story-form>
       </div>
     </div>
   </div>

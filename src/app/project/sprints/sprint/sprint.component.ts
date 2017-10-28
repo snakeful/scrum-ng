@@ -20,8 +20,8 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _task: Task;
   private _newTask: boolean;
   private _toggle: boolean;
-  @ViewChild('taskName') private taskName: ElementRef;
-  @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
+  @ViewChild('taskModal') private taskModal: ElementRef;
+  @ViewChild('userStoryModal') private userStoryModal: ElementRef;
   constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._task = new Task();
@@ -104,16 +104,17 @@ export class SprintComponent implements OnInit, AfterViewInit {
 
   newTask() {
     this.createNewTask();
+    this.taskModal.nativeElement.click();
   }
 
   doCreateTask(task: Task) {
     task.userStoryId = this._story.id;
-    this.service.createTask(task)
+    this.service.saveTask(task)
       .subscribe(created => {
         this.createNewTask();
         this._story.tasks.push(task);
         this.addTask(task);
-        this.taskName.nativeElement.focus();
+        this.taskModal.nativeElement.focus();
       }, err => {
         this.alert.error('User Stories Task', err, {
           timeOut: 10000
@@ -135,12 +136,14 @@ export class SprintComponent implements OnInit, AfterViewInit {
         }
       });
     }
+    this.taskModal.nativeElement.click();
   }
 
   set updateUserStory(userStory: UserStory) {
     const stories = this.sprint.userStories;
     stories[stories.indexOf(this._story)] = userStory;
     this._story = userStory;
+    this.userStoryModal.nativeElement.click();
   }
 
   get sprint(): Sprint {

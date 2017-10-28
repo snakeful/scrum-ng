@@ -1,3 +1,62 @@
-<p>
-  task-form works!
-</p>
+<form [formGroup]="taskForm" (ngSubmit)="saveTask(taskForm.value)" novalidate>
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <span class="title float-right">Status:
+        <span class="badge badge-pill" [ngClass]="taskForm.value.statusId | taskStatus : 'desc'">{{taskForm.value.statusId | taskStatus : 'name'}}  </span>
+      </span>
+      <span class="title float-right mr-3">Origin:
+        <span class="badge badge-pill" [ngClass]="taskForm.value.originId | origin : 'desc'">{{taskForm.value.originId | origin : 'name'}}</span>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7 col-sm-7">
+      <label for="taskName">Name</label>
+      <input type="text" class="form-control" formControlName="name" name="taskName">
+    </div>
+    <div class="col-md-5 col-sm-5">
+      <label for="taskUser">User</label>
+      <select class="form-control" formControlName="userId" name="taskUser">
+        <option *ngFor="let id of scrumTeam" [ngValue]="id">{{id | scrumTeam: 'fullName'}}</option>
+      </select>
+    </div>
+    <div class="col-md-12 col-xs-12">
+      <label for="taskDesc">Description</label>
+      <textarea class="form-control" name="taskDesc" cols="30" formControlName="desc"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-4 text-center">
+      <label for="taskPoints">Points</label>
+      <div class="input-group">
+        <input class="form-control text-center spinner-off" type="number" formControlName="points" min="1" name="taskPoints" readonly>
+        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary" (click)="addPoint()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!newTask" class="col-md-3 col-xs-3 text-center">
+      <label for="executedPoints">Executed</label>
+      <div class="input-group">
+        <input class="form-control text-center spinner-off" type="number" formControlName="executedPoints" max="{{taskForm.value.points}}" min="0" name="executedPoints" readonly>
+        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary"
+          (click)="addExecutedPoint()">
+          <i class="fa fa-plus"></i>
+        </button>
+        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary" (click)="substractExecutedPoint()">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2 col-xs-2 text-center">
+      <label for="successTask">Success</label>
+      <input type="checkbox" class="checkbox" formControlName="successTask" name="successTask">
+    </div>
+  </div>
+  <button *ngIf="taskForm.value.statusId !== 3" type="submit" class="btn btn-sm btn-primary float-right mt3" [disabled]="!taskForm.valid">
+    <i class="fa fa-check"></i>
+  </button>
+</form>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { cloneDeep } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
 import { ProjectsService, Task, UserStory } from '../../../services/shared/projects/projects.service';
@@ -67,14 +68,16 @@ export class SprintTasksComponent implements OnInit {
   }
 
   private onDropStatus(task: Task, statusId: number, updateTask?: Function) {
-    const actualTask = Object.assign({}, this.removeTask(task));
+    this.removeTask(task);
+    const actualTask = cloneDeep(task);
     actualTask.statusId = statusId;
     if (statusId === 3 && updateTask) {
       updateTask(actualTask);
     }
     this.service.saveTask(actualTask)
-      .subscribe(updated => {
-        this.addTask(actualTask);
+      .subscribe(() => {
+        task.statusId = statusId;
+        this.addTask(task);
       }, err => {
         this.addTask(task);
         this.alert.error('User Stories Task', err, {
