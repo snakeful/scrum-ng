@@ -37,6 +37,14 @@ input[formcontrolname].ng-invalid {
   border-left: 0.25rem solid red;
 }
 
+textarea[formcontrolname].ng-valid {
+  border-left: 0.25rem solid green;
+}
+
+textarea[formcontrolname].ng-invalid {
+  border-left: 0.25rem solid red;
+}
+
 /* Date Range Picker */
 
 bs-daterangepicker-container {
