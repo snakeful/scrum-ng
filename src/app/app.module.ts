@@ -31,7 +31,6 @@ import { UserStoryComponent } from './project/user-stories/user-story/user-story
 import { UserStoriesComponent } from './project/user-stories/user-stories/user-stories.component';
 import { TaskComponent } from './project/sprints/task/task.component';
 import { UserModalComponent } from './users/user-modal/user-modal.component';
-import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
 import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
 import { ProjectFormComponent } from './project/project-form/project-form.component';
 import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
@@ -65,7 +64,6 @@ import { UserRolePipe } from './project/user-role.pipe';
     ProjectFormComponent,
     UserStoryFormComponent,
     SprintFormComponent,
-    TaskModalComponent,
     BurndownChartComponent,
     TaskFormComponent,
     PasswordValidatorDirective,
