@@ -27,7 +27,7 @@ export class BurndownChartComponent implements OnInit {
       pointRadius: 0.75,
       data: []
     }, {
-      label: 'Burned Points',
+      label: 'Remaining Points',
       pointRadius: 0.75,
       data: []
     }];
@@ -91,15 +91,15 @@ export class BurndownChartComponent implements OnInit {
           label: 'Estimated Points',
           data: []
         };
-        const burned = {
-          label: 'Burned Points',
+        const remaining = {
+          label: 'Remaining Points',
           data: []
         };
-        const charData = [estimated, burned];
+        const charData = [estimated, remaining];
         data.forEach(obj => {
           this._labels.push(obj.daySprint.substring(0, 10));
           estimated.data.push(round(obj.totalPointsPerDay, 2));
-          burned.data.push(obj.remainingPoints);
+          remaining.data.push(obj.remainingPoints);
         });
         this._labels = labels;
         this._data = charData;
