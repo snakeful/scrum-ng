@@ -1,0 +1,14 @@
+<form [formGroup]="sprintForm" (ngSubmit)="saveSprint(sprintForm.value)" novalidate>
+  <label class="title" for="name">Name</label>
+  <input type="text" class="form-control" formControlName="name" name="name">
+  <label class="title" for="startEnd">Sprint Date Range</label>
+  <div class="input-group" name="startEnd">
+    <input class="form-control text-center" (click)="null" #drp="bsDaterangepicker" bsDaterangepicker [(bsValue)]="dates" [bsConfig]="dateConfig" value="{{ dates[0] | date: 'yyyy/MM/dd'}} - {{ dates[1] | date:'yyyy/MM/dd'}}">
+    <div class="input-group-btn">
+      <button class="btn btn-primary" type="button" (click)="drp.show()"><i class="fa fa-calendar"></i></button>
+    </div>
+  </div>
+  <button class="btn btn-sm btn-primary float-right" type="submit" [disabled]="!sprintForm.valid">
+    <i class="fa fa-check"></i>
+  </button>
+</form>

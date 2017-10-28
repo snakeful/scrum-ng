@@ -43,6 +43,7 @@ import { UserRolePipe } from './project/user-role.pipe';
 import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
 import { BurndownChartComponent } from './project/sprints/burndown-chart/burndown-chart.component';
 import { ProjectFormComponent } from './project/project-form/project-form.component';
+import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ProjectFormComponent } from './project/project-form/project-form.compon
     TaskModalComponent,
     BurndownChartComponent,
     PasswordValidatorDirective,
-    ProjectFormComponent
+    ProjectFormComponent,
+    SprintFormComponent
   ],
   imports: [
     BrowserModule,
