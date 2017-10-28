@@ -59,5 +59,15 @@
   <app-task-modal [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (sendTask)="updateTask = $event"></app-task-modal>
 </div>
 <div class="modal" id="userStoryData" role="dialog">
-  <app-user-story-modal [userStory]="story" (sendUserStory)="updateUserStory = $event"></app-user-story-modal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{((userStory && userStory.id) ? 'Edit' : 'New')}} User Story</h5>
+        <button type="button" class="close" data-dismiss="modal" title="Close"><i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+          <app-user-story-form [userStory]="story" (onSaveUserStory)="updateUserStory = $event"></app-user-story-form>
+      </div>
+    </div>
+  </div>
 </div>

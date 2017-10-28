@@ -53,7 +53,6 @@ export class SprintFormComponent implements OnInit {
   }
 
   @Input() set sprint(value: Sprint) {
-    console.log(value);
     this._sprintForm.patchValue(value || new Sprint());
   }
 

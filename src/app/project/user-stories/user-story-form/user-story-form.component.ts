@@ -58,7 +58,6 @@ export class UserStoryFormComponent implements OnInit {
   }
 
   @Input() set userStory(value: UserStory) {
-    console.log(value);
     this._userStoryForm.patchValue(value || new UserStory());
   }
 
