@@ -2,7 +2,7 @@
   <label for="name">Name</label>
   <input type="text" class="form-control" formControlName="name">
   <label for="desc">Description</label>
-  <input type="text" class="form-control" formControlName="desc">
+  <textarea type="text" class="form-control" formControlName="desc"></textarea>
   <label for="priority">Priority</label>
   <select class="form-control" formControlName="priorityId" name="priority" id="priority">
     <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>

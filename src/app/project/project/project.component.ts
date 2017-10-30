@@ -79,7 +79,9 @@ export class ProjectComponent implements OnInit, AfterViewInit {
                       });
                     });
                 });
+                this._userStories = this._userStoriesLoad;
               });
+              this._userStories = this._userStoriesLoad;
           });
       }, err => {
         this.alert.error('Project', err, {
@@ -163,6 +165,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   set saveSprint(value: Sprint) {
     if (isNil(this._sprint.id)) {
+      value.userStories = [];
+      this.assignDataFunctionsArray(value.userStories);
       this._sprints.push(value);
     } else {
       value.userStories = this._sprint.userStories;
