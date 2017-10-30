@@ -16,7 +16,7 @@ export class SprintFormComponent implements OnInit {
   private _sprintForm: FormGroup;
   private _dates: Date[];
   private _drp: any;
-  private _onSaveSprint: EventEmitter<Sprint>
+  private _onSaveSprint: EventEmitter<Sprint>;
   constructor(private service: ProjectsService, private formBuilder: FormBuilder, private alert: NotificationsService) {
     this._sprintForm = this.formBuilder.group({
       id: [null],

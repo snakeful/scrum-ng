@@ -74,7 +74,7 @@ export class TaskFormComponent implements OnInit {
   }
 
   substractExecutedPoint() {
-    if (this.minExecuted > this.executed) {
+    if (this.minExecuted < this.executed) {
       this._taskForm.controls['executedPoints'].setValue(--this.executed);
     }
   }

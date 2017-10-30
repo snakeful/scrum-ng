@@ -133,7 +133,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   set sprint(value: Sprint) {
     this._sprint = value || new Sprint();
     this._sprint.projectId = this._project.id;
-    this.sprintModal.nativeElement.click()
+    this.sprintModal.nativeElement.click();
   }
 
   get userStories(): UserStory[] {
