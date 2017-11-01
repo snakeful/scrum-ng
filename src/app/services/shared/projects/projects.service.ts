@@ -17,7 +17,7 @@ export class Project extends ScrumObject {
   scrumMaster: User;
   scrumTeam: number[];
   stakeholders: number[];
-  selectedUserId: number;
+  statusId: number;
   constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
     super(id, name, desc);
     this.userStories = userStories || [];
@@ -26,7 +26,11 @@ export class Project extends ScrumObject {
     this.scrumMasterId = null;
     this.scrumTeam = [];
     this.stakeholders = [];
+    this.statusId = 0;
   }
+}
+
+export class ProjectStatus extends ScrumObject {
 }
 
 export class UserStory extends ScrumObject {
@@ -108,7 +112,7 @@ export class ProjectsService {
   private _projects: Project[];
   private _storyPriorities: StoryPriority[];
   private _storyStatus: StoryStatus[];
-
+  private _projectStatus: ProjectStatus[];
   constructor(private http: Http) {
     this._storyPriorities = [
       new StoryPriority(0, 'Highest', 'badge-danger'),
@@ -127,6 +131,11 @@ export class ProjectsService {
       .map(data => data.json() as StoryStatus[])
       .catch(this.handleError).subscribe(storyStatus => {
         this._storyStatus = storyStatus;
+      });
+    this.http.get(`${this.url}/api/project-status`)
+      .map(data => data.json() as ProjectStatus[])
+      .catch(this.handleError).subscribe(projectStatus => {
+        this._projectStatus = projectStatus;
       });
   }
 
@@ -147,6 +156,10 @@ export class ProjectsService {
 
   get storyStatus(): StoryStatus[] {
     return this._storyStatus || [];
+  }
+
+  get projectStatus(): ProjectStatus[] {
+    return this._projectStatus;
   }
 
   get projects(): Observable<Project[]> {
@@ -301,7 +314,7 @@ export class ProjectsService {
   }
 
   get priorities(): Promise<StoryPriority[]> {
-    return new Promise<StoryPriority[]>((resolve, reject) => {
+    return new Promise<StoryPriority[]>(resolve => {
       resolve(this._storyPriorities);
     });
   }

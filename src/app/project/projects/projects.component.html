@@ -8,7 +8,16 @@
       </button>
     </p>
   </div>
-  <div class="card-flex">
+  <div class="row container-fluid">
+    <div *ngFor="let data of board" class="col-md-4 col-xs-4 p-0">
+      <h5 class="text-center">{{data.title}}</h5>
+      <div droppable [dropScope]="data.dropScope" class="container-fluid container-sprint-tasks p-0" (onDrop)="data.onDrop($event.dragData)">
+        <h6 *ngIf="data.projects.length === 0" class="title text-center">No projects .</h6>
+        <span draggable [dragScope]="data.scope" *ngFor="let project of data.projects" class="item badge {{data.color}}" data-toggle="modal" [dragData]="project" data-target="#data-project" (click)="selected = project" title="Project: {{project.name}}"><i class="fa fa-thumb-tack"></i> {{project.name | limitTo: 25}}</span>
+      </div>
+    </div>
+  </div>
+  <!--div class="card-flex">
     <div *ngFor="let project of projects" class="card">
       <div class="card-body">
         <h4 class="card-title">{{project.name}}</h4>
@@ -22,7 +31,7 @@
         </span>
       </div>
     </div>
-  </div>
+  </div-->
   <div class="modal fade" id="data-project" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
