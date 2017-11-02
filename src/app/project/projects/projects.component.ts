@@ -18,24 +18,44 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   @ViewChild('dataProjectClose') private btnClose: ElementRef;
   constructor(private service: ProjectsService, private alert: NotificationsService) {
     this._board = [{
+      id: 0,
       title: 'New',
-      color: 'badge-warning',
+      color: 'bg-secondary',
       scope: 'new',
       dropScope: 'in-progress',
-      projects: []
+      projects: [],
+      onDrop: onDrop
     }, {
+      id: 1,
       title: 'In Progress',
-      color: 'badge-primary',
+      color: 'bg-primary',
       scope: 'in-progress',
       dropScope: 'new',
-      projects: []
+      projects: [],
+      onDrop: onDrop
     }, {
+      id: 2,
       title: 'Done',
-      color: 'badge-success',
+      color: 'bg-success',
       scope: 'done',
       dropScope: 'in-progress',
-      projects: []
+      projects: [],
+      onDrop: onDrop
     }];
+    const board = this._board;
+    function onDrop(project: Project) {
+      let update = cloneDeep(project);
+      update.statusId = this.id;
+      service.saveProject(update)
+        .subscribe(updated => {
+          const projects = board[project.statusId].projects;
+          projects.splice(projects.indexOf(project), 1);
+          project.statusId = this.id;
+          this.projects.push(project);
+        }, err => this.alert.html(err, 'error', {
+          timeOut: 10000
+        }));
+    }
   }
 
   ngOnInit() {
@@ -49,7 +69,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     }));
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   get board(): any[] {
     return this._board;

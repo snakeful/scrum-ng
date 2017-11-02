@@ -8,31 +8,24 @@
   height: 100%;
 }
 
-.item {
+.card {
+  height: 25rem;
+}
+
+.card-body {
+  cursor: default;
   flex: 0 1 auto;
-  align-self: baseline;
-  margin: 2.5px;
-  cursor: pointer;
   box-shadow: 0.25rem 0.25rem 0.25rem black;
 }
 
-.container-sprint-tasks {
-  border: thin groove gray;
-  background-size: 100%;
-  height: 100%;
-  border-radius: .25rem;
+.card-body > i {
+  cursor: pointer;
 }
 
 span.title {
   font-weight: bolder;
 }
 
-.highlight {
-  border-style: outset;
-  border-width: 0.15rem;
-  border-color: silver;
-}
-
-span.item:hover {
+span.card-body:hover {
   box-shadow: 0.1rem 0.1rem 0.1rem black;
 }
