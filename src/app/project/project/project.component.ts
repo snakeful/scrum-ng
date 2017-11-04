@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { isNil } from 'lodash';
 
+import { UsersService, UserLogged } from "../../services/shared/users/users.service";
 import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects/projects.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _showSprintModal: boolean;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   @ViewChild('dataSprintModal') private sprintModal: ElementRef;
-  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute, private alert: NotificationsService) {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];
@@ -81,7 +82,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
                 });
                 this._userStories = this._userStoriesLoad;
               });
-              this._userStories = this._userStoriesLoad;
+            this._userStories = this._userStoriesLoad;
           });
       }, err => {
         this.alert.error('Project', err, {
@@ -173,5 +174,9 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this._sprints[this._sprints.indexOf(this._sprint)] = value;
     }
     this.sprintModal.nativeElement.click();
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

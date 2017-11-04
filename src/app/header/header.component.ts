@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { UsersService, UserLogged } from '../services/shared/users/users.service';
 
@@ -9,7 +10,7 @@ import { UsersService, UserLogged } from '../services/shared/users/users.service
 })
 export class HeaderComponent implements OnInit {
   private _userLogged: UserLogged;
-  constructor(private service: UsersService) {
+  constructor(private service: UsersService, private router: Router) {
     this._userLogged = service.userLogged;
   }
 
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.service.logout();
+    this.router.navigate(['/']);
     this._userLogged = null;
   }
 

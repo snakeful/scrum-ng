@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { NotificationsService } from 'angular2-notifications';
 import { cloneDeep, isNil } from 'lodash';
 
-import { UsersService, User } from '../../services/shared/users/users.service';
+import { UsersService, User, UserLogged } from '../../services/shared/users/users.service';
 import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
 
 @Component({
@@ -16,11 +16,11 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   private _projects: Project[];
   private _selected: Project = new Project();
   @ViewChild('dataProjectClose') private btnClose: ElementRef;
-  constructor(private service: ProjectsService, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
     this._board = [{
       id: 0,
       title: 'New',
-      color: 'bg-secondary',
+      color: 'bg-light',
       scope: 'new',
       dropScope: 'in-progress',
       projects: [],
@@ -94,5 +94,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       this._projects[this._projects.indexOf(this._selected)] = value;
     }
     this.btnClose.nativeElement.click();
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

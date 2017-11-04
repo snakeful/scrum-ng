@@ -5,7 +5,7 @@ import { isNil } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
 import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
-import { UsersService, User } from '../../services/shared/users/users.service';
+import { UsersService, User, UserLogged } from '../../services/shared/users/users.service';
 
 @Component({
   selector: 'app-project-form',
@@ -20,14 +20,26 @@ export class ProjectFormComponent implements OnInit {
   private _selectedScrumTeamId: number;
   private _selectedStakeholderId: number;
   private _onSaveProject: EventEmitter<Project>;
-  constructor(private service: ProjectsService, private userService: UsersService, private builder: FormBuilder,
+  constructor(private service: ProjectsService, private usersService: UsersService, private builder: FormBuilder,
     private alert: NotificationsService) {
     this._projectForm = builder.group({
       id: [null],
-      name: ['', Validators.required],
-      desc: [''],
-      productOwnerId: [null, Validators.required],
-      scrumMasterId: [null, Validators.required],
+      name: [{
+        value: '',
+        disabled: !this.user.admin
+      }, Validators.required],
+      desc: [{
+        value: '',
+        disabled: !this.user.admin
+      }],
+      productOwnerId: [{
+        value: null,
+        disabled: !this.user.admin
+      }, Validators.required],
+      scrumMasterId: [{
+        value: null,
+        disabled: !this.user.admin
+      }, Validators.required],
       scrumTeam: [[]],
       stakeholders: [[]]
     });
@@ -35,7 +47,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
+    this.usersService.getUsers()
       .subscribe(users => this._users = users,
       err => this.alert.html(err, 'error', {
         timeOut: 10000
@@ -152,5 +164,9 @@ export class ProjectFormComponent implements OnInit {
 
   @Output() get onSaveProject(): EventEmitter<Project> {
     return this._onSaveProject;
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

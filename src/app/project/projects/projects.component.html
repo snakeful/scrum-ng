@@ -2,7 +2,7 @@
   <div class="alert alert-secondary text-center">
     <h3>Projects</h3>
     <p>List of Projects
-      <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-project" (click)="selected = null"
+      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-project" (click)="selected = null"
         title="New Project">
         <i class="fa fa-plus"></i>
       </button>
@@ -13,7 +13,7 @@
       <h5 class="text-center">{{data.title}}</h5>
       <div droppable [dropScope]="data.dropScope" class="card m-2" (onDrop)="data.onDrop($event.dragData)">
         <h6 *ngIf="data.projects.length === 0" class="title text-center">No projects .</h6>
-        <span draggable [dragHandle]="'.drag-handle'" [dragScope]="data.scope" *ngFor="let project of data.projects" class="card-body rounded {{data.color}} m-3" data-toggle="modal" [dragData]="project" data-target="#data-project" (click)="selected = project" title="Project: {{project.name}}"><i class="drag-handle fa fa-thumb-tack float-right"></i> {{project.name | limitTo: 25}}</span>
+        <span draggable [dragHandle]="'.drag-handle'" [dragScope]="data.scope" *ngFor="let project of data.projects" class="card-body rounded {{data.color}} m-3" data-toggle="modal" [dragData]="project" data-target="#data-project" (click)="selected = project" title="Project: {{project.name}}"><i class="drag-handle fa fa-bars float-right" [ngClass]="{'drag-handle' : user.admin}"></i><i class="fa fa-arrow-right float-right pr-2" [routerLink]="['/project/', project.id]"></i> {{project.name | limitTo: 25}} <span></span> </span>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{(selected) ? 'Edit' : 'New'}} Project {{selected && selected.name}}</h5>
+          <h5 class="modal-title">{{user.admin ? ((selected) ? 'Edit' : 'New') : ''}} Project {{selected && selected.name}}</h5>
           <button #dataProjectClose type="button" class="close" data-dismiss="modal" title="Close">
             <i class="fa fa-times"></i>
           </button>
