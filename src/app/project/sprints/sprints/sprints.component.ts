@@ -1,7 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ProjectsService, Sprint, UserStory } from '../../../services/shared/projects/projects.service';
 import { NotificationsService } from 'angular2-notifications';
+
+import { UserLogged } from '../../../shared/classes/users.class';
+import { UsersService } from '../../../shared/services/users.service';
+import { Project, UserStory, Sprint } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-sprints',
@@ -15,7 +19,8 @@ export class SprintsComponent implements OnInit {
   private deleting: boolean;
   private _sprints: Sprint[];
   private _onSelect: EventEmitter<Sprint>;
-  constructor(private service: ProjectsService, private alert: NotificationsService) {
+  private _project: Project;
+  constructor(private service: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
     this._selectCurrentSprint = false;
     this._canDelete = false;
     this._sprints = [];
@@ -100,5 +105,17 @@ export class SprintsComponent implements OnInit {
 
   @Output() get onSelect(): EventEmitter<Sprint> {
     return this._onSelect;
+  }
+
+  get project(): Project {
+    return this._project;
+  }
+
+  @Input() set project(value: Project) {
+    this._project = value;
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

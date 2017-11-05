@@ -4,7 +4,7 @@ import { round } from 'lodash';
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService } from '../../../services/shared/projects/projects.service';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-burndown-chart',

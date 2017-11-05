@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StoryStatus, ProjectsService } from '../services/shared/projects/projects.service';
+import { StoryPriority } from '../classes/projects.class';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Pipe({
   name: 'storyStatus'

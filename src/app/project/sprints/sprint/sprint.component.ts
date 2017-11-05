@@ -3,7 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, UserStory, Sprint, Task } from '../../../services/shared/projects/projects.service';
+import { UserLogged } from '../../../shared/classes/users.class';
+import { UsersService } from '../../../shared/services/users.service';
+import { UserStory, Sprint, Task } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-sprint',
@@ -22,7 +25,8 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _toggle: boolean;
   @ViewChild('taskModal') private taskModal: ElementRef;
   @ViewChild('userStoryModal') private userStoryModal: ElementRef;
-  constructor(private service: ProjectsService, private route: ActivatedRoute, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute,
+    private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._task = new Task();
     this._story = new UserStory();
@@ -184,5 +188,9 @@ export class SprintComponent implements OnInit, AfterViewInit {
 
   get toggle(): boolean {
     return this._toggle;
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

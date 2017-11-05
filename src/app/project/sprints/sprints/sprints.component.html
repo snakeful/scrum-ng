@@ -5,9 +5,9 @@
         <a data-toggle="collapse" [href]="'#collapse' + sprint.id" aria-expanded="true">
           {{sprint.name}}
         </a><span> - Stories: {{sprint.userStories?.length}}</span>
-        <button *ngIf="canDelete" class="btn btn-sm btn-danger float-right ml-1" (click)="deleteSprint(sprint)"><i class="fa fa-trash"></i></button>
-        <button class="btn btn-sm btn-primary float-right ml-1" (click)="selectSprint(sprint)"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.id]">Go to sprint</button>
+        <button *ngIf="canDelete && (user.admin || user.scrumMaster)" class="btn btn-sm btn-danger float-right ml-1" (click)="deleteSprint(sprint)"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-sm btn-primary float-right ml-1" (click)="selectSprint(sprint)"><i class="fa" [ngClass]="{'fa-edit': user.admin || user.scrumMaster, 'fa-eye' : !(user.admin || user.scrumMaster)}"></i></button>
+        <button class="btn btn-sm btn-primary float-right" [routerLink]="['/project/sprint', sprint.id]"><i class="fa fa-arrow-right"></i></button>
         <p><span>{{sprint.start | date: 'yyyy/MM/dd'}}</span> to <span>{{sprint.end | date: 'yyyy/MM/dd'}}</span></p>
       </h5>
     </div>

@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { isNil } from 'lodash';
 
-import { UsersService, UserLogged } from "../../services/shared/users/users.service";
-import { ProjectsService, Project, UserStory, Sprint } from '../../services/shared/projects/projects.service';
+import { User, UserLogged } from '../../shared/classes/users.class';
+import { UsersService } from '../../shared/services/users.service';
+import { Project, UserStory, Sprint } from '../../shared/classes/projects.class';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
   selector: 'app-project',
@@ -23,7 +25,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _showSprintModal: boolean;
   @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
   @ViewChild('dataSprintModal') private sprintModal: ElementRef;
-  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute,
+    private alert: NotificationsService) {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];

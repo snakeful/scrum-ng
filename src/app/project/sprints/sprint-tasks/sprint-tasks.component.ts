@@ -3,7 +3,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cloneDeep } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, Task, UserStory } from '../../../services/shared/projects/projects.service';
+import { Task, UserStory } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-sprint-tasks',

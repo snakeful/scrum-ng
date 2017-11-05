@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
-import { UsersService, UserLogged } from '../services/shared/users/users.service';
+import { User, UserLogged } from '../shared/classes/users.class';
+import { UsersService } from '../shared/services/users.service';
 
 @Component({
   selector: 'app-header',

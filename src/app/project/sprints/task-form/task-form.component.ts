@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isNil } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, Task } from '../../../services/shared/projects/projects.service';
+import { Task } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-task-form',

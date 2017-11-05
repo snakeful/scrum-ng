@@ -5,7 +5,10 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NotificationsService } from 'angular2-notifications';
 import { isNil } from 'lodash';
 
-import { ProjectsService, Sprint } from '../../../services/shared/projects/projects.service';
+import { UserLogged } from '../../../shared/classes/users.class';
+import { UsersService } from '../../../shared/services/users.service';
+import { Sprint } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-sprint-form',
@@ -17,10 +20,14 @@ export class SprintFormComponent implements OnInit {
   private _dates: Date[];
   private _drp: any;
   private _onSaveSprint: EventEmitter<Sprint>;
-  constructor(private service: ProjectsService, private formBuilder: FormBuilder, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private formBuilder: FormBuilder,
+    private alert: NotificationsService) {
     this._sprintForm = this.formBuilder.group({
       id: [null],
-      name: ['', [Validators.required]],
+      name: [{
+        value: '',
+        disabled: !(this.user.admin || this.user.scrumMaster)
+      }, [Validators.required]],
       projectId: [0],
       start: [],
       end: [],
@@ -76,5 +83,9 @@ export class SprintFormComponent implements OnInit {
 
   @Output() get onSaveSprint(): EventEmitter<Sprint> {
     return this._onSaveSprint;
+  }
+
+  get user(): UserLogged {
+    return this.usersService.userLogged;
   }
 }

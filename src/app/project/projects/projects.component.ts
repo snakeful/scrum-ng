@@ -3,8 +3,10 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { NotificationsService } from 'angular2-notifications';
 import { cloneDeep, isNil } from 'lodash';
 
-import { UsersService, User, UserLogged } from '../../services/shared/users/users.service';
-import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
+import { User, UserLogged } from '../../shared/classes/users.class';
+import { UsersService } from '../../shared/services/users.service';
+import { Project } from '../../shared/classes/projects.class';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -44,7 +46,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     }];
     const board = this._board;
     function onDrop(project: Project) {
-      let update = cloneDeep(project);
+      const update = cloneDeep(project);
       update.statusId = this.id;
       service.saveProject(update)
         .subscribe(updated => {

@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 
 import { cloneDeep, isNil } from 'lodash';
-import { UsersService, Role, User, UserLogged } from '../../services/shared/users/users.service';
+import { User, UserLogged } from '../../shared/classes/users.class';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-user-modal',
@@ -14,7 +15,6 @@ import { UsersService, Role, User, UserLogged } from '../../services/shared/user
 export class UserModalComponent implements OnInit, AfterViewInit {
   private _userForm: FormGroup;
   private _userLogged: UserLogged;
-  private _roles: Role[];
   private _user: User = new User();
   @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dataUserClose') btnClose: ElementRef;
@@ -29,10 +29,6 @@ export class UserModalComponent implements OnInit, AfterViewInit {
       confirm: ['']
     });
     this._userLogged = service.userLogged;
-    service.getRoles()
-      .subscribe(roles => {
-        this._roles = roles;
-      });
   }
 
   ngOnInit() {
@@ -70,10 +66,6 @@ export class UserModalComponent implements OnInit, AfterViewInit {
 
   get userLogged(): UserLogged {
     return this._userLogged;
-  }
-
-  get roles(): Role[] {
-    return this._roles;
   }
 
   get user(): User {

@@ -4,7 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isNil } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, UserStory, StoryPriority } from '../../../services/shared/projects/projects.service';
+import { UserLogged } from '../../../shared/classes/users.class';
+import { UsersService } from '../../../shared/services/users.service';
+import { UserStory, StoryPriority } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-user-story-form',
@@ -16,14 +19,24 @@ export class UserStoryFormComponent implements OnInit {
   private _userStory: UserStory;
   private _priorities: StoryPriority[];
   private _onSaveUserStory: EventEmitter<UserStory>;
-  constructor(private service: ProjectsService, private builder: FormBuilder, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private builder: FormBuilder,
+    private alert: NotificationsService) {
     this._userStoryForm = this.builder.group({
       id: [0],
-      name: ['', Validators.required],
-      desc: [''],
+      name: [{
+        value: '',
+        disabled: !(this.user.admin || this.user.scrumMaster)
+      }, Validators.required],
+      desc: [{
+        value: '',
+        disabled: !(this.user.admin || this.user.scrumMaster)
+      }],
       projectId: [0],
       statusId: [0],
-      priorityId: [0, Validators.required]
+      priorityId: [{
+        value: 0,
+        disabled: !(this.user.admin || this.user.scrumMaster)
+      }, Validators.required]
     });
     this._userStory = new UserStory(undefined, null, null, null, 10, 0);
     this._onSaveUserStory = new EventEmitter<UserStory>();
@@ -69,4 +82,7 @@ export class UserStoryFormComponent implements OnInit {
     return this._onSaveUserStory;
   }
 
+  get user(): UserLogged {
+    return this.usersService.userLogged;
+  }
 }

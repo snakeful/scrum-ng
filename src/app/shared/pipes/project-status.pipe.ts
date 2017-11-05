@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ProjectStatus, ProjectsService } from '../services/shared/projects/projects.service';
+import { ProjectStatus } from '../classes/projects.class';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Pipe({
   name: 'projectStatus'

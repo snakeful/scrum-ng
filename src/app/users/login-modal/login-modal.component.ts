@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LocalStorageService } from 'ng2-webstorage';
 
-import { UsersService } from '../../services/shared/users/users.service';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-login-modal',

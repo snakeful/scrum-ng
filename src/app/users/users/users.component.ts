@@ -2,7 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { UsersService, User } from '../../services/shared/users/users.service';
+import { User } from '../../shared/classes/users.class';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-users',

@@ -9,76 +9,21 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-export class ScrumObject {
-  id: number;
-  name: string;
-  desc: string;
-  constructor(id?: number, name?: string, desc?: string) {
-    this.id = id;
-    this.name = name;
-    this.desc = desc;
-  }
-}
-
-export class ScrumUser {
-  id: number;
-  user: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirm: string;
-  admin: boolean;
-  constructor(id?: number, user?: string, firstName?: string, lastName?: string, email?: string) {
-    this.id = id;
-    this.user = user;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = null;
-    this.confirm = null;
-    this.admin = false;
-  }
-}
-
-export class UserLogged {
-  user: string;
-  firstName: string;
-  lastName: string;
-  admin: boolean;
-  token: string;
-  expiration: Date;
-}
-
-export class Role extends ScrumObject {
-}
-
-export class User extends ScrumUser {
-  clearPasswords() {
-    this.password = null;
-    this.confirm = null;
-  }
-}
+import { ScrumUser, User, UserLogged } from '../classes/users.class';
 
 @Injectable()
 export class UsersService {
   private _user: UserLogged;
   private url = 'http://localhost:4201';
-  private roles: Role[];
   private users: User[];
   constructor(private http: Http, private storage: LocalStorageService) {
+    console.log('Creating Users Service');
     this._user = this.storage.retrieve('user') as UserLogged;
   }
 
   private handleError(err: Response) {
     const msg = `<p>Error status code ${err.status} type ${err.type} at ${err.url}</p><p><bold>${err.json().err}</bold></p>`;
     return Observable.throw(msg);
-  }
-
-  getRoles(): Observable<Role[]> {
-    return this.http.get(`${this.url}/api/roles`)
-    .map(res => res.json() as Role[])
-    .catch(this.handleError);
   }
 
   getUsers(): Observable<User[]> {

@@ -6,114 +6,24 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { ScrumObject, Role, User } from '../users/users.service';
-
-export class Project extends ScrumObject {
-  userStories: UserStory[];
-  sprints: Sprint[];
-  productOwnerId: number;
-  productOwner: User;
-  scrumMasterId: number;
-  scrumMaster: User;
-  scrumTeam: number[];
-  stakeholders: number[];
-  statusId: number;
-  constructor(id?: number, name?: string, desc?: string, userStories?: UserStory[], sprints?: Sprint[]) {
-    super(id, name, desc);
-    this.userStories = userStories || [];
-    this.sprints = sprints || [];
-    this.productOwnerId = null;
-    this.scrumMasterId = null;
-    this.scrumTeam = [];
-    this.stakeholders = [];
-    this.statusId = 0;
-  }
-}
-
-export class ProjectStatus extends ScrumObject {
-}
-
-export class UserStory extends ScrumObject {
-  projectId: number;
-  priorityId: number;
-  statusId: number;
-  tasks: Task[];
-  constructor(id?: number, name?: string, desc?: string, projectId?: number, priorityId?: number, statusId?: number) {
-    super(id, name, desc);
-    this.projectId = projectId;
-    this.priorityId = priorityId;
-    this.statusId = statusId || 0;
-  }
-}
-
-export class StoryPriority extends ScrumObject {
-}
-
-export class StoryStatus extends ScrumObject {
-}
-
-export class Sprint extends ScrumObject {
-  start: Date;
-  end: Date;
-  projectId: number;
-  project: Project;
-  userStories: UserStory[];
-  constructor(id?: number, name?: string, desc?: string) {
-    super(id, name, desc);
-    this.start = new Date();
-    this.end = new Date();
-    this.userStories = [];
-  }
-}
-
-export class SprintUserStory extends ScrumObject {
-  sprintId: number;
-  userStoryId: number;
-  constructor(id?: number, sprintId?: number, userStoryId?: number) {
-    super(id);
-    this.sprintId = sprintId;
-    this.userStoryId = userStoryId;
-  }
-}
-
-export class Task extends ScrumObject {
-  userStoryId: number;
-  date: Date;
-  taskOriginId: number;
-  statusId: number;
-  userId: number;
-  originId: number;
-  points: number;
-  executedPoints: number;
-  successTask: boolean;
-  constructor(id?: number, name?: string, desc?: string, userStoryId?: number, points: number = 0, executedPoints: number = 0,
-    originId: number = 0, successTask: boolean = false) {
-    super(id, name, desc);
-    this.userStoryId = userStoryId;
-    this.date = new Date();
-    this.statusId = 0;
-    this.userId = 0;
-    this.points = points;
-    this.executedPoints = executedPoints;
-    this.originId = originId;
-    this.successTask = successTask;
-  }
-}
-
-export class TaskStatus extends ScrumObject {
-}
-
-export class Origin extends ScrumObject {
-}
+import { ScrumObject, Role, User } from '../classes/users.class';
+import {
+  Project, ProjectStatus, StoryPriority, StoryStatus, UserStory, Sprint, SprintUserStory,
+  Task, TaskStatus, Origin
+} from '../classes/projects.class';
 
 @Injectable()
 export class ProjectsService {
   private url = 'http://localhost:4201';
   private _projects: Project[];
-  private _storyPriorities: StoryPriority[];
-  private _storyStatus: StoryStatus[];
   private _projectStatus: ProjectStatus[];
+  private _storyStatus: StoryStatus[];
+  private _taskStatus: TaskStatus[];
+  private _storyPriorities: StoryPriority[];
+  private loaded: boolean;
   constructor(private http: Http) {
+    console.log('Creating Projects Service');
+    this.loaded = false;
     this._storyPriorities = [
       new StoryPriority(0, 'Highest', 'badge-danger'),
       new StoryPriority(1, 'Higher', 'badge-danger'),
@@ -127,16 +37,7 @@ export class ProjectsService {
       new StoryPriority(9, 'Lower', 'badge-dark'),
       new StoryPriority(10, 'Lowest', 'badge-dark')
     ];
-    this.http.get(`${this.url}/api/user-story-status`)
-      .map(data => data.json() as StoryStatus[])
-      .catch(this.handleError).subscribe(storyStatus => {
-        this._storyStatus = storyStatus;
-      });
-    this.http.get(`${this.url}/api/project-status`)
-      .map(data => data.json() as ProjectStatus[])
-      .catch(this.handleError).subscribe(projectStatus => {
-        this._projectStatus = projectStatus;
-      });
+    this.loadData().then(loaded => {});
   }
 
   private handleError(err: Response) {
@@ -144,22 +45,39 @@ export class ProjectsService {
     return Observable.throw(msg);
   }
 
-  get taskStatus(): Observable<TaskStatus[]> {
-    return this.http.get(`${this.url}/api/task-status`)
-      .map(data => data.json() as TaskStatus[])
-      .catch(this.handleError);
+  loadData(): Promise<any> {
+    if (this.loaded) {
+      return Promise.resolve();
+    }
+    return new Promise<any>(resolve => {
+      const resolved = Promise.all([
+        this.http.get(`${this.url}/api/project-status`).map(data => data.json() as ProjectStatus[]).toPromise(),
+        this.http.get(`${this.url}/api/task-status`).map(data => data.json() as TaskStatus[]).toPromise(),
+        this.http.get(`${this.url}/api/user-story-status`).map(data => data.json() as StoryStatus[]).toPromise()]);
+      resolved.then(data => {
+        this._projectStatus = data[0];
+        this._storyStatus = data[1];
+        this._taskStatus = data[2];
+        this.loaded = true;
+        resolve();
+      });
+    });
   }
 
-  get storyPriorities(): StoryPriority[] {
-    return this._storyPriorities || [];
+  get projectStatus(): ProjectStatus[] {
+    return this._projectStatus;
   }
 
   get storyStatus(): StoryStatus[] {
     return this._storyStatus || [];
   }
 
-  get projectStatus(): ProjectStatus[] {
-    return this._projectStatus;
+  get taskStatus(): TaskStatus[] {
+    return this._taskStatus;
+  }
+
+  get storyPriorities(): StoryPriority[] {
+    return this._storyPriorities || [];
   }
 
   get projects(): Observable<Project[]> {

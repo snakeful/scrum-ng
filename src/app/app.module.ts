@@ -12,10 +12,11 @@ import { ChartsModule } from 'ng2-charts';
 import { Ng2Webstorage } from 'ng2-webstorage';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
-import { PasswordValidatorDirective } from './directives/shared/password-validator.directive';
+import { PasswordValidatorDirective } from './shared/directives/password-validator.directive';
 
-import { UsersService } from './services/shared/users/users.service';
-import { ProjectsService } from './services/shared/projects/projects.service';
+import { UsersService } from './shared/services/users.service';
+import { ProjectsService } from './shared/services/projects.service';
+import { LoadDataService } from './shared/services/load-data.service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -36,14 +37,13 @@ import { ProjectFormComponent } from './project/project-form/project-form.compon
 import { SprintFormComponent } from './project/sprints/sprint-form/sprint-form.component';
 import { UserStoryFormComponent } from './project/user-stories/user-story-form/user-story-form.component';
 import { TaskFormComponent } from './project/sprints/task-form/task-form.component';
-import { LimitToPipe } from './limit-to.pipe';
-import { TaskStatusPipe } from './project/task-status.pipe';
-import { StoryPriorityPipe } from './project/story-priority.pipe';
-import { StoryStatusPipe } from './project/story-status.pipe';
-import { OriginPipe } from './project/origin.pipe';
-import { ScrumTeamPipe } from './project/scrum-team.pipe';
-import { UserRolePipe } from './project/user-role.pipe';
-import { ProjectStatusPipe } from './project/project-status.pipe';
+import { LimitToPipe } from './shared/pipes/limit-to.pipe';
+import { TaskStatusPipe } from './shared/pipes/task-status.pipe';
+import { StoryPriorityPipe } from './shared/pipes/story-priority.pipe';
+import { StoryStatusPipe } from './shared/pipes/story-status.pipe';
+import { OriginPipe } from './shared/pipes/origin.pipe';
+import { ScrumTeamPipe } from './shared/pipes/scrum-team.pipe';
+import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
 
 @NgModule({
   declarations: [
@@ -74,7 +74,6 @@ import { ProjectStatusPipe } from './project/project-status.pipe';
     StoryStatusPipe,
     OriginPipe,
     ScrumTeamPipe,
-    UserRolePipe,
     PasswordValidatorDirective,
     ProjectStatusPipe
   ],
@@ -98,13 +97,22 @@ import { ProjectStatusPipe } from './project/project-status.pipe';
       component: HomeComponent
     }, {
       path: 'projects',
-      component: ProjectsComponent
+      component: ProjectsComponent,
+      resolve: {
+        loaded: LoadDataService
+      }
     }, {
       path: 'project/:id',
-      component: ProjectComponent
+      component: ProjectComponent,
+      resolve: {
+        loaded: LoadDataService
+      }
     }, {
       path: 'project/sprint/:id',
-      component: SprintComponent
+      component: SprintComponent,
+      resolve: {
+        loaded: LoadDataService
+      }
     }, {
       path: 'users',
       component: UsersComponent
@@ -118,7 +126,8 @@ import { ProjectStatusPipe } from './project/project-status.pipe';
   ],
   providers: [
     ProjectsService,
-    UsersService
+    UsersService,
+    LoadDataService
   ],
   bootstrap: [AppComponent]
 })

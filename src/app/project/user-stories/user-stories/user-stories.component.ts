@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ProjectsService, Project, UserStory } from '../../../services/shared/projects/projects.service';
 import { NotificationsService } from 'angular2-notifications';
+
+import { Project, UserStory } from '../../../shared/classes/projects.class';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'app-user-stories',

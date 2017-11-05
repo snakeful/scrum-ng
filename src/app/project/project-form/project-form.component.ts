@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isNil } from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProjectsService, Project } from '../../services/shared/projects/projects.service';
-import { UsersService, User, UserLogged } from '../../services/shared/users/users.service';
+import { User, UserLogged } from '../../shared/classes/users.class';
+import { UsersService } from '../../shared/services/users.service';
+import { Project } from '../../shared/classes/projects.class';
+import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
   selector: 'app-project-form',

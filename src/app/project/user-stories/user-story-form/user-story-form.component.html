@@ -7,5 +7,5 @@
   <select class="form-control" formControlName="priorityId" name="priority" id="priority">
     <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>
   </select>
-  <button class="btn btn-sm btn-primary float-right mt-3" type="submit"><i class="fa fa-check"></i></button>
+  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right mt-3" type="submit"><i class="fa fa-check"></i></button>
 </form>
