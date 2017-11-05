@@ -1,13 +1,16 @@
 <div class="container-fluid">
-  <div class="row alert alert-secondary mt-0">
+  <div class="alert alert-secondary text-center">
     <div class="ml-auto text-center">
       <h5 class="mb-1">{{sprint.name}}</h5>
-      <p>From {{sprint.start | date: 'yyyy/MM/dd'}} to {{sprint.end | date: 'yyyy/MM/dd'}}</p>
+      <p>From {{sprint.start | date: 'yyyy/MM/dd'}} to {{sprint.end | date: 'yyyy/MM/dd'}}
+        <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()" title="Show {{!toggle ? 'burndown chart' : 'scrum board'}}">
+          <i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i>
+        </button>
+        <button class="btn btn-sm btn-secondary float-right mr-1" [routerLink]="['/project', sprint.project?.id]" title="Go to project {{sprint.project?.name}}"><i class="fa fa-arrow-left"></i></button>
+      </p>
     </div>
     <div class="ml-auto">
-      <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()">
-        <i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i>
-      </button>
+      
     </div>
   </div>
   <div *ngIf="!toggle;else burndownChart" class="row">
@@ -60,7 +63,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{(task && task.id) ? 'Edit' : 'New'}} Task</h5>
+        <h5 class="modal-title">{{(task?.id) ? 'Edit' : 'New'}} Task</h5>
         <button type="button" class="close" data-dismiss="modal" title="Close">
           <i class="fa fa-times"></i>
         </button>
@@ -75,7 +78,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{((story && story.id) ? 'Edit' : 'New')}} User Story</h5>
+        <h5 class="modal-title">{{((story?.id) ? 'Edit' : 'New')}} User Story</h5>
         <button type="button" class="close" data-dismiss="modal" title="Close">
           <i class="fa fa-times"></i>
         </button>

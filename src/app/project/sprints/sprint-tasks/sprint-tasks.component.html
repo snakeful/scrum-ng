@@ -3,7 +3,7 @@
     <h5 class="text-center">{{data.title}}</h5>
     <div droppable [dropScope]="data.dropScope" class="container-fluid container-sprint-tasks p-0" (onDrop)="data.onDrop($event.dragData)">
       <h6 *ngIf="data.tasks.length === 0" class="title text-center">No tasks assigned.</h6>
-      <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill {{data.color}}" [ngClass]="{'highlight': task.userStoryId === (actualStory && actualStory.id)}" data-toggle="modal" [dragData]="task" data-target="#taskData" (click)="selectedTask = task" title="Task: {{task.name}}  Points: {{task.points}}  Points Executed: {{task.executedPoints}}  Points Remaining: {{task.points - task.executedPoints}}"><i class="fa fa-thumb-tack"></i> {{task.name | limitTo: 10}}</span>
+      <span draggable [dragScope]="data.scope" *ngFor="let task of data.tasks" class="item badge badge-pill {{data.color}}" [ngClass]="{'highlight': task.userStoryId === actualStory?.id}" data-toggle="modal" [dragData]="task" data-target="#taskData" (click)="selectedTask = task" title="Task: {{task.name}}  Points: {{task.points}}  Points Executed: {{task.executedPoints}}  Points Remaining: {{task.points - task.executedPoints}}"><i class="fa fa-thumb-tack"></i> {{task.name | limitTo: 10}}</span>
     </div>
   </div>
 </div>

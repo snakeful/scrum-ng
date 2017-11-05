@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { User } from '../../shared/classes/users.class';
+import { User, UserLogged } from '../../shared/classes/users.class';
 import { UsersService } from '../../shared/services/users.service';
 
 @Component({
@@ -14,11 +14,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   private _users: User[];
   private _selected: User;
   @ViewChild('dataUserClose') private btnClose: ElementRef;
-  constructor(private usersService: UsersService, private alert: NotificationsService) {
+  constructor(private service: UsersService, private alert: NotificationsService) {
   }
 
   ngOnInit() {
-    this.usersService.getUsers()
+    this.service.getUsers()
       .subscribe(users => this._users = users,
       err => this.alert.html(err, 'error', {
         timeOut: 10000
@@ -51,5 +51,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   set selected(value: User) {
     this._selected = value;
+  }
+
+  get user(): UserLogged {
+    return this.service.userLogged;
   }
 }

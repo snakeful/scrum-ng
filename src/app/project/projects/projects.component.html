@@ -21,7 +21,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{user.admin ? ((selected) ? 'Edit ' : 'New ') : ''}}Project {{selected && selected.name}}</h5>
+          <h5 class="modal-title">{{user.admin ? ((selected) ? 'Edit ' : 'New ') : ''}}Project {{selected?.name}}</h5>
           <button #dataProjectClose type="button" class="close" data-dismiss="modal" title="Close">
             <i class="fa fa-times"></i>
           </button>

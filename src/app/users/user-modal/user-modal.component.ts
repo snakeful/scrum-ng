@@ -21,12 +21,30 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   constructor(private service: UsersService, private formBuilder: FormBuilder, private alert: NotificationsService) {
     this._userForm = formBuilder.group({
       id: [null],
-      user: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: [''],
-      confirm: ['']
+      user: [{
+        value: '',
+        disabled: !this.user.admin
+      }, Validators.required],
+      firstName: [{
+        value: '',
+        disabled: !this.user.admin
+      }, Validators.required],
+      lastName: [{
+        value: '',
+        disabled: !this.user.admin
+      }, Validators.required],
+      email: [{
+        value: '',
+        disabled: !this.user.admin
+      }, Validators.required],
+      password: [{
+        value: '',
+        disabled: !this.user.admin
+      }],
+      confirm: [{
+        value: '',
+        disabled: !this.user.admin
+      }]
     });
     this._userLogged = service.userLogged;
   }

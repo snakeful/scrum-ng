@@ -2,7 +2,7 @@
   <div class="alert alert-secondary text-center">
     <h3>Users</h3>
     <p>List of users (Product Owner, Scrum Master and Team, Stakeholders and Administrators)
-      <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-user" (click)="selected = null">
+      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-user" (click)="selected = null">
         <i class="fa fa-plus"></i>
       </button>
     </p>

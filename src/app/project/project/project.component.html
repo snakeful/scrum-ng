@@ -35,7 +35,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{user.admin || user.scrumMaster ? ((userStory && userStory.id) ? 'Edit ' : 'New ') : ''}}User Story: {{userStory && userStory.name}}</h5>
+          <h5 class="modal-title">{{user.admin || user.scrumMaster ? (userStory?.id ? 'Edit ' : 'New ') : ''}}User Story: {{userStory?.name}}</h5>
           <button type="button" class="close" data-dismiss="modal" title="Close">
             <i class="fa fa-times"></i>
           </button>
@@ -50,7 +50,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{user.admin || user.scrumMaster ? ((sprint && sprint.id) ? 'Edit ' : 'New ') : ''}}Sprint {{sprint && sprint.name}}</h5>
+          <h5 class="modal-title">{{user.admin || user.scrumMaster ? (sprint?.id ? 'Edit ' : 'New ') : ''}}Sprint {{sprint?.name}}</h5>
           <button type="button" class="close" data-dismiss="modal" title="Close">
             <i class="fa fa-times"></i>
           </button>
