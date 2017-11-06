@@ -10,7 +10,6 @@ import { NgDragDropModule } from 'ng-drag-drop';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ChartsModule } from 'ng2-charts';
 import { Ng2Webstorage } from 'ng2-webstorage';
-import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { PasswordValidatorDirective } from './shared/directives/password-validator.directive';
 
@@ -91,7 +90,6 @@ import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
       separator: '-',
       caseSensitive: true
     }),
-    BsDatepickerModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent

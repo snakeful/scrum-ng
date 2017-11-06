@@ -32,7 +32,6 @@
     "ng-drag-drop": "^4.0.0",
     "ng2-charts": "^1.6.0",
     "ng2-webstorage": "^1.8.0",
-    "ngx-bootstrap": "^1.9.3",
     "popper.js": "^1.12.6",
     "rxjs": "^5.5.0",
     "zone.js": "^0.8.18"

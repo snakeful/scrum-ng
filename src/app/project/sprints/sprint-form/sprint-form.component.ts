@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NotificationsService } from 'angular2-notifications';
 import { isNil } from 'lodash';
 
@@ -17,8 +16,6 @@ import { ProjectsService } from '../../../shared/services/projects.service';
 })
 export class SprintFormComponent implements OnInit {
   private _sprintForm: FormGroup;
-  private _dates: Date[];
-  private _drp: any;
   private _onSaveSprint: EventEmitter<Sprint>;
   constructor(private service: ProjectsService, private usersService: UsersService, private formBuilder: FormBuilder,
     private alert: NotificationsService) {
@@ -33,7 +30,6 @@ export class SprintFormComponent implements OnInit {
       end: [],
       startEnd: ['']
     });
-    this._dates = [new Date(), new Date()];
     this._onSaveSprint = new EventEmitter<Sprint>();
   }
 
@@ -41,8 +37,6 @@ export class SprintFormComponent implements OnInit {
   }
 
   saveSprint(sprint: Sprint) {
-    sprint.start = this._dates[0];
-    sprint.end = this._dates[1];
     this.service.saveSprint(sprint)
       .subscribe(obj => {
         this._onSaveSprint.emit(obj);
@@ -61,24 +55,14 @@ export class SprintFormComponent implements OnInit {
 
   @Input() set sprint(value: Sprint) {
     this._sprintForm.patchValue(value || new Sprint());
-  }
-
-  get dateConfig(): Partial<BsDatepickerConfig> {
-    return {
-      containerClass: 'theme-dark-blue'
-    };
-  }
-
-  get dates(): Date[] {
-    return this._dates;
-  }
-
-  set dates(dates: Date[]) {
-    this._dates = dates;
-  }
-
-  get drp(): any {
-    return this._drp;
+    if (value) {
+      this._sprintForm.patchValue({
+        'start': value.start.toISOString().substring(0, 10)
+      });
+      this._sprintForm.patchValue({
+        'end': value.end.toISOString().substring(0, 10)
+      });
+    }
   }
 
   @Output() get onSaveSprint(): EventEmitter<Sprint> {
