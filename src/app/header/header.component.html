@@ -1,33 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand" routerLink="/">
-    <img src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" alt=""> FUL-SCRUM
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/projects">Projects <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/users">Users</a>
-      </li>
-    </ul>
-    <button *ngIf="!userLogged; else userData" class="btn btn-outline-primary my-2 my-sm-0" data-toggle="modal" data-target="#loginData">Login</button>
-    <ng-template #userData>
-      <div class="btn-group">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{userLogged.user}}
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <button class="dropdown-item" type="button">Profile</button>
-          <button class="dropdown-item" type="button" (click)="logout()">Logout</button>
-        </div>
-      </div>
-    </ng-template>
+<div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
+  <div class="logo-container">
+    <div class="logo" routerLink="/">FUL-SCRUM</div>
   </div>
-</nav>
-<div *ngIf="!userLogged" class="modal" id="loginData" role="dialog" data-backdrop="static" data-keyboard="false">
+</div>
+<nb-actions size="medium" class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
+  <nb-action routerLinkActive="active" routerLink="/projects">
+    Projects
+  </nb-action>
+  <nb-action routerLinkActive="active" routerLink="/users">
+    Users
+  </nb-action>
+  <nb-action>
+    <button #btnLogin data-toggle="modal" data-target="#loginData" hidden></button>
+    <nb-user name="{{user?.user}}" [menu]="userMenu" (menuClick)="onMenuItemClick($event)">
+    </nb-user>
+  </nb-action>
+</nb-actions>
+<div *ngIf="!user" class="modal" id="loginData" role="dialog">
   <app-login-modal (onLogin)="login()"></app-login-modal>
 </div>

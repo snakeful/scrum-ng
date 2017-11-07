@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^4.4.6",
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/router": "^4.4.6",
+    "@nebular/auth": "^2.0.0-rc.3",
+    "@nebular/theme": "^2.0.0-rc.3",
     "@types/jasmine": "^2.6.0",
     "@types/lodash": "^4.14.78",
     "angular2-notifications": "^0.7.8",

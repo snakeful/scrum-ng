@@ -1,8 +1,12 @@
-<div class="main-container">
-  <app-header></app-header>
-  <article class="main container-fluid">
+<nb-layout>
+  <nb-layout-header fixed>
+    <app-header></app-header>
+  </nb-layout-header>
+  <nb-layout-column>
     <router-outlet></router-outlet>
-  </article>
-  <app-footer></app-footer>
-</div>
-<simple-notifications [options]="options"></simple-notifications>
+  </nb-layout-column>
+  <nb-layout-footer fixed>
+    <app-footer></app-footer>
+  </nb-layout-footer>
+  <simple-notifications [options]="options"></simple-notifications>
+</nb-layout>
