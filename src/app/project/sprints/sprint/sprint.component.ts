@@ -77,6 +77,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
             sprintUserStories.forEach((sprintUserStory, index) => {
               this.service.getUserStory(sprintUserStory.userStoryId)
                 .subscribe(userStory => {
+                  userStory.tasks = [];
                   if (index === 0) {
                     this._story = userStory;
                   }

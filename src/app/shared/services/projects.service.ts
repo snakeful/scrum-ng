@@ -52,8 +52,8 @@ export class ProjectsService {
     return new Promise<any>(resolve => {
       const resolved = Promise.all([
         this.http.get(`${this.url}/api/project-status`).map(data => data.json() as ProjectStatus[]).toPromise(),
-        this.http.get(`${this.url}/api/task-status`).map(data => data.json() as TaskStatus[]).toPromise(),
-        this.http.get(`${this.url}/api/user-story-status`).map(data => data.json() as StoryStatus[]).toPromise()]);
+        this.http.get(`${this.url}/api/user-story-status`).map(data => data.json() as StoryStatus[]).toPromise(),
+        this.http.get(`${this.url}/api/task-status`).map(data => data.json() as TaskStatus[]).toPromise()]);
       resolved.then(data => {
         this._projectStatus = data[0];
         this._storyStatus = data[1];

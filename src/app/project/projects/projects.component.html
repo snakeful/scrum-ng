@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="alert alert-secondary text-center">
+  <div class="alert text-center px-0">
     <h3>Projects</h3>
     <p>List of Projects
       <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-project" (click)="selected = null"
@@ -8,7 +8,7 @@
       </button>
     </p>
   </div>
-  <div class="row container-fluid">
+  <div class="row">
     <div *ngFor="let data of board" class="col-md-4 col-xs-4 rounded p-0">
       <h5 class="text-center">{{data.title}}</h5>
       <div droppable [dropScope]="data.dropScope" class="card m-2" (onDrop)="data.onDrop($event.dragData)">

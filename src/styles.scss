@@ -1,3 +1,5 @@
+@import '../node_modules/@nebular/theme/styles/themes/_cosmic';
+@import '../node_modules/@nebular/theme/styles/theming';
 /* You can add global styles to this file, and also import other style files */
 .card-flex {
   display: flex;
@@ -12,6 +14,7 @@
   align-self: baseline;
   margin: 2.5px;
   cursor: pointer;
+  background-color: inherit;
 }
 
 span, h1, h2, h3, h4, h5, h6, label.title {
@@ -30,23 +33,64 @@ input[type=number].spinner-off::-webkit-inner-spin-button {
 }
 
 input[formcontrolname].ng-valid {
-  border-left: 0.25rem solid green;
+  border-left: 0.25rem solid map-get($theme, 'color-success');
 }
 
 input[formcontrolname].ng-invalid {
-  border-left: 0.25rem solid red;
+  border-left: 0.25rem solid map-get($theme, 'color-danger');
 }
 
 textarea[formcontrolname].ng-valid {
-  border-left: 0.25rem solid green;
+  border-left: 0.25rem solid map-get($theme, 'color-success');
 }
 
 textarea[formcontrolname].ng-invalid {
-  border-left: 0.25rem solid red;
+  border-left: 0.25rem solid map-get($theme, 'color-danger');
 }
 
 /* Date Range Picker */
 
 bs-daterangepicker-container {
   z-index: 9999;
+}
+
+.list-group-item {
+  background-color: inherit;
+}
+
+.list-group-item-action {
+  color: map-get($theme, 'color-fg-text');
+  & small {
+    color: map-get($theme, 'color-fg-text');
+  }
+}
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+  color: map-get($theme, 'color-fg-text');
+  background-color: inherit;
+}
+
+.badge-primary {
+  background: map-get($theme, 'color-primary');
+}
+
+.badge-info {
+  background: map-get($theme, 'color-info');
+}
+
+.badge-success {
+  background: map-get($theme, 'color-success');
+}
+
+.badge-warning {
+  background: map-get($theme, 'color-warning');
+}
+
+.item-selected {
+  background: map-get($theme, 'color-bg-active');
+}
+
+nb-layout-column {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }

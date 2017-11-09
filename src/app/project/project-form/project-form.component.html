@@ -20,7 +20,7 @@
   <div class="mt-2">
     <div *ngIf="scrumTeam.length === 0" class="text-center">No Scrum Team Users assigned.</div>
     <div class="project-users">
-      <span *ngFor="let scrumTeamUser of scrumTeam" class="item badge badge-pill badge-dark">
+      <span *ngFor="let scrumTeamUser of scrumTeam" class="item badge badge-pill badge-primary">
         {{scrumTeamUser.user}}
         <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveScrumTeam(projectForm.value, scrumTeamUser)"></i>
       </span>
@@ -35,7 +35,7 @@
   <div class="mt-2">
     <div *ngIf="stakeholders.length === 0" class="text-center">No Stakeholders assigned.</div>
     <div class="project-users">
-      <span *ngFor="let stakeholder of stakeholders" class="item badge badge-pill badge-dark">
+      <span *ngFor="let stakeholder of stakeholders" class="item badge badge-pill badge-info">
         {{stakeholder.user}}
         <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveStakeholder(projectForm.value, stakeholder)"></i>
       </span>

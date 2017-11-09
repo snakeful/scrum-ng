@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="alert alert-secondary text-center">
+  <div class="alert text-center px-0">
     <h3>{{project.name}}</h3>
     <p class="lead text-muted">{{project.desc}}
       <button class="btn btn-sm btn-secondary float-right" [routerLink]="['/projects']"><i class="fa fa-arrow-left"></i></button>
@@ -14,10 +14,6 @@
         <button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
       </span>
       <h3 class="text-center">User Stories</h3>
-      <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
-        <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
-        <app-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
-      </div>
     </div>
     <div class="col-8">
       <span class="float-right">
@@ -27,6 +23,16 @@
         <button #dataSprintModal class="hidden" data-toggle="modal" data-target="#sprintData"></button>
       </span>
       <h3 class="text-center">Sprints</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
+        <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
+        <app-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
+      </div>
+    </div>
+    <div class="col-8">
       <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
       <app-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></app-sprints>
     </div>
