@@ -8,7 +8,7 @@ import { Task } from '../../../shared/classes/projects.class';
 import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-task-form',
+  selector: 'scrum-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss']
 })

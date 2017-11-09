@@ -8,7 +8,7 @@ import { User, UserLogged } from '../../shared/classes/users.class';
 import { UsersService } from '../../shared/services/users.service';
 
 @Component({
-  selector: 'app-user-modal',
+  selector: 'scrum-user-modal',
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.scss']
 })

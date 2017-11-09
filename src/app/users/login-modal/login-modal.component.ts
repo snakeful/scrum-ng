@@ -6,7 +6,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { UsersService } from '../../shared/services/users.service';
 
 @Component({
-  selector: 'app-login-modal',
+  selector: 'scrum-login-modal',
   templateUrl: './login-modal.component.html',
   styleUrls: ['./login-modal.component.scss']
 })

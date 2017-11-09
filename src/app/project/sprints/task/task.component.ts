@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../../shared/classes/projects.class';
 
 @Component({
-  selector: 'app-task',
+  selector: 'scrum-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })

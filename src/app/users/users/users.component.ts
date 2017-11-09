@@ -6,7 +6,7 @@ import { User, UserLogged } from '../../shared/classes/users.class';
 import { UsersService } from '../../shared/services/users.service';
 
 @Component({
-  selector: 'app-users',
+  selector: 'scrum-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })

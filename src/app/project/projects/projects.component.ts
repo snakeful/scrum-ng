@@ -9,7 +9,7 @@ import { Project } from '../../shared/classes/projects.class';
 import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'scrum-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })

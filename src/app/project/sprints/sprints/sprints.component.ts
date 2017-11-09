@@ -8,7 +8,7 @@ import { Project, UserStory, Sprint } from '../../../shared/classes/projects.cla
 import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-sprints',
+  selector: 'scrum-sprints',
   templateUrl: './sprints.component.html',
   styleUrls: ['./sprints.component.scss']
 })

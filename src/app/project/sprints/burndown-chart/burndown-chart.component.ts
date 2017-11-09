@@ -7,7 +7,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-burndown-chart',
+  selector: 'scrum-burndown-chart',
   templateUrl: './burndown-chart.component.html',
   styleUrls: ['./burndown-chart.component.scss']
 })

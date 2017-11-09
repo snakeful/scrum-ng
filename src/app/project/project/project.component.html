@@ -29,12 +29,12 @@
     <div class="col-4">
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
-        <app-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></app-user-stories>
+        <scrum-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></scrum-user-stories>
       </div>
     </div>
     <div class="col-8">
       <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
-      <app-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></app-sprints>
+      <scrum-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></scrum-sprints>
     </div>
   </div>
   <div class="modal" id="userStoryData" role="dialog">
@@ -47,7 +47,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-user-story-form [userStory]="userStory" (onSaveUserStory)="saveUserStory = $event"></app-user-story-form>
+          <scrum-user-story-form [userStory]="userStory" (onSaveUserStory)="saveUserStory = $event"></scrum-user-story-form>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-sprint-form [sprint]="sprint" (onSaveSprint)="saveSprint = $event"></app-sprint-form>
+          <scrum-sprint-form [sprint]="sprint" (onSaveSprint)="saveSprint = $event"></scrum-sprint-form>
         </div>
       </div>
     </div>

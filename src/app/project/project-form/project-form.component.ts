@@ -10,7 +10,7 @@ import { Project } from '../../shared/classes/projects.class';
 import { ProjectsService } from '../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-project-form',
+  selector: 'scrum-project-form',
   templateUrl: './project-form.component.html',
   styleUrls: ['./project-form.component.scss']
 })

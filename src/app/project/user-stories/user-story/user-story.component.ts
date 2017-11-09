@@ -4,7 +4,7 @@ import { UserStory, StoryPriority } from '../../../shared/classes/projects.class
 import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-user-story',
+  selector: 'scrum-user-story',
   templateUrl: './user-story.component.html',
   styleUrls: ['./user-story.component.scss']
 })

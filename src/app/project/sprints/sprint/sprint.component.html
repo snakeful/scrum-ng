@@ -47,15 +47,15 @@
       </span>
       <div class="scrollspy-mini" data-spy="scroll" data-offset="0">
         <div *ngIf="sprint.userStories.length === 0" class="text-center">No user stories assigned.</div>
-        <app-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" [selectCurrentStory]="true"
-          (onSelect)="story = $event"></app-user-stories>
+        <scrum-user-stories [userStories]="sprint.userStories" [selectCurrentStory]="true" [showDescription]="false" [selectCurrentStory]="true"
+          (onSelect)="story = $event"></scrum-user-stories>
       </div>
     </div>
-    <app-sprint-tasks class="col-9" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></app-sprint-tasks>
+    <scrum-sprint-tasks class="col-9" [actualStory]="story" (onLoad)="tasks = $event" (onSelect)="task = $event"></scrum-sprint-tasks>
   </div>
   <ng-template #burndownChart>
     <div class="row chart">
-      <app-burndown-chart class="burndown-chart-center" [sprintId]="sprint.id"></app-burndown-chart>
+      <scrum-burndown-chart class="burndown-chart-center" [sprintId]="sprint.id"></scrum-burndown-chart>
     </div>
   </ng-template>
 </div>
@@ -69,7 +69,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-task-form [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (onSaveTask)="updateTask = $event"></app-task-form>
+        <scrum-task-form [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (onSaveTask)="updateTask = $event"></scrum-task-form>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-user-story-form [userStory]="story" (onSaveUserStory)="updateUserStory = $event"></app-user-story-form>
+        <scrum-user-story-form [userStory]="story" (onSaveUserStory)="updateUserStory = $event"></scrum-user-story-form>
       </div>
     </div>
   </div>

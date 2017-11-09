@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { polyfill } from 'mobile-drag-drop';
 
 @Component({
-  selector: 'app-root',
+  selector: 'scrum-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

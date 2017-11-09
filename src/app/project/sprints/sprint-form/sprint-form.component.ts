@@ -10,7 +10,7 @@ import { Sprint } from '../../../shared/classes/projects.class';
 import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
-  selector: 'app-sprint-form',
+  selector: 'scrum-sprint-form',
   templateUrl: './sprint-form.component.html',
   styleUrls: ['./sprint-form.component.scss']
 })
