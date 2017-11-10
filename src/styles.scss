@@ -1,5 +1,5 @@
-@import '../node_modules/@nebular/theme/styles/themes/_cosmic';
-@import '../node_modules/@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/_cosmic';
+@import '~@nebular/theme/styles/theming';
 /* You can add global styles to this file, and also import other style files */
 .card-flex {
   display: flex;
@@ -15,6 +15,8 @@
   margin: 2.5px;
   cursor: pointer;
   background-color: inherit;
+  border: 0.15rem solid map-get($theme, 'color-bg-active');
+  border-radius: 0.15rem;
 }
 
 span, h1, h2, h3, h4, h5, h6, label.title {
@@ -88,6 +90,10 @@ bs-daterangepicker-container {
 
 .item-selected {
   background: map-get($theme, 'color-bg-active');
+}
+
+.jumbotron {
+  background: inherit;
 }
 
 nb-layout-column {

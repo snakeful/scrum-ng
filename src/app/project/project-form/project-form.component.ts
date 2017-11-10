@@ -49,13 +49,7 @@ export class ProjectFormComponent implements OnInit {
     this._onSaveProject = new EventEmitter<Project>();
   }
 
-  ngOnInit() {
-    this.usersService.getUsers()
-      .subscribe(users => this._users = users,
-      err => this.alert.html(err, 'error', {
-        timeOut: 10000
-      }));
-  }
+  ngOnInit() { }
 
   onChangeUserList(selectedId: number, userIdList: number[], userList: User[]) {
     if (isNil(selectedId)) {
@@ -124,25 +118,32 @@ export class ProjectFormComponent implements OnInit {
     this.stakeholders.length = 0;
     this.selectedScrumTeamId = null;
     this.selectedStakeholderId = null;
-    if (isNil(value)) {
-      this._projectForm.patchValue(new Project());
-    } else {
-      this._projectForm.patchValue(value);
-    }
-    this._projectForm.value.scrumTeam.forEach(id => {
-      this._users.forEach(user => {
-        if (user.id === id) {
-          this.scrumTeam.push(user);
-        }
+    this.usersService.getUsers()
+    .subscribe(users => {
+      this._users = users;
+      if (isNil(value)) {
+        this._projectForm.patchValue(new Project());
+      } else {
+        this._projectForm.patchValue(value);
+      }
+      this._projectForm.value.scrumTeam.forEach(id => {
+        this._users.forEach(user => {
+          if (user.id === id) {
+            this.scrumTeam.push(user);
+          }
+        });
       });
-    });
-    this._projectForm.value.stakeholders.forEach(id => {
-      this._users.forEach(user => {
-        if (user.id === id) {
-          this.stakeholders.push(user);
-        }
+      this._projectForm.value.stakeholders.forEach(id => {
+        this._users.forEach(user => {
+          if (user.id === id) {
+            this.stakeholders.push(user);
+          }
+        });
       });
-    });
+    },
+    err => this.alert.html(err, 'error', {
+      timeOut: 10000
+    }));
   }
 
   get users(): User[] {
