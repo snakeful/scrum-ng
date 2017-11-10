@@ -1,16 +1,28 @@
 <form [formGroup]="projectForm" (ngSubmit)="saveProject(projectForm.value)" novalidate>
-  <label for="name">Name</label>
-  <input type="text" class="form-control" formControlName="name">
-  <label for="desc">Description</label>
-  <input type="text" class="form-control" formControlName="desc">
-  <label for="productOwner">Product Owner</label>
-  <select class="form-control" formControlName="productOwnerId" name="productOwner">
-    <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}} {{productOwner.lastName}}</option>
-  </select>
-  <label for="scrumMaster">Scrum Master</label>
-  <select class="form-control" formControlName="scrumMasterId" name="scrumMaster">
-    <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
-  </select>
+  <div class="row">
+    <div class="col-4">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+    <div class="col-8">
+      <label for="desc">Description</label>
+      <input type="text" class="form-control" formControlName="desc">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <label for="productOwner">Product Owner</label>
+      <select class="form-control" formControlName="productOwnerId" name="productOwner">
+        <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}} {{productOwner.lastName}}</option>
+      </select>
+    </div>
+    <div class="col-6">
+      <label for="scrumMaster">Scrum Master</label>
+      <select class="form-control" formControlName="scrumMasterId" name="scrumMaster">
+        <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
+      </select>
+    </div>
+  </div>
   <label for="scrumTeam">Scrum Team</label>
   <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedScrumTeamId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedScrumTeamId, projectForm.value.scrumTeam, scrumTeam)"
     name="scrumTeam" id="scrumTeam">

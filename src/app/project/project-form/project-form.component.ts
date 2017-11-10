@@ -43,7 +43,8 @@ export class ProjectFormComponent implements OnInit {
         disabled: !this.user.admin
       }, Validators.required],
       scrumTeam: [[]],
-      stakeholders: [[]]
+      stakeholders: [[]],
+      statusId: [0]
     });
     this._onSaveProject = new EventEmitter<Project>();
   }

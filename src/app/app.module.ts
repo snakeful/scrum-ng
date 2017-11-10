@@ -12,6 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
 import { NbThemeModule, NbLayoutModule, NbActionsModule, NbUserModule } from '@nebular/theme';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PasswordValidatorDirective } from './shared/directives/password-validator.directive';
 
@@ -45,6 +46,7 @@ import { StoryStatusPipe } from './shared/pipes/story-status.pipe';
 import { OriginPipe } from './shared/pipes/origin.pipe';
 import { ScrumTeamPipe } from './shared/pipes/scrum-team.pipe';
 import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
+import { ProjectModalComponent } from './project/project-modal/project-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
     OriginPipe,
     ScrumTeamPipe,
     PasswordValidatorDirective,
-    ProjectStatusPipe
+    ProjectStatusPipe,
+    ProjectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
     NbLayoutModule,
     NbActionsModule,
     NbUserModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
@@ -135,6 +139,9 @@ import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
     UsersService,
     LoadDataService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ProjectModalComponent,
+  ]
 })
 export class AppModule { }
