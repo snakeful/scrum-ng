@@ -19,7 +19,7 @@ export class ProjectModalComponent implements OnInit {
   closeModal() {
     this.modal.close();
   }
-  
+
   get user(): UserLogged {
     return this.service.userLogged;
   }

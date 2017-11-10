@@ -11,7 +11,7 @@ function passwordValidator(control: AbstractControl) {
 }
 
 @Directive({
-  selector: '[appPasswordValidator]',
+  selector: '[scrumPasswordValidator]',
   providers: [{
     provide: NG_VALIDATORS,
     multi: true,

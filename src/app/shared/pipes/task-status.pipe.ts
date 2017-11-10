@@ -13,7 +13,7 @@ export class TaskStatusPipe implements PipeTransform {
 
   transform(value: number, field: string): string {
     const taskStatus = this.service.taskStatus;
-    console.log(value)
+    console.log(value);
     return taskStatus[value || 0][field || name];
   }
 

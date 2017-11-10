@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { isNil } from 'lodash';
+
 import { User, UserLogged } from '../shared/classes/users.class';
 import { UsersService } from '../shared/services/users.service';
 
@@ -35,8 +37,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   onMenuItemClick(item) {
-    console.log(item);
-    item.click && this[item.click]();
+    if (isNil(item.click)) {
+      this[item.click]();
+    }
   }
 
   get user(): UserLogged {
@@ -55,6 +58,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }, {
       title: 'Log Out',
       click: 'logout'
-    }]
+    }];
   }
 }
