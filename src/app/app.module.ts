@@ -96,7 +96,7 @@ import { ProjectModalComponent } from './project/project-modal/project-modal.com
       caseSensitive: true
     }),
     NbThemeModule.forRoot({
-      name: 'cosmic'
+      name: 'scrum'
     }),
     NbLayoutModule,
     NbActionsModule,

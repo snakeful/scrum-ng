@@ -1,6 +1,8 @@
-@import '~@nebular/theme/styles/themes/_cosmic';
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
 @import '~@nebular/theme/styles/theming';
-/* You can add global styles to this file, and also import other style files */
+
 .card-flex {
   display: flex;
   flex-direction: row;
@@ -15,7 +17,7 @@
   margin: 2.5px;
   cursor: pointer;
   background-color: inherit;
-  border: 0.15rem solid map-get($theme, 'color-bg-active');
+  border: 0.15rem solid map-get($theme-scrum, 'color-bg-active');
   border-radius: 0.15rem;
 }
 
@@ -35,19 +37,19 @@ input[type=number].spinner-off::-webkit-inner-spin-button {
 }
 
 input[formcontrolname].ng-valid {
-  border-left: 0.25rem solid map-get($theme, 'color-success');
+  border-left: 0.25rem solid map-get($theme-scrum, 'color-success');
 }
 
 input[formcontrolname].ng-invalid {
-  border-left: 0.25rem solid map-get($theme, 'color-danger');
+  border-left: 0.25rem solid map-get($theme-scrum, 'color-danger');
 }
 
 textarea[formcontrolname].ng-valid {
-  border-left: 0.25rem solid map-get($theme, 'color-success');
+  border-left: 0.25rem solid map-get($theme-scrum, 'color-success');
 }
 
 textarea[formcontrolname].ng-invalid {
-  border-left: 0.25rem solid map-get($theme, 'color-danger');
+  border-left: 0.25rem solid map-get($theme-scrum, 'color-danger');
 }
 
 /* Date Range Picker */
@@ -61,35 +63,35 @@ bs-daterangepicker-container {
 }
 
 .list-group-item-action {
-  color: map-get($theme, 'color-fg-text');
+  color: map-get($theme-scrum, 'color-fg-text');
   & small {
-    color: map-get($theme, 'color-fg-text');
+    color: map-get($theme-scrum, 'color-fg-text');
   }
 }
 
 .list-group-item-action:focus, .list-group-item-action:hover {
-  color: map-get($theme, 'color-fg-text');
+  color: map-get($theme-scrum, 'color-fg-text');
   background-color: inherit;
 }
 
 .badge-primary {
-  background: map-get($theme, 'color-primary');
+  background: map-get($theme-scrum, 'color-primary');
 }
 
 .badge-info {
-  background: map-get($theme, 'color-info');
+  background: map-get($theme-scrum, 'color-info');
 }
 
 .badge-success {
-  background: map-get($theme, 'color-success');
+  background: map-get($theme-scrum, 'color-success');
 }
 
 .badge-warning {
-  background: map-get($theme, 'color-warning');
+  background: map-get($theme-scrum, 'color-warning');
 }
 
 .item-selected {
-  background: map-get($theme, 'color-bg-active');
+  background: map-get($theme-scrum, 'color-bg-active');
 }
 
 .jumbotron {
@@ -100,3 +102,13 @@ nb-layout-column {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
+
+@import 'themes';
+
+// framework component styles which will use your new theme
+@import '~@nebular/theme/styles/globals';
+
+// install the framework
+@include nb-install() {
+  @include nb-theme-global();
+};
