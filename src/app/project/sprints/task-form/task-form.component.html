@@ -30,28 +30,28 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4 col-sm-4 text-center">
+    <div class="col-md-5 col-sm-5 text-center">
       <label for="taskPoints">Points</label>
       <div class="input-group">
         <input class="form-control text-center spinner-off" type="number" formControlName="points" min="1" name="taskPoints" readonly>
-        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary" (click)="addPoint()">
+        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary px-3" (click)="addPoint()">
           <i class="fa fa-plus"></i>
         </button>
-        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary" (click)="substractPoint()">
+        <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary px-3" (click)="substractPoint()">
           <i class="fa fa-minus"></i>
         </button>
       </div>
     </div>
-    <div *ngIf="!newTask" class="col-md-4 col-xs-4 text-center">
+    <div *ngIf="!newTask" class="col-md-5 col-xs-5 text-center">
       <label for="executedPoints">Executed</label>
       <div class="input-group">
         <input class="form-control text-center spinner-off" type="number" formControlName="executedPoints" max="{{taskForm.value.points}}"
           min="0" name="executedPoints" readonly>
-        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary"
+        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary px-3"
           (click)="addExecutedPoint()">
           <i class="fa fa-plus"></i>
         </button>
-        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary"
+        <button *ngIf="taskForm.value.statusId !== 0 && taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-secondary px-3"
           (click)="substractExecutedPoint()">
           <i class="fa fa-minus"></i>
         </button>
