@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{user.admin || user.scrumMaster ? (sprint?.id ? 'Edit ' : 'New ') : ''}}Sprint {{sprint?.name}}</h5>
+  <button type="button" class="close" (click)="closeModal()" title="Close">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
+<div class="modal-body mb-5">
+  <scrum-sprint-form [sprint]="sprint" (onSaveSprint)="saveSprint = $event"></scrum-sprint-form>
+</div>
