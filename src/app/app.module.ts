@@ -47,39 +47,70 @@ import { OriginPipe } from './shared/pipes/origin.pipe';
 import { ScrumTeamPipe } from './shared/pipes/scrum-team.pipe';
 import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
 import { ProjectModalComponent } from './project/project-modal/project-modal.component';
+import { SprintModalComponent } from './project/sprints/sprint-modal/sprint-modal.component';
+import { UserStoryModalComponent } from './project/user-stories/user-story-modal/user-story-modal.component';
+
+const pageComponents = [
+  HeaderComponent,
+  FooterComponent,
+  HomeComponent
+];
+
+const userComponents = [
+  LoginModalComponent,
+  UsersComponent
+];
+
+const projectComponents = [
+  ProjectsComponent,
+  ProjectComponent,
+  ProjectFormComponent,
+  ProjectModalComponent
+];
+
+const sprintComponents = [
+  SprintsComponent,
+  SprintComponent,
+  SprintFormComponent,
+  SprintTasksComponent,
+  SprintModalComponent,
+  BurndownChartComponent
+];
+
+const userStoriesComponents = [
+  UserStoryComponent,
+  UserStoriesComponent,
+  UserModalComponent,
+  UserStoryFormComponent,
+  UserStoryModalComponent,
+  TaskFormComponent,
+  TaskComponent
+];
+
+const projectPipes = [
+  LimitToPipe,
+  TaskStatusPipe,
+  StoryPriorityPipe,
+  StoryStatusPipe,
+  OriginPipe,
+  ScrumTeamPipe,
+  ProjectStatusPipe
+];
+
+const projectDirectives = [
+  PasswordValidatorDirective
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    ProjectsComponent,
-    ProjectComponent,
-    UsersComponent,
-    LoginModalComponent,
-    SprintsComponent,
-    SprintComponent,
-    UserStoryComponent,
-    UserStoriesComponent,
-    SprintTasksComponent,
-    TaskComponent,
-    UserModalComponent,
-    ProjectFormComponent,
-    UserStoryFormComponent,
-    SprintFormComponent,
-    BurndownChartComponent,
-    TaskFormComponent,
-    PasswordValidatorDirective,
-    LimitToPipe,
-    TaskStatusPipe,
-    StoryPriorityPipe,
-    StoryStatusPipe,
-    OriginPipe,
-    ScrumTeamPipe,
-    PasswordValidatorDirective,
-    ProjectStatusPipe,
-    ProjectModalComponent
+    ...pageComponents,
+    ...userComponents,
+    ...projectComponents,
+    ...sprintComponents,
+    ...userStoriesComponents,
+    ...projectPipes,
+    ...projectDirectives
   ],
   imports: [
     BrowserModule,
@@ -142,6 +173,8 @@ import { ProjectModalComponent } from './project/project-modal/project-modal.com
   bootstrap: [AppComponent],
   entryComponents: [
     ProjectModalComponent,
+    SprintModalComponent,
+    UserStoryModalComponent
   ]
 })
 export class AppModule { }

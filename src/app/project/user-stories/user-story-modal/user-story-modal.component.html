@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{user.admin || user.scrumMaster ? (userStory?.id ? 'Edit ' : 'New ') : ''}}User Story: {{userStory?.name}}</h5>
+  <button type="button" class="close" data-dismiss="modal" title="Close">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
+<div class="modal-body mb-5">
+  <scrum-user-story-form [userStory]="userStory" (onSaveUserStory)="saveUserStory = $event"></scrum-user-story-form>
+</div>
