@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 import { isNil } from 'lodash';
 
@@ -8,13 +9,15 @@ import { User, UserLogged } from '../../shared/classes/users.class';
 import { UsersService } from '../../shared/services/users.service';
 import { Project, UserStory, Sprint } from '../../shared/classes/projects.class';
 import { ProjectsService } from '../../shared/services/projects.service';
+import { SprintModalComponent } from '../sprints/sprint-modal/sprint-modal.component';
+import { UserStoryModalComponent } from '../user-stories/user-story-modal/user-story-modal.component';
 
 @Component({
   selector: 'scrum-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit, AfterViewInit {
+export class ProjectComponent implements OnInit {
   private _project: Project;
   private _userStory: UserStory;
   private _sprint: Sprint;
@@ -23,10 +26,9 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   private _sprints: Sprint[];
   private _showUserStoryModal: boolean;
   private _showSprintModal: boolean;
-  @ViewChild('dataUserStoryModal') private userStoryModal: ElementRef;
-  @ViewChild('dataSprintModal') private sprintModal: ElementRef;
-  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute,
-    private alert: NotificationsService) {
+  private modal: NgbModalRef;
+  constructor(private service: ProjectsService, private usersService: UsersService, private modalService: NgbModal,
+    private route: ActivatedRoute, private alert: NotificationsService) {
     this._project = new Project();
     this._userStory = null;
     this._userStories = [];
@@ -94,9 +96,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
-  }
-
   assignStoryToUserStories(sprint: Sprint, story: UserStory) {
     this.service.unassignUserStoryFromSprint(sprint, story)
       .subscribe(unassigned => {
@@ -127,9 +126,17 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set userStory(value: UserStory) {
+    this.modal = this.modalService.open(UserStoryModalComponent, {
+      container: 'nb-layout'
+    });
     this._userStory = value || new UserStory();
     this._userStory.projectId = this._project.id;
-    this.userStoryModal.nativeElement.click();
+    this.modal.componentInstance.userStory = this._userStory;
+    this.modal.result.then((data: UserStory) => {
+      if (data) {
+        this.updateUserStory = data;
+      }
+    });
   }
 
   get sprint(): Sprint {
@@ -137,9 +144,17 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   set sprint(value: Sprint) {
+    this.modal = this.modalService.open(SprintModalComponent, {
+      container: 'nb-layout'
+    });
     this._sprint = value || new Sprint();
     this._sprint.projectId = this._project.id;
-    this.sprintModal.nativeElement.click();
+    this.modal.componentInstance.sprint = this._sprint;
+    this.modal.result.then((data: Sprint) => {
+      if (data) {
+        this.updateSprint = data;
+      }
+    });
   }
 
   get userStories(): UserStory[] {
@@ -158,16 +173,15 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     return this._showSprintModal;
   }
 
-  set saveUserStory(value: UserStory) {
+  set updateUserStory(value: UserStory) {
     if (isNil(this._userStory.id)) {
       this._userStories.push(value);
     } else {
       this._userStories[this._userStories.indexOf(this._userStory)] = value;
     }
-    this.userStoryModal.nativeElement.click();
   }
 
-  set saveSprint(value: Sprint) {
+  set updateSprint(value: Sprint) {
     if (isNil(this._sprint.id)) {
       value.userStories = [];
       this.assignDataFunctionsArray(value.userStories);
@@ -176,7 +190,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       value.userStories = this._sprint.userStories;
       this._sprints[this._sprints.indexOf(this._sprint)] = value;
     }
-    this.sprintModal.nativeElement.click();
   }
 
   get user(): UserLogged {

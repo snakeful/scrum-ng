@@ -39,6 +39,8 @@ export class SprintFormComponent implements OnInit {
   saveSprint(sprint: Sprint) {
     this.service.saveSprint(sprint)
       .subscribe(obj => {
+        obj.start = new Date(obj.start);
+        obj.end = new Date(obj.end);
         this._onSaveSprint.emit(obj);
         this.alert.success(`Sprint ${sprint.name}`, 'Sprint saved.', {
           timeOut: 2000,
@@ -57,9 +59,7 @@ export class SprintFormComponent implements OnInit {
     this._sprintForm.patchValue(value || new Sprint());
     if (value) {
       this._sprintForm.patchValue({
-        'start': value.start.toISOString().substring(0, 10)
-      });
-      this._sprintForm.patchValue({
+        'start': value.start.toISOString().substring(0, 10),
         'end': value.end.toISOString().substring(0, 10)
       });
     }

@@ -11,7 +11,6 @@
         <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary" (click)="userStory = null">
           <i class="fa fa-plus"></i>
         </button>
-        <button #dataUserStoryModal class="hidden" data-toggle="modal" data-target="#userStoryData"></button>
       </span>
       <h3 class="text-center">User Stories</h3>
     </div>
@@ -20,7 +19,6 @@
         <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary" (click)="sprint = null">
           <i class="fa fa-plus"></i>
         </button>
-        <button #dataSprintModal class="hidden" data-toggle="modal" data-target="#sprintData"></button>
       </span>
       <h3 class="text-center">Sprints</h3>
     </div>
@@ -35,36 +33,6 @@
     <div class="col-8">
       <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
       <scrum-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></scrum-sprints>
-    </div>
-  </div>
-  <div class="modal" id="userStoryData" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{user.admin || user.scrumMaster ? (userStory?.id ? 'Edit ' : 'New ') : ''}}User Story: {{userStory?.name}}</h5>
-          <button type="button" class="close" data-dismiss="modal" title="Close">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <scrum-user-story-form [userStory]="userStory" (onSaveUserStory)="saveUserStory = $event"></scrum-user-story-form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal" id="sprintData" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{user.admin || user.scrumMaster ? (sprint?.id ? 'Edit ' : 'New ') : ''}}Sprint {{sprint?.name}}</h5>
-          <button type="button" class="close" data-dismiss="modal" title="Close">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <scrum-sprint-form [sprint]="sprint" (onSaveSprint)="saveSprint = $event"></scrum-sprint-form>
-        </div>
-      </div>
     </div>
   </div>
 </div>

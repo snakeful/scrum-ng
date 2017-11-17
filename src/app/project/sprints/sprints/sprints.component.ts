@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 
 import { UserLogged } from '../../../shared/classes/users.class';
@@ -20,7 +21,8 @@ export class SprintsComponent implements OnInit {
   private _sprints: Sprint[];
   private _onSelect: EventEmitter<Sprint>;
   private _project: Project;
-  constructor(private service: ProjectsService, private usersService: UsersService, private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private modalService: NgbModal,
+    private alert: NotificationsService) {
     this._selectCurrentSprint = false;
     this._canDelete = false;
     this._sprints = [];
