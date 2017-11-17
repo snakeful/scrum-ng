@@ -22,7 +22,6 @@ export class ProjectsService {
   private _storyPriorities: StoryPriority[];
   private loaded: boolean;
   constructor(private http: Http) {
-    console.log('Creating Projects Service');
     this.loaded = false;
     this._storyPriorities = [
       new StoryPriority(0, 'Highest', 'badge-danger'),

@@ -16,7 +16,7 @@ export class UserStoryModalComponent implements OnInit {
     ngOnInit() {
     }
 
-    closeModal() {
+    close() {
       this.modal.close();
     }
 

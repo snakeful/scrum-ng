@@ -16,7 +16,7 @@ export class ProjectModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeModal() {
+  close() {
     this.modal.close();
   }
 

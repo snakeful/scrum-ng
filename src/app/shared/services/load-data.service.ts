@@ -10,7 +10,6 @@ export class LoadDataService implements Resolve<any> {
   constructor(private service: ProjectsService) { }
 
   resolve (): Promise<any> {
-    console.log('Resolve from Resolve');
     return this.service.loadData();
   }
 

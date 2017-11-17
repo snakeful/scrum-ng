@@ -58,7 +58,8 @@ const pageComponents = [
 
 const userComponents = [
   LoginModalComponent,
-  UsersComponent
+  UsersComponent,
+  UserModalComponent
 ];
 
 const projectComponents = [
@@ -80,7 +81,6 @@ const sprintComponents = [
 const userStoriesComponents = [
   UserStoryComponent,
   UserStoriesComponent,
-  UserModalComponent,
   UserStoryFormComponent,
   UserStoryModalComponent,
   TaskFormComponent,
@@ -172,6 +172,8 @@ const projectDirectives = [
   ],
   bootstrap: [AppComponent],
   entryComponents: [
+    LoginModalComponent,
+    UserModalComponent,
     ProjectModalComponent,
     SprintModalComponent,
     UserStoryModalComponent

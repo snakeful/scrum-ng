@@ -1,21 +1,19 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'ng2-webstorage';
 
 import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'scrum-login-modal',
-  templateUrl: './login-modal.component.html',
-  styleUrls: ['./login-modal.component.scss']
+  templateUrl: './login-modal.component.html'
 })
-export class LoginModalComponent implements OnInit, AfterViewInit {
+export class LoginModalComponent implements OnInit {
   private _loginForm: FormGroup;
-  private _onLogin: EventEmitter<boolean>;
-  @ViewChild('dataLoginClose') private btnClose: ElementRef;
-  constructor(private service: UsersService, private builder: FormBuilder, private storage: LocalStorageService) {
-    this._onLogin = new EventEmitter<boolean>();
+  constructor(private service: UsersService, private builder: FormBuilder, private storage: LocalStorageService,
+    private modal: NgbActiveModal) {
   }
 
   ngOnInit() {
@@ -25,30 +23,23 @@ export class LoginModalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-  }
-
   login() {
     if (this.rememberMe) {
       this.storage.store('user-login', this._loginForm.value.user);
     }
     this.service.login(this._loginForm.value);
-    this._onLogin.emit(true);
-    this.btnClose.nativeElement.click();
+    this.modal.close(true);
   }
 
   close() {
     this._loginForm.reset({
       user: this.rememberMe ? this.storage.retrieve('user-login') : ''
     });
+    this.modal.close();
   }
 
   get loginForm(): FormGroup {
     return this._loginForm;
-  }
-
- @Output() get onLogin(): EventEmitter<boolean> {
-    return this._onLogin;
   }
 
   get rememberMe(): boolean {

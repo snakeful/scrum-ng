@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 
 import { cloneDeep, isNil } from 'lodash';
@@ -9,50 +10,48 @@ import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'scrum-user-modal',
-  templateUrl: './user-modal.component.html',
-  styleUrls: ['./user-modal.component.scss']
+  templateUrl: './user-modal.component.html'
 })
-export class UserModalComponent implements OnInit, AfterViewInit {
+export class UserModalComponent implements OnInit {
   private _userForm: FormGroup;
   private _userLogged: UserLogged;
   private _user: User = new User();
-  @Output() private saveUser: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('dataUserClose') btnClose: ElementRef;
-  constructor(private service: UsersService, private formBuilder: FormBuilder, private alert: NotificationsService) {
+  constructor(private service: UsersService, private formBuilder: FormBuilder, private modal: NgbActiveModal,
+    private alert: NotificationsService) {
     this._userForm = formBuilder.group({
       id: [null],
       user: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }, Validators.required],
       firstName: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }, Validators.required],
       lastName: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }, Validators.required],
       email: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }, Validators.required],
       password: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }],
       confirm: [{
         value: '',
-        disabled: !this.user.admin
+        disabled: !this.userLogged.admin
       }]
     });
-    this._userLogged = service.userLogged;
   }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
+  close() {
+    this.modal.close();
   }
 
   doSaveUser(user: User) {
@@ -62,18 +61,15 @@ export class UserModalComponent implements OnInit, AfterViewInit {
         return;
       }
     }
-    const newUser: boolean = isNil(user.id);
+    const newUser = isNil(user.id);
     (newUser ? this.service.createUser(user) : this.service.saveUser(user.id, user))
       .subscribe(updatedUser => {
         updatedUser.password = null;
         updatedUser.confirm = null;
+        this.modal.close(updatedUser);
         this.alert.success(`User ${updatedUser.user}`, `User ${newUser ? 'created' : 'saved'}.`, {
           timeOut: 2000,
           showProgressBar: false
-        });
-        this.saveUser.emit({
-          user: updatedUser,
-          btnClose: this.btnClose
         });
       });
   }
@@ -83,7 +79,7 @@ export class UserModalComponent implements OnInit, AfterViewInit {
   }
 
   get userLogged(): UserLogged {
-    return this._userLogged;
+    return this.service.userLogged;
   }
 
   get user(): User {

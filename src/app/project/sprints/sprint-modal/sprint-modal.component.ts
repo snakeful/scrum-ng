@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserLogged } from '../../../shared/classes/users.class';
@@ -16,7 +17,7 @@ export class SprintModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeModal() {
+  close() {
     this.modal.close();
   }
 

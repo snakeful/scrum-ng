@@ -6,15 +6,7 @@
     </p>
   </div>
   <div class="row">
-    <div class="col-4">
-      <span class="float-right">
-        <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary" (click)="userStory = null">
-          <i class="fa fa-plus"></i>
-        </button>
-      </span>
-      <h3 class="text-center">User Stories</h3>
-    </div>
-    <div class="col-8">
+    <div class="col-7">
       <span class="float-right">
         <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary" (click)="sprint = null">
           <i class="fa fa-plus"></i>
@@ -22,17 +14,25 @@
       </span>
       <h3 class="text-center">Sprints</h3>
     </div>
+    <div class="col-5">
+      <span class="float-right">
+        <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary" (click)="userStory = null">
+          <i class="fa fa-plus"></i>
+        </button>
+      </span>
+      <h3 class="text-center">User Stories</h3>
+    </div>
   </div>
   <div class="row">
-    <div class="col-4">
+    <div class="col-7">
+      <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
+      <scrum-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></scrum-sprints>
+    </div>
+    <div class="col-5">
       <div class="scrollspy" data-spy="scroll" data-offset="0" droppable [dropScope]="'sprintStory'" (onDrop)="onSprintStoryToUserStoriesDrop($event)">
         <div *ngIf="userStories.length === 0" class="text-center">No user stories to assign</div>
         <scrum-user-stories [userStories]="userStories" [canDelete]="true" (onSelect)="userStory = $event"></scrum-user-stories>
       </div>
-    </div>
-    <div class="col-8">
-      <div *ngIf="sprints.length === 0" class="text-center">No sprints to assign user stories</div>
-      <scrum-sprints [project]="project" [sprints]="sprints" [canDelete]="true" (onSelect)="sprint = $event"></scrum-sprints>
     </div>
   </div>
 </div>

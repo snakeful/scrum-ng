@@ -17,7 +17,6 @@ export class UsersService {
   private url = 'http://localhost:4201';
   private users: User[];
   constructor(private http: Http, private storage: LocalStorageService) {
-    console.log('Creating Users Service');
     this._user = this.storage.retrieve('user') as UserLogged;
   }
 

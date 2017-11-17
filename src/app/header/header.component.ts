@@ -1,33 +1,34 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { isNil } from 'lodash';
 
 import { User, UserLogged } from '../shared/classes/users.class';
 import { UsersService } from '../shared/services/users.service';
+import { LoginModalComponent } from '../users/login-modal/login-modal.component';
 
 @Component({
   selector: 'scrum-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
   private _userLogged: UserLogged;
-  @ViewChild('btnLogin') private btnLogin: ElementRef;
-  constructor(private service: UsersService, private router: Router) {
+  private modal: NgbModalRef;
+  constructor(private service: UsersService, private modalService: NgbModal, private router: Router) {
     this._userLogged = service.userLogged;
   }
 
   ngOnInit() { }
 
-  ngAfterViewInit() { }
-
   login() {
-    this._userLogged = this.service.userLogged;
-  }
-
-  showLogin() {
-    this.btnLogin.nativeElement.click();
+    this.modal = this.modalService.open(LoginModalComponent, {
+      container: 'nb-layout'
+    });
+    this.modal.result.then((data: boolean) => {
+      this._userLogged = this.service.userLogged;
+    });
   }
 
   logout() {
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   onMenuItemClick(item) {
-    if (isNil(item.click)) {
+    if (!isNil(item.click)) {
       this[item.click]();
     }
   }
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (!this.user) {
       return [{
         title: 'Login',
-        click: 'showLogin'
+        click: 'login'
       }];
     }
     return [{

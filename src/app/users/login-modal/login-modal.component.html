@@ -1,24 +1,20 @@
-<div class="modal-dialog" role="document">
-  <form class="modal-content" [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="modal-header">
-      <h5 class="modal-title">Login</h5>
-      <button #dataLoginClose type="button" class="close" data-dismiss="modal" title="Close" (click)="close()">
-        <i class="fa fa-times"></i>
-      </button>
+<div class="modal-header">
+  <h5 class="modal-title">Login</h5>
+  <button type="button" class="close" (click)="close()" title="Close">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
+<div class="modal-body mb-5">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+    <div class="form-group">
+      <label for="user" class="title">User</label>
+      <input type="text" class="form-control text-center" formControlName="user" placeholder="Username or email">
     </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="user" class="title">User</label>
-        <input type="text" class="form-control text-center" formControlName="user" placeholder="Username or email">
-      </div>
-      <div class="form-group">
-        <label for="password" class="title">Password</label>
-        <input type="password" class="form-control text-center" formControlName="password" placeholder="Password">
-      </div>
-      <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberMe" name="rememberMe" id="rememberMe"> Remember Me
+    <div class="form-group">
+      <label for="password" class="title">Password</label>
+      <input type="password" class="form-control text-center" formControlName="password" placeholder="Password">
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary float-right" title="Login" [disabled]="!loginForm.valid"><i class="fa fa-check"></i></button>
-    </div>
+    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberMe" name="rememberMe" id="rememberMe"> Remember Me
+    <button type="submit" class="btn btn-primary float-right" title="Login" [disabled]="!loginForm.valid"><i class="fa fa-check"></i></button>
   </form>
 </div>

@@ -11,11 +11,7 @@
     Users
   </nb-action>
   <nb-action>
-    <button #btnLogin data-toggle="modal" data-target="#loginData" hidden></button>
     <nb-user name="{{user?.user}}" [menu]="userMenu" (menuClick)="onMenuItemClick($event)">
     </nb-user>
   </nb-action>
 </nb-actions>
-<div *ngIf="!user" class="modal" id="loginData" role="dialog">
-  <scrum-login-modal (onLogin)="login()"></scrum-login-modal>
-</div>

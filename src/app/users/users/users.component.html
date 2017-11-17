@@ -2,13 +2,13 @@
   <div class="alert text-center">
     <h3>Users</h3>
     <p>List of users (Product Owner, Scrum Master and Team, Stakeholders and Administrators)
-      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#data-user" (click)="selected = null">
+      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" (click)="selected = null">
         <i class="fa fa-plus"></i>
       </button>
     </p>
   </div>
   <div class="card-flex">
-    <div *ngFor="let user of users" class="card" data-toggle="modal" data-target="#data-user" (click)="selected = user">
+    <div *ngFor="let user of users" class="card" (click)="selected = user">
       <div class="card-body">
         <h5 class="card-title text-center">{{user.user}}
           <span *ngIf="user.admin" class="badge badge-success float-right">Admin</span>
@@ -17,8 +17,5 @@
         <p class="card-text">{{user.email}}</p>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="data-user" role="dialog">
-    <scrum-user-modal [user]="selected" (saveUser)="selected ? update = $event : add = $event"></scrum-user-modal>
   </div>
 </div>
