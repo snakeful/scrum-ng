@@ -1,11 +1,17 @@
 <form [formGroup]="sprintForm" (ngSubmit)="saveSprint(sprintForm.value)" novalidate>
   <label class="title" for="name">Name</label>
   <input type="text" class="form-control" formControlName="name" name="name">
-  <label class="title" for="start">Sprint Start</label>
-  <input type="date" class="form-control" formControlName="start" name="start">
-  <label class="title" for="end">Sprint End</label>
-  <input type="date" class="form-control" formControlName="end" name="end">
-  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right mt-3" type="submit" [disabled]="!sprintForm.valid">
+  <div class="row my-1">
+    <div class="col-6">
+      <label class="title" for="start">Sprint Start</label>
+      <input type="date" class="form-control" formControlName="start" name="start">
+    </div>
+    <div class="col-6">
+      <label class="title" for="end">Sprint End</label>
+      <input type="date" class="form-control" formControlName="end" name="end">
+    </div>
+  </div>
+  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right my-3" type="submit" [disabled]="!sprintForm.valid">
     <i class="fa fa-check"></i>
   </button>
 </form>

@@ -1,56 +1,69 @@
 <form [formGroup]="projectForm" (ngSubmit)="saveProject(projectForm.value)" novalidate>
-  <div class="row">
+  <div class="row my-1">
     <div class="col-4">
-      <label for="name">Name</label>
+      <label class="title" for="name">Name</label>
       <input type="text" class="form-control" formControlName="name">
     </div>
     <div class="col-8">
-      <label for="desc">Description</label>
+      <label class="title" for="desc">Description</label>
       <input type="text" class="form-control" formControlName="desc">
     </div>
   </div>
-  <div class="row">
+  <div class="row my-1">
     <div class="col-6">
-      <label for="productOwner">Product Owner</label>
+      <label class="title" for="productOwner">Product Owner</label>
       <select class="form-control" formControlName="productOwnerId" name="productOwner">
         <option *ngFor="let productOwner of users" [ngValue]="productOwner.id">{{productOwner.user}} {{productOwner.firstName}} {{productOwner.lastName}}</option>
       </select>
     </div>
     <div class="col-6">
-      <label for="scrumMaster">Scrum Master</label>
+      <label class="title" for="scrumMaster">Scrum Master</label>
       <select class="form-control" formControlName="scrumMasterId" name="scrumMaster">
         <option *ngFor="let scrumMaster of users" [ngValue]="scrumMaster.id">{{scrumMaster.user}} {{scrumMaster.firstName}} {{scrumMaster.lastName}}</option>
       </select>
     </div>
   </div>
-  <label for="scrumTeam">Scrum Team</label>
-  <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedScrumTeamId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedScrumTeamId, projectForm.value.scrumTeam, scrumTeam)"
-    name="scrumTeam" id="scrumTeam">
-    <option [value]="null">Select to add a scrum team</option>
-    <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
-  </select>
-  <div class="mt-2">
-    <div *ngIf="scrumTeam.length === 0" class="text-center">No Scrum Team Users assigned.</div>
-    <div class="project-users">
-      <span *ngFor="let scrumTeamUser of scrumTeam" class="item badge badge-pill badge-primary">
-        {{scrumTeamUser.user}}
-        <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveScrumTeam(projectForm.value, scrumTeamUser)"></i>
-      </span>
+  <div class="row my-1">
+    <div class="col-12">
+      <label class="title" for="scrumTeam">Scrum Team</label>
+      <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedScrumTeamId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedScrumTeamId, projectForm.value.scrumTeam, scrumTeam)"
+        name="scrumTeam" id="scrumTeam">
+        <option [value]="null">Select to add a scrum team</option>
+        <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+      </select>
     </div>
   </div>
-  <label for="stakeholders">Stakeholders</label>
-  <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedStakeholderId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedStakeholderId, projectForm.value.stakeholders, stakeholders)"
-    name="stakeholders" id="stakeholders">
-    <option [value]="null">Select to add a stakeholder</option>
-    <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
-  </select>
-  <div class="mt-2">
-    <div *ngIf="stakeholders.length === 0" class="text-center">No Stakeholders assigned.</div>
-    <div class="project-users">
-      <span *ngFor="let stakeholder of stakeholders" class="item badge badge-pill badge-info">
-        {{stakeholder.user}}
-        <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveStakeholder(projectForm.value, stakeholder)"></i>
-      </span>
+  <div class="row my-3">
+    <div class="col-12">
+      <div *ngIf="scrumTeam.length === 0" class="text-center">No Scrum Team Users assigned.</div>
+      <div class="project-users">
+        <span *ngFor="let scrumTeamUser of scrumTeam" class="item badge badge-pill badge-primary">
+          {{scrumTeamUser.user}}
+          <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveScrumTeam(projectForm.value, scrumTeamUser)"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-1">
+    <div class="col-12">
+      <label class="title" for="stakeholders">Stakeholders</label>
+      <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedStakeholderId" [ngModelOptions]="{standalone: true}"
+        (ngModelChange)="onChangeUserList(selectedStakeholderId, projectForm.value.stakeholders, stakeholders)" name="stakeholders"
+        id="stakeholders">
+        <option [value]="null">Select to add a stakeholder</option>
+        <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12">
+      <div *ngIf="stakeholders.length === 0" class="text-center">No Stakeholders assigned.</div>
+      <div class="project-users">
+        <span *ngFor="let stakeholder of stakeholders" class="item badge badge-pill badge-info">
+          {{stakeholder.user}}
+          <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveStakeholder(projectForm.value, stakeholder)"></i>
+        </span>
+      </div>
     </div>
   </div>
   <button *ngIf="user.admin" class="btn btn-primary float-right" type="submit" title="Save Project" [disabled]="!projectForm.valid">

@@ -1,5 +1,5 @@
 <form [formGroup]="taskForm" (ngSubmit)="saveTask(taskForm.value)" novalidate>
-  <div class="row">
+  <div class="row my-1">
     <div class="col-md-12 col-xs-12">
       <span class="title float-right">Status:
         <span class="badge badge-pill" [ngClass]="taskForm.value.statusId | taskStatus : 'desc'">{{taskForm.value.statusId | taskStatus : 'name'}} </span>
@@ -9,13 +9,13 @@
       </span>
     </div>
   </div>
-  <div class="row">
+  <div class="row my-1">
     <div class="col-md-7 col-sm-7">
-      <label for="taskName">Name</label>
+      <label class="title" for="taskName">Name</label>
       <input type="text" class="form-control" formControlName="name" name="taskName" [readonly]="taskForm.value.statusId === 3">
     </div>
     <div class="col-md-5 col-sm-5">
-      <label for="taskUser">User</label>
+      <label class="title" for="taskUser">User</label>
       <input *ngIf="taskForm.value.statusId === 3; else selectTaskUser" type="text" class="form-control" name="taskUser" value="{{taskForm.value.userId | scrumTeam: 'fullName'}}"
         readonly>
       <ng-template #selectTaskUser>
@@ -24,14 +24,16 @@
         </select>
       </ng-template>
     </div>
+  </div>
+  <div class="row my-1">
     <div class="col-md-12 col-xs-12">
-      <label for="taskDesc">Description</label>
+      <label class="title" for="taskDesc">Description</label>
       <textarea class="form-control" name="taskDesc" cols="30" formControlName="desc" [readonly]="taskForm.value.statusId === 3"></textarea>
     </div>
   </div>
-  <div class="row">
+  <div class="row my-1">
     <div class="col-md-5 col-sm-5 text-center">
-      <label for="taskPoints">Points</label>
+      <label class="title" for="taskPoints">Points</label>
       <div class="input-group">
         <input class="form-control text-center spinner-off" type="number" formControlName="points" min="1" name="taskPoints" readonly>
         <button *ngIf="taskForm.value.statusId !== 3" type="button" class="btn btn-sm btn-primary px-3" (click)="addPoint()">
@@ -43,7 +45,7 @@
       </div>
     </div>
     <div *ngIf="!newTask" class="col-md-5 col-xs-5 text-center">
-      <label for="executedPoints">Executed</label>
+      <label class="title" for="executedPoints">Executed</label>
       <div class="input-group">
         <input class="form-control text-center spinner-off" type="number" formControlName="executedPoints" max="{{taskForm.value.points}}"
           min="0" name="executedPoints" readonly>
@@ -58,11 +60,11 @@
       </div>
     </div>
     <div class="col-md-2 col-xs-2 text-center">
-      <label for="successTask">Success</label>
+      <label class="title" for="successTask">Success</label>
       <input type="checkbox" class="checkbox" formControlName="successTask" name="successTask">
     </div>
   </div>
-  <button *ngIf="taskForm.value.statusId !== 3" type="submit" class="btn btn-sm btn-primary float-right mt3" [disabled]="!taskForm.valid">
+  <button *ngIf="taskForm.value.statusId !== 3" type="submit" class="btn btn-sm btn-primary float-right mt-3" [disabled]="!taskForm.valid">
     <i class="fa fa-check"></i>
   </button>
 </form>

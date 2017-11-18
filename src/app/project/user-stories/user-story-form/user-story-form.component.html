@@ -1,11 +1,13 @@
 <form [formGroup]="userStoryForm" (ngSubmit)="saveUserStory(userStoryForm.value)">
-  <label for="name">Name</label>
+  <label class="title mt-1" for="name">Name</label>
   <input type="text" class="form-control" formControlName="name">
-  <label for="desc">Description</label>
+  <label class="title mt-1" for="desc">Description</label>
   <textarea type="text" class="form-control" formControlName="desc"></textarea>
-  <label for="priority">Priority</label>
+  <label class="title mt-1" for="priority">Priority</label>
   <select class="form-control" formControlName="priorityId" name="priority" id="priority">
     <option *ngFor="let priority of priorities" [ngValue]="priority.id">{{priority.name}}</option>
   </select>
-  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right mt-3" type="submit"><i class="fa fa-check"></i></button>
+  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right mt-3" type="submit">
+    <i class="fa fa-check"></i>
+  </button>
 </form>

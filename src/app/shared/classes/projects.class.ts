@@ -33,7 +33,7 @@ export class UserStory extends ScrumObject {
   constructor(id?: number, name?: string, desc?: string, projectId?: number, priorityId?: number, statusId?: number) {
     super(id, name, desc);
     this.projectId = projectId;
-    this.priorityId = priorityId;
+    this.priorityId = priorityId || 0;
     this.statusId = statusId || 0;
   }
 }

@@ -6,20 +6,34 @@
 </div>
 <div class="modal-body mb-5">
   <form [formGroup]="userForm" (ngSubmit)="doSaveUser(userForm.value)" novalidate>
-    <label for="user">User</label>
-    <input type="text" class="form-control" name="user" formControlName="user">
-    <label for="first" class="mt-1">First Name</label>
-    <input type="text" class="form-control" name="first" formControlName="firstName">
-    <label for="last" class="mt-1">Last Name</label>
-    <input type="text" class="form-control" name="last" formControlName="lastName">
-    <label for="email" class="mt-1">Email</label>
+    <label class="title" for="user">User</label>
+    <input type="text" class="form-control text-center" name="user" formControlName="user">
+    <div class="row">
+      <div class="col-6">
+        <label class="title mt-1" for="first">First Name</label>
+        <input type="text" class="form-control" name="first" formControlName="firstName">
+      </div>
+      <div class="col-6">
+        <label class="title mt-1" for="last">Last Name</label>
+        <input type="text" class="form-control" name="last" formControlName="lastName">
+      </div>
+    </div>
+    <label class="title mt-1" for="email">Email</label>
     <input type="email" class="form-control" name="email" formControlName="email">
     <div *ngIf="userLogged?.admin">
-      <label for="password" class="mt-1">Password</label>
-      <input type="password" class="form-control" name="password" formControlName="password">
-      <label for="confirm" class="mt-1">Confirm Password</label>
-      <input type="password" class="form-control" name="confirm" formControlName="confirm">
+      <div class="row">
+        <div class="col-6">
+          <label class="title mt-1" for="password">Password</label>
+          <input type="password" class="form-control" name="password" formControlName="password">
+        </div>
+        <div class="col-6">
+          <label class="title mt-1" for="confirm">Confirm Password</label>
+          <input type="password" class="form-control" name="confirm" formControlName="confirm">
+        </div>
+      </div>
     </div>
-    <button *ngIf="userLogged?.admin" class="btn btn-primary float-right mt-3" title="Save User" [disabled]="!userForm.valid"><i class="fa fa-check"></i></button>
+    <button *ngIf="userLogged?.admin" class="btn btn-primary float-right my-3" title="Save User" [disabled]="!userForm.valid">
+      <i class="fa fa-check"></i>
+    </button>
   </form>
 </div>
