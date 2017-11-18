@@ -33,7 +33,6 @@
     "ng-drag-drop": "^4.0.0",
     "ng2-charts": "^1.6.0",
     "ng2-webstorage": "^2.0.0",
-    "node-sass": "^4.6.1",
     "popper.js": "^1.12.9",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.18"
@@ -56,6 +55,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "node-sass": "^4.7.1",
     "protractor": "^5.2.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
