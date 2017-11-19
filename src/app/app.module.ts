@@ -49,6 +49,7 @@ import { ProjectStatusPipe } from './shared/pipes/project-status.pipe';
 import { ProjectModalComponent } from './project/project-modal/project-modal.component';
 import { SprintModalComponent } from './project/sprints/sprint-modal/sprint-modal.component';
 import { UserStoryModalComponent } from './project/user-stories/user-story-modal/user-story-modal.component';
+import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
 
 const pageComponents = [
   HeaderComponent,
@@ -84,6 +85,7 @@ const userStoriesComponents = [
   UserStoryFormComponent,
   UserStoryModalComponent,
   TaskFormComponent,
+  TaskModalComponent,
   TaskComponent
 ];
 
@@ -110,7 +112,8 @@ const projectDirectives = [
     ...sprintComponents,
     ...userStoriesComponents,
     ...projectPipes,
-    ...projectDirectives
+    ...projectDirectives,
+    TaskModalComponent
   ],
   imports: [
     BrowserModule,
@@ -176,7 +179,8 @@ const projectDirectives = [
     UserModalComponent,
     ProjectModalComponent,
     SprintModalComponent,
-    UserStoryModalComponent
+    UserStoryModalComponent,
+    TaskModalComponent
   ]
 })
 export class AppModule { }
