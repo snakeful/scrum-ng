@@ -2,18 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { User } from '../classes/users.class';
 import { UsersService } from '../../shared/services/users.service';
-import { ProjectsService } from '../../shared/services/projects.service';
 
 @Pipe({
   name: 'scrumTeam'
 })
 export class ScrumTeamPipe implements PipeTransform {
   private users: User[] = [];
-  constructor(private projectsService: ProjectsService, private usersService: UsersService) {
-    this.usersService.getUsers()
-      .subscribe(users => this.users = users);
+  constructor(private usersService: UsersService) {
   }
   transform(value: number, field: string): string {
+    this.users = this.usersService.users;
     for (let index = 0; index < this.users.length; index++) {
       const user = this.users[index];
       if (user.id === value) {

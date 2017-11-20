@@ -1,9 +1,9 @@
 <div class="modal-header">
   <h5 class="modal-title">{{(task?.id) ? 'Edit' : 'New'}} Task {{task?.name}}</h5>
-  <button type="button" class="close" data-dismiss="modal" title="Close">
+  <button type="button" class="close" title="Close" (click)="close()">
     <i class="fa fa-times"></i>
   </button>
 </div>
 <div class="modal-body">
-  <scrum-task-form [task]="task" [scrumTeam]="sprint.project ? sprint.project.scrumTeam : []" (onSaveTask)="updateTask = $event"></scrum-task-form>
+  <scrum-task-form [task]="task" [scrumTeam]="scrumTeam || []" (onSaveTask)="updateTask = $event"></scrum-task-form>
 </div>

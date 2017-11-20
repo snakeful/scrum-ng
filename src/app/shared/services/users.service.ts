@@ -15,7 +15,8 @@ import { ScrumUser, User, UserLogged } from '../classes/users.class';
 export class UsersService {
   private _user: UserLogged;
   private url = 'http://localhost:4201';
-  private users: User[];
+  private _users: User[];
+  private loaded: boolean;
   constructor(private http: Http, private storage: LocalStorageService) {
     this._user = this.storage.retrieve('user') as UserLogged;
   }
@@ -25,9 +26,27 @@ export class UsersService {
     return Observable.throw(msg);
   }
 
+  loadData() {
+    if (this.loaded) {
+      return Promise.resolve();
+    }
+    return new Promise<any>(resolve => {
+      const resolved = Promise.all([
+        this.http.get(`${this.url}/api/users`).map(data => data.json() as User[]).toPromise()]);
+      resolved.then(data => {
+        this._users = data[0];
+        this.loaded = true;
+        resolve();
+      });
+    });
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get(`${this.url}/api/users`)
-    .map(res => res.json() as User[])
+    .map(res => {
+      this._users = res.json() as User[];
+      return this._users;
+    })
     .catch(this.handleError);
   }
 
@@ -64,5 +83,9 @@ export class UsersService {
 
   get userLogged(): UserLogged {
     return this._user;
+  }
+
+  get users(): User[] {
+    return this._users;
   }
 }

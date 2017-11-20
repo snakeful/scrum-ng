@@ -165,11 +165,11 @@ export class ProjectFormComponent implements OnInit {
   set selectedStakeholderId(value: number) {
     this._selectedStakeholderId = value;
   }
-  
+
     @Output() get onSaveProject(): EventEmitter<Project> {
       return this._onSaveProject;
     }
-  
+
   get user(): UserLogged {
     return this.usersService.userLogged;
   }

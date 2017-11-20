@@ -21,13 +21,13 @@
   <span *ngIf="task.statusId === 1 || task.statusId === 2">
     <span>
       <button class="btn btn-sm btn-secondary float-right" [disabled]="task.executedPoints === 0" (click)="substractExecutedPoints(task)"
-        data-toggle="tooltip" title="Substract Executed Point">
+        title="Substract Executed Point">
         <i class="fa fa-minus"></i>
       </button>
     </span>
     <span>
       <button class="btn btn-sm btn-primary float-right" [disabled]="task.executedPoints === (task.points - 1)" (click)="addExecutedPoints(task)"
-        data-toggle="tooltip" title="Add Executed Point">
+        title="Add Executed Point">
         <i class="fa fa-plus"></i>
       </button>
     </span>

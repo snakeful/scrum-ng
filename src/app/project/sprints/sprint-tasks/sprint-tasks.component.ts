@@ -18,7 +18,7 @@ export class SprintTasksComponent implements OnInit {
   private _done;
   private _tasks;
   private _selectedTask: Task;
-  private userStory: UserStory;
+  private _userStory: UserStory;
   private _onLoad: EventEmitter<any>;
   private _onSelect: EventEmitter<Task>;
   constructor(private service: ProjectsService, private alert: NotificationsService) {
@@ -167,12 +167,12 @@ export class SprintTasksComponent implements OnInit {
     this._selectedTask = value;
   }
 
-  get actualStory(): UserStory {
-    return this.userStory;
+  get userStory(): UserStory {
+    return this._userStory;
   }
 
-  @Input() set actualStory(value: UserStory) {
-    this.userStory = value;
+  @Input() set userStory(value: UserStory) {
+    this._userStory = value;
   }
 
   @Output() get onLoad(): EventEmitter<any> {

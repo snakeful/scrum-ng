@@ -1,12 +1,15 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 
 import { UserLogged } from '../../../shared/classes/users.class';
 import { UsersService } from '../../../shared/services/users.service';
 import { UserStory, Sprint, Task } from '../../../shared/classes/projects.class';
 import { ProjectsService } from '../../../shared/services/projects.service';
+import { UserStoryModalComponent } from "../../user-stories/user-story-modal/user-story-modal.component";
+import { TaskModalComponent } from "../../sprints/task-modal/task-modal.component";
 
 @Component({
   selector: 'scrum-sprint',
@@ -23,10 +26,11 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private _task: Task;
   private _newTask: boolean;
   private _toggle: boolean;
+  private modal: NgbModalRef;
   @ViewChild('taskModal') private taskModal: ElementRef;
   @ViewChild('userStoryModal') private userStoryModal: ElementRef;
-  constructor(private service: ProjectsService, private usersService: UsersService, private route: ActivatedRoute,
-    private alert: NotificationsService) {
+  constructor(private service: ProjectsService, private usersService: UsersService, private modalService: NgbModal, 
+    private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._task = new Task();
     this._story = new UserStory();
@@ -62,7 +66,22 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   private createNewTask() {
-    this.task = new Task(undefined, null, null, this._story.id, 1, 0, 0, false);
+    this._task = new Task(undefined, null, null, this._story.id, 1, 0, 0, false);
+    return this._task;
+  }
+
+  private showTask(task: Task) {
+    this.modal = this.modalService.open(TaskModalComponent, {
+      container: 'nb-layout'
+    });
+    this._task = task;
+    this.modal.componentInstance.task = task;
+    this.modal.componentInstance.scrumTeam = this.sprint.project.scrumTeam;
+    this.modal.result.then((data: Task) => {
+      if (data) {
+        this.updateTask = data;
+      }
+    }).catch(err => { });
   }
 
   ngOnInit() {
@@ -103,13 +122,20 @@ export class SprintComponent implements OnInit, AfterViewInit {
   }
 
   editUserStory(userStory: UserStory) {
+    this.modal = this.modalService.open(UserStoryModalComponent, {
+      container: 'nb-layout'
+    });
     this._story = userStory;
-    this.userStoryModal.nativeElement.click();
+    this.modal.componentInstance.userStory = this._story;
+    this.modal.result.then((data: UserStory) => {
+      if (data) {
+        this.updateUserStory = data;
+      }
+    });
   }
 
   newTask() {
-    this.createNewTask();
-    this.taskModal.nativeElement.click();
+    this.task = this.createNewTask();
   }
 
   doCreateTask(task: Task) {
@@ -184,7 +210,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
 
   set task(value: Task) {
     this._newTask = value.id === undefined;
-    this._task = value;
+    this.showTask(value);
   }
 
   get toggle(): boolean {
