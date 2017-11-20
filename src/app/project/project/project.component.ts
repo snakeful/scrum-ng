@@ -57,6 +57,7 @@ export class ProjectComponent implements OnInit {
     this.service.getProject(projectId)
       .subscribe(project => {
         this._project = project;
+        this.usersService.setUserPrivileges(project);
         this.service.getUserStories(projectId)
           .subscribe(userStories => {
             this._userStoriesLoad = userStories;

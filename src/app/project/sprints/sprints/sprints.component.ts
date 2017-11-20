@@ -114,6 +114,7 @@ export class SprintsComponent implements OnInit {
   }
 
   @Input() set project(value: Project) {
+    this.usersService.setUserPrivileges(value);
     this._project = value;
   }
 

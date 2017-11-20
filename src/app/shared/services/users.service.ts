@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { isNil } from 'lodash';
 import { LocalStorageService } from 'ng2-webstorage';
 
 import { Observable } from 'rxjs/Observable';
@@ -10,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { ScrumUser, User, UserLogged } from '../classes/users.class';
+import { Project } from '../classes/projects.class';
 
 @Injectable()
 export class UsersService {
@@ -43,32 +45,32 @@ export class UsersService {
 
   getUsers(): Observable<User[]> {
     return this.http.get(`${this.url}/api/users`)
-    .map(res => {
-      this._users = res.json() as User[];
-      return this._users;
-    })
-    .catch(this.handleError);
+      .map(res => {
+        this._users = res.json() as User[];
+        return this._users;
+      })
+      .catch(this.handleError);
   }
 
   getUser(id: number): Observable<User> {
     return this.http.get(`${this.url}/api/users/${id}`)
-    .map(res => res.json() as User)
-    .catch(this.handleError);
+      .map(res => res.json() as User)
+      .catch(this.handleError);
   }
 
   createUser(user: User): Observable<User> {
     return this.http.post(`${this.url}/api/users`, user)
-    .map(res => {
-      user.id = res.json();
-      return user;
-    })
-    .catch(this.handleError);
+      .map(res => {
+        user.id = res.json();
+        return user;
+      })
+      .catch(this.handleError);
   }
 
   saveUser(id: number, user: User): Observable<User> {
     return this.http.put(`${this.url}/api/users/${id}`, user)
-    .map(res => user)
-    .catch(this.handleError);
+      .map(res => user)
+      .catch(this.handleError);
   }
 
   login(user: UserLogged) {
@@ -79,6 +81,21 @@ export class UsersService {
   logout() {
     this._user = null;
     this.storage.clear('user');
+  }
+
+  setUserPrivileges(project?: Project) {
+    this._users.forEach(user => {
+      if (this._user.user === user.user) {
+        this._user.admin = user.admin;
+        if (!isNil(project)) {
+          this._user.productOwner = project.productOwnerId === user.id;
+          this._user.scrumMaster = project.scrumMasterId === user.id;
+          this._user.scrumUser = project.scrumTeam.indexOf(user.id) >= 0;
+          this._user.stakeholder = project.stakeholders.indexOf(user.id) >= 0;
+        }
+      }
+    });
+    console.log(this._user);
   }
 
   get userLogged(): UserLogged {

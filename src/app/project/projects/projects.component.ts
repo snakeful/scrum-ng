@@ -64,6 +64,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.setUserPrivileges();
     this.service.projects.subscribe(projects => {
       this._projects = projects;
       this._projects.forEach(project => {
