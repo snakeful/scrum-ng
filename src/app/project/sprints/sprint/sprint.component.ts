@@ -8,8 +8,8 @@ import { UserLogged } from '../../../shared/classes/users.class';
 import { UsersService } from '../../../shared/services/users.service';
 import { UserStory, Sprint, Task } from '../../../shared/classes/projects.class';
 import { ProjectsService } from '../../../shared/services/projects.service';
-import { UserStoryModalComponent } from "../../user-stories/user-story-modal/user-story-modal.component";
-import { TaskModalComponent } from "../../sprints/task-modal/task-modal.component";
+import { UserStoryModalComponent } from '../../user-stories/user-story-modal/user-story-modal.component';
+import { TaskModalComponent } from '../../sprints/task-modal/task-modal.component';
 
 @Component({
   selector: 'scrum-sprint',
@@ -29,7 +29,7 @@ export class SprintComponent implements OnInit, AfterViewInit {
   private modal: NgbModalRef;
   @ViewChild('taskModal') private taskModal: ElementRef;
   @ViewChild('userStoryModal') private userStoryModal: ElementRef;
-  constructor(private service: ProjectsService, private usersService: UsersService, private modalService: NgbModal, 
+  constructor(private service: ProjectsService, private usersService: UsersService, private modalService: NgbModal,
     private route: ActivatedRoute, private alert: NotificationsService) {
     this._sprint = new Sprint();
     this._task = new Task();
