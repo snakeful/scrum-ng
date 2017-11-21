@@ -7,6 +7,7 @@ import { isNil } from 'lodash';
 import { User, UserLogged } from '../shared/classes/users.class';
 import { UsersService } from '../shared/services/users.service';
 import { LoginModalComponent } from '../users/login-modal/login-modal.component';
+import { ServerModalComponent } from '../server-modal/server-modal.component';
 
 @Component({
   selector: 'scrum-header',
@@ -28,7 +29,16 @@ export class HeaderComponent implements OnInit {
     });
     this.modal.result.then((data: boolean) => {
       this._userLogged = this.service.userLogged;
+      this.service.setUserPrivileges();
     });
+  }
+
+  showServer() {
+    this.modal = this.modalService.open(ServerModalComponent, {
+      size: 'sm',
+      container: 'nb-layout'
+    });
+    this.modal.result.then(() => {}).catch(() => {});
   }
 
   logout() {
@@ -50,11 +60,17 @@ export class HeaderComponent implements OnInit {
   get userMenu(): any[] {
     if (!this.user) {
       return [{
+        title: 'Server',
+        click: 'showServer'
+      }, {
         title: 'Login',
         click: 'login'
       }];
     }
     return [{
+      title: 'Server',
+      click: 'showServer'
+    }, {
       title: 'Profile'
     }, {
       title: 'Log Out',

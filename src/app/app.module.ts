@@ -50,11 +50,15 @@ import { ProjectModalComponent } from './project/project-modal/project-modal.com
 import { SprintModalComponent } from './project/sprints/sprint-modal/sprint-modal.component';
 import { UserStoryModalComponent } from './project/user-stories/user-story-modal/user-story-modal.component';
 import { TaskModalComponent } from './project/sprints/task-modal/task-modal.component';
+import { ServerModalComponent } from './server-modal/server-modal.component';
+import { AuthGuard } from './users/guard/auth.guard';
+import { AuthAdminGuard } from './users/guard/auth-admin.guard';
 
 const pageComponents = [
   HeaderComponent,
   FooterComponent,
-  HomeComponent
+  HomeComponent,
+  ServerModalComponent
 ];
 
 const userComponents = [
@@ -103,6 +107,40 @@ const projectDirectives = [
   PasswordValidatorDirective
 ];
 
+const scrumRoutes: Routes = [{
+  path: '',
+  component: HomeComponent
+}, {
+  path: 'projects',
+  component: ProjectsComponent,
+  canActivate: [AuthGuard],
+  resolve: {
+    loaded: LoadDataService
+  }
+}, {
+  path: 'project/:id',
+  component: ProjectComponent,
+  canActivate: [AuthGuard],
+  resolve: {
+    loaded: LoadDataService
+  }
+}, {
+  path: 'project/sprint/:id',
+  component: SprintComponent,
+  canActivate: [AuthGuard],
+  resolve: {
+    loaded: LoadDataService
+  }
+}, {
+  path: 'users',
+  canActivate: [AuthAdminGuard],
+  component: UsersComponent
+}, {
+  path: '**',
+  pathMatch: 'full',
+  redirectTo: ''
+}];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,8 +150,7 @@ const projectDirectives = [
     ...sprintComponents,
     ...userStoriesComponents,
     ...projectPipes,
-    ...projectDirectives,
-    TaskModalComponent
+    ...projectDirectives
   ],
   imports: [
     BrowserModule,
@@ -136,39 +173,13 @@ const projectDirectives = [
     NbActionsModule,
     NbUserModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot([{
-      path: '',
-      component: HomeComponent
-    }, {
-      path: 'projects',
-      component: ProjectsComponent,
-      resolve: {
-        loaded: LoadDataService
-      }
-    }, {
-      path: 'project/:id',
-      component: ProjectComponent,
-      resolve: {
-        loaded: LoadDataService
-      }
-    }, {
-      path: 'project/sprint/:id',
-      component: SprintComponent,
-      resolve: {
-        loaded: LoadDataService
-      }
-    }, {
-      path: 'users',
-      component: UsersComponent
-    }, {
-      path: '**',
-      pathMatch: 'full',
-      redirectTo: ''
-    }], {
+    RouterModule.forRoot(scrumRoutes, {
       useHash: true
     })
   ],
   providers: [
+    AuthAdminGuard,
+    AuthGuard,
     ProjectsService,
     UsersService,
     LoadDataService
@@ -180,7 +191,8 @@ const projectDirectives = [
     ProjectModalComponent,
     SprintModalComponent,
     UserStoryModalComponent,
-    TaskModalComponent
+    TaskModalComponent,
+    ServerModalComponent
   ]
 })
 export class AppModule { }
