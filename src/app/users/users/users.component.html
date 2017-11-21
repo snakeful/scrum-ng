@@ -2,7 +2,7 @@
   <div class="alert text-center">
     <h3>Users</h3>
     <p>List of users (Product Owner, Scrum Master and Team, Stakeholders and Administrators)
-      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" (click)="selected = null">
+      <button *ngIf="user?.admin" class="btn btn-tn btn-primary float-right" (click)="selected = null">
         <i class="fa fa-plus"></i>
       </button>
     </p>
@@ -11,7 +11,7 @@
     <div *ngFor="let user of users" class="card" (click)="selected = user">
       <div class="card-body">
         <h5 class="card-title text-center">{{user.user}}
-          <span *ngIf="user.admin" class="badge badge-success float-right">Admin</span>
+          <span *ngIf="user?.admin" class="badge badge-success float-right">Admin</span>
         </h5>
         <p class="card-text">{{user.firstName + ' ' + user.lastName | limitTo: 25}}</p>
         <p class="card-text">{{user.email}}</p>

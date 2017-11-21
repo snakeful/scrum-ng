@@ -2,7 +2,7 @@
   <div class="alert text-center px-0">
     <h3>Projects</h3>
     <p>List of Projects
-      <button *ngIf="user.admin" class="btn btn-sm btn-primary float-right" (click)="selected = null"
+      <button *ngIf="user?.admin" class="btn btn-tn btn-primary float-right" (click)="selected = null"
         title="New Project">
         <i class="fa fa-plus"></i>
       </button>
@@ -13,7 +13,7 @@
       <h5 class="text-center">{{data.title}}</h5>
       <div droppable [dropScope]="data.dropScope" class="card m-2" (onDrop)="data.onDrop($event.dragData)">
         <h6 *ngIf="data.projects.length === 0" class="title text-center">No projects .</h6>
-        <span draggable [dragHandle]="'.drag-handle'" [dragScope]="data.scope" *ngFor="let project of data.projects" class="card-body rounded {{data.color}} m-3" [dragData]="project" (click)="selected = project" title="Click to {{user.admin ? 'edit' : 'show'}} project: {{project.name}}"><i class="drag-handle fa fa-bars float-right" [ngClass]="{'drag-handle' : user.admin}" title="{{user.admin ? 'Click here to drag project' : ''}}"></i><i class="fa fa-arrow-right float-right pr-2" [routerLink]="['/project/', project.id]" title="Go to project {{project.name}}"></i> {{project.name | limitTo: 25}} <span></span> </span>
+        <span draggable [dragHandle]="'.drag-handle'" [dragScope]="data.scope" *ngFor="let project of data.projects" class="card-body rounded {{data.color}} m-3" [dragData]="project" (click)="selected = project" title="Click to {{user?.admin ? 'edit' : 'show'}} project: {{project.name}}"><i class="drag-handle fa fa-bars float-right" [ngClass]="{'drag-handle' : user?.admin}" title="{{user?.admin ? 'Click here to drag project' : ''}}"></i><i class="fa fa-arrow-right float-right pr-2" [routerLink]="['/project/', project.id]" title="Go to project {{project.name}}"></i> {{project.name | limitTo: 25}} <span></span> </span>
       </div>
     </div>
   </div>

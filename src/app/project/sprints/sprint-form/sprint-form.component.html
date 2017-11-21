@@ -11,7 +11,7 @@
       <input type="date" class="form-control" formControlName="end" name="end">
     </div>
   </div>
-  <button *ngIf="user.admin || user.scrumMaster" class="btn btn-sm btn-primary float-right my-3" type="submit" [disabled]="!sprintForm.valid">
+  <button *ngIf="user?.admin || user.scrumMaster" class="btn btn-tn btn-primary float-right my-3" type="submit" [disabled]="!sprintForm.valid">
     <i class="fa fa-check"></i>
   </button>
 </form>

@@ -26,7 +26,7 @@
   <div class="row my-1">
     <div class="col-12">
       <label class="title" for="scrumTeam">Scrum Team</label>
-      <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedScrumTeamId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedScrumTeamId, projectForm.value.scrumTeam, scrumTeam)"
+      <select *ngIf="user?.admin" class="form-control" [(ngModel)]="selectedScrumTeamId" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeUserList(selectedScrumTeamId, projectForm.value.scrumTeam, scrumTeam)"
         name="scrumTeam" id="scrumTeam">
         <option [value]="null">Select to add a scrum team</option>
         <option *ngFor="let user of users" [ngValue]="user.id">{{user.user}} {{user.firstName}} {{user.lastName}}</option>
@@ -39,7 +39,7 @@
       <div class="project-users">
         <span *ngFor="let scrumTeamUser of scrumTeam" class="item badge badge-pill badge-primary">
           {{scrumTeamUser.user}}
-          <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveScrumTeam(projectForm.value, scrumTeamUser)"></i>
+          <i *ngIf="user?.admin" class="fa fa-times" (click)="doRemoveScrumTeam(projectForm.value, scrumTeamUser)"></i>
         </span>
       </div>
     </div>
@@ -47,7 +47,7 @@
   <div class="row my-1">
     <div class="col-12">
       <label class="title" for="stakeholders">Stakeholders</label>
-      <select *ngIf="user.admin" class="form-control" [(ngModel)]="selectedStakeholderId" [ngModelOptions]="{standalone: true}"
+      <select *ngIf="user?.admin" class="form-control" [(ngModel)]="selectedStakeholderId" [ngModelOptions]="{standalone: true}"
         (ngModelChange)="onChangeUserList(selectedStakeholderId, projectForm.value.stakeholders, stakeholders)" name="stakeholders"
         id="stakeholders">
         <option [value]="null">Select to add a stakeholder</option>
@@ -61,12 +61,12 @@
       <div class="project-users">
         <span *ngFor="let stakeholder of stakeholders" class="item badge badge-pill badge-info">
           {{stakeholder.user}}
-          <i *ngIf="user.admin" class="fa fa-times" (click)="doRemoveStakeholder(projectForm.value, stakeholder)"></i>
+          <i *ngIf="user?.admin" class="fa fa-times" (click)="doRemoveStakeholder(projectForm.value, stakeholder)"></i>
         </span>
       </div>
     </div>
   </div>
-  <button *ngIf="user.admin" class="btn btn-primary float-right" type="submit" title="Save Project" [disabled]="!projectForm.valid">
+  <button *ngIf="user?.admin" class="btn btn-tn btn-primary float-right" type="submit" title="Save Project" [disabled]="!projectForm.valid">
     <i class="fa fa-check"></i>
   </button>
 </form>

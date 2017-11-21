@@ -20,13 +20,13 @@
   <span class="title">Created</span> {{task.date | date: 'dd/MM/yyyy hh:mm:ss'}}
   <span *ngIf="task.statusId === 1 || task.statusId === 2">
     <span>
-      <button class="btn btn-sm btn-secondary float-right" [disabled]="task.executedPoints === 0" (click)="substractExecutedPoints(task)"
+      <button class="btn btn-tn btn-secondary float-right" [disabled]="task.executedPoints === 0" (click)="substractExecutedPoints(task)"
         title="Substract Executed Point">
         <i class="fa fa-minus"></i>
       </button>
     </span>
     <span>
-      <button class="btn btn-sm btn-primary float-right" [disabled]="task.executedPoints === (task.points - 1)" (click)="addExecutedPoints(task)"
+      <button class="btn btn-tn btn-primary float-right" [disabled]="task.executedPoints === (task.points - 1)" (click)="addExecutedPoints(task)"
         title="Add Executed Point">
         <i class="fa fa-plus"></i>
       </button>

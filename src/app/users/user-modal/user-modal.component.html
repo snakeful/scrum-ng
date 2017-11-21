@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h5 class="modal-title">{{(user.id) ? 'Edit' : 'New'}} User {{userForm.value.user}}</h5>
-  <button type="button" class="close" data-dismiss="modal" (click)="close()" title="Close">
+  <button type="button" class="close" (click)="close()" title="Close">
     <i class="fa fa-times"></i>
   </button>
 </div>
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <button *ngIf="userLogged?.admin" class="btn btn-primary float-right my-3" title="Save User" [disabled]="!userForm.valid">
+    <button *ngIf="userLogged?.admin" class="btn btn-tn btn-primary float-right my-3" title="Save User" [disabled]="!userForm.valid">
       <i class="fa fa-check"></i>
     </button>
   </form>

@@ -3,10 +3,10 @@
     <div class="ml-auto text-center">
       <h5 class="mb-1">{{sprint.name}}</h5>
       <p>From {{sprint.start | date: 'yyyy/MM/dd'}} to {{sprint.end | date: 'yyyy/MM/dd'}}
-        <button class="btn btn-sm btn-secondary float-right" (click)="toggleDataChart()" title="Show {{!toggle ? 'burndown chart' : 'scrum board'}}">
+        <button class="btn btn-tn btn-secondary float-right" (click)="toggleDataChart()" title="Show {{!toggle ? 'burndown chart' : 'scrum board'}}">
           <i class="fa" [ngClass]="{'fa-line-chart': !toggle, 'fa-gear': toggle}"></i>
         </button>
-        <button class="btn btn-sm btn-secondary float-right mr-1" [routerLink]="['/project', sprint.project?.id]" title="Go to project {{sprint.project?.name}}"><i class="fa fa-arrow-left"></i></button>
+        <button class="btn btn-tn btn-secondary float-right mr-1" [routerLink]="['/project', sprint.project?.id]" title="Go to project {{sprint.project?.name}}"><i class="fa fa-arrow-left"></i></button>
       </p>
     </div>
     <div class="ml-auto">
@@ -21,7 +21,7 @@
         <div class="card">
           <div class="card-header">
             <span>
-              <button class="btn btn-sm btn-primary float-right" title="New Task" (click)="newTask()">
+              <button class="btn btn-tn btn-primary float-right" title="New Task" (click)="newTask()">
                 <i class="fa fa-plus"></i>
               </button>
             </span>
