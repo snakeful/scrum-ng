@@ -36,13 +36,13 @@ export class UserLogged {
   user: string;
   firstName: string;
   lastName: string;
-  admin: boolean = false;
+  admin = false;
   token: string;
   expiration: Date;
-  productOwner: boolean = false;
-  scrumMaster: boolean = false;
-  scrumUser: boolean = false;
-  stakeholder: boolean = false;
+  productOwner = false;
+  scrumMaster = false;
+  scrumUser = false;
+  stakeholder = false;
 }
 
 export class Role extends ScrumObject {

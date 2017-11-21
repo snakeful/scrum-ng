@@ -16,11 +16,12 @@ import { Project } from '../classes/projects.class';
 @Injectable()
 export class UsersService {
   private _user: UserLogged;
-  private url = 'http://localhost:4201';
+  private url: string;
   private _users: User[];
   private loaded: boolean;
   constructor(private http: Http, private storage: LocalStorageService) {
     this._user = this.storage.retrieve('user') as UserLogged;
+    this.url = this.storage.retrieve('server');
   }
 
   private handleError(err: Response) {
@@ -28,17 +29,18 @@ export class UsersService {
     return Observable.throw(msg);
   }
 
-  loadData() {
+  loadData(): Promise<boolean> {
     if (this.loaded) {
-      return Promise.resolve();
+      return Promise.resolve(true);
     }
-    return new Promise<any>(resolve => {
+    return new Promise<boolean>(resolve => {
       const resolved = Promise.all([
         this.http.get(`${this.url}/api/users`).map(data => data.json() as User[]).toPromise()]);
       resolved.then(data => {
         this._users = data[0];
+        this.setUserPrivileges();
         this.loaded = true;
-        resolve();
+        resolve(this.loaded);
       });
     });
   }
@@ -84,18 +86,19 @@ export class UsersService {
   }
 
   setUserPrivileges(project?: Project) {
-    this._users.forEach(user => {
-      if (this._user.user === user.user) {
-        this._user.admin = user.admin;
-        if (!isNil(project)) {
-          this._user.productOwner = project.productOwnerId === user.id;
-          this._user.scrumMaster = project.scrumMasterId === user.id;
-          this._user.scrumUser = project.scrumTeam.indexOf(user.id) >= 0;
-          this._user.stakeholder = project.stakeholders.indexOf(user.id) >= 0;
+    if (!isNil(this._users) && !isNil(this._user)) {
+      this._users.forEach(user => {
+        if (this._user.user === user.user) {
+          this._user.admin = user.admin;
+          if (!isNil(project)) {
+            this._user.productOwner = project.productOwnerId === user.id;
+            this._user.scrumMaster = project.scrumMasterId === user.id;
+            this._user.scrumUser = project.scrumTeam.indexOf(user.id) >= 0;
+            this._user.stakeholder = project.stakeholders.indexOf(user.id) >= 0;
+          }
         }
-      }
-    });
-    console.log(this._user);
+      });
+    }
   }
 
   get userLogged(): UserLogged {
@@ -104,5 +107,25 @@ export class UsersService {
 
   get users(): User[] {
     return this._users;
+  }
+
+  get userLoggedIsAdmin(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if (this.loaded) {
+        this.setUserPrivileges();
+        resolve(!isNil(this._user) && this._user.admin);
+      } else {
+        this.loadData().then((data: boolean) => {
+          this.setUserPrivileges();
+          resolve(!isNil(this._user) && this._user.admin);
+        }).catch(reject);
+      }
+    });
+  }
+
+  get userIsLogged(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      resolve(!isNil(this._user));
+    });
   }
 }

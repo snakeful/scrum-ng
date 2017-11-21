@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { LocalStorageService } from 'ng2-webstorage';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,14 +15,15 @@ import {
 
 @Injectable()
 export class ProjectsService {
-  private url = 'http://localhost:4201';
+  private url: string;
   private _projects: Project[];
   private _projectStatus: ProjectStatus[];
   private _storyStatus: StoryStatus[];
   private _taskStatus: TaskStatus[];
   private _storyPriorities: StoryPriority[];
   private loaded: boolean;
-  constructor(private http: Http) {
+  constructor(private http: Http, private storage: LocalStorageService) {
+    this.url = this.storage.retrieve('server');
     this.loaded = false;
     this._storyPriorities = [
       new StoryPriority(0, 'Highest', 'badge-danger'),
@@ -44,11 +46,11 @@ export class ProjectsService {
     return Observable.throw(msg);
   }
 
-  loadData(): Promise<any> {
+  loadData(): Promise<boolean> {
     if (this.loaded) {
-      return Promise.resolve();
+      return Promise.resolve(true);
     }
-    return new Promise<any>(resolve => {
+    return new Promise<boolean>(resolve => {
       const resolved = Promise.all([
         this.http.get(`${this.url}/api/project-status`).map(data => data.json() as ProjectStatus[]).toPromise(),
         this.http.get(`${this.url}/api/user-story-status`).map(data => data.json() as StoryStatus[]).toPromise(),
