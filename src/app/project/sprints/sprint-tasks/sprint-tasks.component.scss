@@ -1,23 +1,41 @@
-.row.container-fluid {
+@import '../../../../themes';
+
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/theme/styles/theming';
+
+.flex-container {
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: flex-start;
-  border-width: 1.5px;
-  height: 100%;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: space-around;
+  -ms-flex-line-pack: distribute;
+  align-content: space-around;
+  -webkit-align-items: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
 }
 
 .item {
   flex: 0 1 auto;
   align-self: baseline;
-  margin: 2.5px;
+  margin: 0.15rem;
   cursor: pointer;
-  box-shadow: 0.25rem 0.25rem 0.25rem black;
+  width: 31%;
+  box-shadow: 0.25rem 0.25rem 0.25rem map-get($theme-scrum, 'color-bg');
+  border-radius: .30rem;
 }
 
 .container-sprint-tasks {
-  border: thin groove gray;
+  border: medium groove map-get($theme-scrum, 'color-bg-active');
   background-size: 100%;
   height: 100%;
   border-radius: .25rem;
@@ -34,5 +52,5 @@ span.title {
 }
 
 span.item:hover {
-  box-shadow: 0.1rem 0.1rem 0.1rem black;
+  box-shadow: 0.1rem 0.1rem 0.1rem map-get($theme-scrum, 'color-fg');
 }
